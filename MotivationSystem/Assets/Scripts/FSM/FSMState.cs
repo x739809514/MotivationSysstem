@@ -12,6 +12,9 @@ namespace FSM
         
         public Dictionary<int, FSMConditionNode<T>> conditionDic;
 
+
+#region Conditions
+
         public void AddConditions(FSMConditionNode<T> conditionNode)
         {
             if (conditionDic==null)
@@ -56,6 +59,26 @@ namespace FSM
 
             return list;
         }
+
+#endregion
+        
+
+#region Handles
+
+        public void BindEnterHandle(Action<T> handle)
+        {
+            onEnterHandle += handle;
+        }
+
+        public void BindUpdateHandle(Action<T> handle)
+        {
+            onUpdateHandle += handle;
+        }
+
+        public void BindSwitchHandle(Action<T> handle)
+        {
+            onSwitchStateHandle += handle;
+        }
         
         public void OnEnter(T owner)
         {
@@ -71,5 +94,7 @@ namespace FSM
         {
             onSwitchStateHandle?.Invoke(owner);
         }
+
+#endregion
     }
 }
