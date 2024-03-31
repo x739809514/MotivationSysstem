@@ -4,13 +4,18 @@ using System.Linq;
 
 namespace FSM
 {
-    public class FSMState<T>
+    public class FSMStateNode<T>
     {
-        public Action<T> onEnterHandle;
-        public Action<T> onUpdateHandle;
-        public Action<T> onSwitchStateHandle;
-        
+        private Action<T> onEnterHandle;
+        private Action<T> onUpdateHandle;
+        private Action<T> onExitStateHandle;
+        public string stateName;
         public Dictionary<int, FSMConditionNode<T>> conditionDic;
+
+        public FSMStateNode(string stateName)
+        {
+            this.stateName = stateName;
+        }
 
 
 #region Conditions
@@ -77,7 +82,7 @@ namespace FSM
 
         public void BindSwitchHandle(Action<T> handle)
         {
-            onSwitchStateHandle += handle;
+            onExitStateHandle += handle;
         }
         
         public void OnEnter(T owner)
@@ -90,9 +95,9 @@ namespace FSM
             onUpdateHandle?.Invoke(owner);
         }
 
-        public void OnSwitchState(T owner)
+        public void OnExitState(T owner)
         {
-            onSwitchStateHandle?.Invoke(owner);
+            onExitStateHandle?.Invoke(owner);
         }
 
 #endregion

@@ -46,10 +46,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\FSM\AndConditionNode.cs" />
+     <Compile Include="Assets\Scripts\Motion\PlayerAI.cs" />
      <Compile Include="Assets\Scripts\FSM\OrConditionNode.cs" />
+     <Compile Include="Assets\Scripts\FSM\FSMStateNode.cs" />
+     <Compile Include="Assets\Scripts\Motion\PlayerMotion.cs" />
      <Compile Include="Assets\Scripts\FSM\FSMConditionNode.cs" />
      <Compile Include="Assets\Scripts\FSM\NotConditionNode.cs" />
-     <Compile Include="Assets\Scripts\FSM\FSMState.cs" />
+     <Compile Include="Assets\Scripts\FSM\StateManager.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Plugin\Kevin Iglesias\Basic Motions\Animations" />
      <Folder Include="Assets\Plugin\Kevin Iglesias\Basic Motions\AnimationControllers" />
@@ -57,6 +60,7 @@
      <Folder Include="Assets\Plugin\Kevin Iglesias\Basic Motions\Animations\Social\Conversation" />
      <Folder Include="Assets\Scripts" />
      <Folder Include="Assets\Resources" />
+     <Folder Include="Assets\Scripts\Motion" />
      <Folder Include="Assets\Plugin\Kevin Iglesias\Basic Motions\Prefabs" />
      <Folder Include="Assets\Plugin\Kevin Iglesias\Basic Motions\Materials" />
      <Folder Include="Assets\Resources\Materials" />
