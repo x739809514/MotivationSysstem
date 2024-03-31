@@ -45,12 +45,21 @@ namespace MotionCore
             // Todo: Just Test, need update later
             var moveInput = new FSMConditionNode<PlayerMotion>(p => { return Input.GetKeyDown("Horizontal"); }, 1001);
             var jumpInput = new FSMConditionNode<PlayerMotion>(p => { return Input.GetKeyDown(KeyCode.J); }, 1002);
-            var runInput =
-                new FSMConditionNode<PlayerMotion>(p => { return Input.GetKeyDown(KeyCode.LeftShift); }, 1003);
+            var runInput = new FSMConditionNode<PlayerMotion>(p => { return Input.GetKeyDown(KeyCode.LeftShift); }, 1003);
 
             walk.AddConditions(moveInput);
             run.AddConditions(runInput);
             jump.AddConditions(jumpInput);
+        }
+
+        public void Update()
+        {
+            stateManager.UpdateState();
+        }
+
+        public void SwitchState(FSMStateNode<PlayerMotion> state)
+        {
+            stateManager.SwitchState(state);
         }
     }
 }

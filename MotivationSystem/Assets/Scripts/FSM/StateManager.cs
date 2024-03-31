@@ -16,7 +16,7 @@ namespace FSM
 
         public void SetDefaultState(string stateName)
         {
-            if (stateDic==null || stateDic.TryGetValue(stateName,out var state)==false)
+            if (stateDic == null || stateDic.TryGetValue(stateName, out var state) == false)
             {
                 return;
             }
@@ -35,14 +35,28 @@ namespace FSM
 
         public void SwitchState(FSMStateNode<T> newState)
         {
-            if (stateDic.TryGetValue(newState.stateName,out var state))
+            if (stateDic.TryGetValue(newState.stateName, out var state))
             {
-                if (curState!=null)
+                if (curState != null)
                 {
                     curState.OnExitState(owner);
                 }
+
                 newState.OnEnter(owner);
                 curState = newState;
+            }
+        }
+
+        public void UpdateState()
+        {
+            if (stateDic == null)
+            {
+                return;
+            }
+
+            if (curState != null)
+            {
+                curState.OnUpdate(owner);
             }
         }
     }

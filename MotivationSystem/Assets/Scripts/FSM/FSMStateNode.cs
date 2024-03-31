@@ -46,23 +46,22 @@ namespace FSM
             }
         }
 
-        public List<FSMConditionNode<T>> CheckEnableCondition(T owner)
+        public bool CheckCondition(T owner)
         {
             if (conditionDic==null)
             {
-                return null;
+                return false;
             }
 
-            List<FSMConditionNode<T>> list = new List<FSMConditionNode<T>>();
             foreach (var conditionNode in conditionDic)
             {
-                if (conditionNode.Value.Condition(owner))
+                if (conditionNode.Value.Condition(owner)==false)
                 {
-                    list.Add(conditionNode.Value);
+                    return false;
                 }
             }
 
-            return list;
+            return true;
         }
 
 #endregion
