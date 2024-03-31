@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace FSM
 {
@@ -37,6 +38,11 @@ namespace FSM
         {
             if (stateDic.TryGetValue(newState.stateName, out var state))
             {
+                if (newState.CheckCondition(owner)==false)
+                {
+                    Debug.LogError("transmit state fail! The transmit condition is not accessed!");
+                    return;
+                }
                 if (curState != null)
                 {
                     curState.OnExitState(owner);

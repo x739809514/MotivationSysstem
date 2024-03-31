@@ -79,7 +79,7 @@ namespace FSM
             onUpdateHandle += handle;
         }
 
-        public void BindSwitchHandle(Action<T> handle)
+        public void BindExitHandle(Action<T> handle)
         {
             onExitStateHandle += handle;
         }

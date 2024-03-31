@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+
 
 namespace AnimSystem.Core
 {
     public enum Type
     {
-       Idle,
-       Walk,
-       Run,
-       Jump
+       Single,
+       Group,
+       Blend,
     }
     
     [Serializable]
     public class AnimInfo
     {
-        public Type type = Type.Idle;
+        public string name = "anim";
+        public Type type = Type.Single;
         public float enterTime;
+        [ShowIf("type",Type.Single)]
         public AnimationClip clip;
+        [ShowIf("type",Type.Group)]
+        public AnimationClip[] clips;
+        [ShowIf("type",Type.Blend)]
+        public ClipData[] blendClips;
     }
     
     [CreateAssetMenu(fileName = "new anim setting",menuName = "RFrame/Anim/AnimSetting")]
@@ -25,9 +32,9 @@ namespace AnimSystem.Core
     {
         public List<AnimInfo> anims;
 
-        public AnimationClip GetAnim(Type type)
+        public AnimInfo GetAnim(string name)
         {
-           return anims.Find(p => p.type == type).clip;
+           return anims.Find(p => p.name == name);
         }
     }
 }
