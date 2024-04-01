@@ -54,6 +54,7 @@
      <Compile Include="Assets/Scripts/Animation/Nodes/AnimUnit.cs" />
      <Compile Include="Assets/Scripts/Animation/Nodes/RandomSelector.cs" />
      <Compile Include="Assets/Scripts/Motion/PlayerParam.cs" />
+     <Compile Include="Assets/Scripts/GameLoop.cs" />
      <Compile Include="Assets/Scripts/FSM/OrConditionNode.cs" />
      <Compile Include="Assets/Scripts/FSM/FSMStateNode.cs" />
      <Compile Include="Assets/Scripts/Motion/PlayerMotion.cs" />

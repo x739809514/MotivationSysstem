@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace MotionCore
 {
@@ -8,6 +9,8 @@ namespace MotionCore
         private bool _jumpPress;
         private bool _movePress;
         private bool _runPress;
+        public Vector3 velocity;
+        public Vector2 inputMove;
         public bool onGround
         {
             get;
@@ -48,12 +51,12 @@ namespace MotionCore
             set
             {
                 _movePress = value;
-                moveHandle?.Invoke();
+                moveHandle?.Invoke(inputMove);
             }
         }
 
         public Action jumpHandle;
-        public Action moveHandle;
+        public Action<Vector2> moveHandle;
         public Action runHandle;
     }
 }
