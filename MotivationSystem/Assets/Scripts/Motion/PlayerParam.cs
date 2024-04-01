@@ -8,9 +8,9 @@ namespace MotionCore
         private bool _onGround;
         private bool _jumpPress;
         private bool _movePress;
-        private bool _runPress;
         public Vector3 velocity;
         public Vector2 inputMove;
+        public bool runPress;
         public bool onGround
         {
             get;
@@ -28,20 +28,7 @@ namespace MotionCore
                 jumpHandle?.Invoke();
             }
         }
-
-        public bool runPress
-        {
-            get
-            {
-                return _runPress;
-            }
-            set
-            {
-                _runPress = value;
-                runHandle?.Invoke();
-            }
-        }
-
+        
         public bool movePress
         {
             get
@@ -57,6 +44,5 @@ namespace MotionCore
 
         public Action jumpHandle;
         public Action<Vector2> moveHandle;
-        public Action runHandle;
     }
 }

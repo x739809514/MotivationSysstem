@@ -4,7 +4,9 @@ using UnityEngine;
 public class GameLoop : MonoBehaviour
 {
     public static GameLoop instance;
+    [HideInInspector]
     public Rigidbody rb;
+    [HideInInspector]
     public Transform model;
     public float rotateSpeed;
     public float jumpForce;

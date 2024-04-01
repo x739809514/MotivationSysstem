@@ -57,6 +57,7 @@
      <Compile Include="Assets/Scripts/GameLoop.cs" />
      <Compile Include="Assets/Scripts/FSM/OrConditionNode.cs" />
      <Compile Include="Assets/Scripts/FSM/FSMStateNode.cs" />
+     <Compile Include="Assets/Scripts/Input/Core/Key.cs" />
      <Compile Include="Assets/Scripts/Motion/PlayerMotion.cs" />
      <Compile Include="Assets/Scripts/FSM/FSMConditionNode.cs" />
      <Compile Include="Assets/Scripts/Animation/AnimAdapter.cs" />
@@ -67,20 +68,23 @@
      <Compile Include="Assets/Scripts/Animation/AnimSetting.cs" />
      <Compile Include="Assets/Scripts/Animation/Nodes/BlendTree2D.cs" />
      <Compile Include="Assets/Scripts/Animation/Nodes/Root.cs" />
-     <Compile Include="Assets/Scripts/Motion/Anims/IdleAnim.cs" />
+     <Compile Include="Assets/Scripts/Input/Core/InputManager.cs" />
+     <Compile Include="Assets/Scripts/Input/Core/InputData.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets/Resources/Shaders" />
      <None Include="Assets/Resources/Shaders/BlendTree2D.compute" />
+     <Folder Include="Assets/Scripts/Input" />
      <Folder Include="Assets/Scripts" />
      <Folder Include="Assets/Resources" />
      <Folder Include="Assets/Scripts/Tool" />
      <Folder Include="Assets/Scripts/Motion" />
      <Folder Include="Assets/Scripts/Animation/Nodes" />
      <Folder Include="Assets/Resources/Materials" />
+     <Folder Include="Assets/Scripts/Input/Core" />
      <Folder Include="Assets/Scripts/Animation" />
+     <Folder Include="Assets/Resources/DataAssets" />
      <Folder Include="Assets/Scripts/FSM" />
      <Folder Include="Assets/Scenes" />
-     <Folder Include="Assets/Scripts/Motion/Anims" />
      <Reference Include="UnityEngine">
      <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -356,6 +360,9 @@
      </Reference>
      <Reference Include="Sirenix.Serialization">
      <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.dll</HintPath>
+     </Reference>
+     <Reference Include="LitJSON">
+     <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Assets/Plugins/LitJSON.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/NetStandard/ref/2.1.0/netstandard.dll</HintPath>

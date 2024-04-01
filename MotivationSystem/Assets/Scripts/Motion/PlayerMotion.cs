@@ -21,7 +21,6 @@ namespace MotionCore
 
             playerParam.jumpHandle += playerModel.SwitchToJump;
             playerParam.moveHandle += playerModel.SwitchToMove;
-            playerParam.runHandle += playerModel.SwitchToRun;
         }
     }
 }
