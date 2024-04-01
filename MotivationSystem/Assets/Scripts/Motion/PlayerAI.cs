@@ -26,7 +26,6 @@ namespace MotionCore
                 //Todo:player idle motion
             });
             stateManager.AddState(idle);
-            stateManager.SetDefaultState("idle");
 
             walk = new FSMStateNode<PlayerMotion>("walk");
             walk.BindUpdateHandle(p =>
@@ -54,10 +53,12 @@ namespace MotionCore
             stateManager.AddState(jump);
 
             // Todo: Just Test, need update later
-            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.movePress, 1001);
+            var idleCondition = new FSMConditionNode<PlayerMotion>(p => true,1000);
+            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.inputMove.magnitude>0, 1001);
             var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.jumpPress, 1002);
             var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
 
+            idle.AddConditions(idleCondition);
             walk.AddConditions(moveInput);
             run.AddConditions(runInput);
             jump.AddConditions(jumpInput);

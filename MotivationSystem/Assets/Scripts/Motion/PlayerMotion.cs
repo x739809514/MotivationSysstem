@@ -14,10 +14,11 @@ namespace MotionCore
         public PlayerMotion(AnimSetting setting)
         {
             this.setting = setting;
+            playerParam = new PlayerParam();
             playerAI = new PlayerAI(this);
             playerAnim = new PlayerAnim(setting);
             playerModel = new PlayerModel(this,setting);
-            playerParam = new PlayerParam();
+            
 
             playerParam.jumpHandle += playerModel.SwitchToJump;
             playerParam.moveHandle += playerModel.SwitchToMove;

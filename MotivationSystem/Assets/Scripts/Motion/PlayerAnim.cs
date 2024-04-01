@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AnimSystem.Core;
 using Tool;
 using UnityEditor.AnimatedValues;
+using UnityEngine;
 using UnityEngine.Playables;
 
 namespace MotionCore
@@ -19,18 +20,26 @@ namespace MotionCore
         
         public PlayerAnim(AnimSetting setting)
         {
-            graph = new PlayableGraph();
+            graph = PlayableGraph.Create();
             mixer = new Mixer(graph);
-            idle = new AnimUnit(graph, setting.GetAnim(AnimName.Idle).clip);
+            
+            var idleAnim = setting.GetAnim(AnimName.Idle);
+            idle = new AnimUnit(graph, idleAnim.clip,idleAnim.enterTime);
             AddStateAnim(AnimName.Idle,idle);
-            var temp = setting.GetAnim(AnimName.Move);
-            move = new BlendTree2D(graph, temp.enterTime, temp.blendClips);
+            
+            var moveAnim = setting.GetAnim(AnimName.Move);
+            move = new BlendTree2D(graph, moveAnim.enterTime, moveAnim.blendClips);
             AddStateAnim(AnimName.Move,move);
-            jump = new AnimUnit(graph, setting.GetAnim(AnimName.Jump).clip);
+
+            var jumpAnim = setting.GetAnim(AnimName.Jump);
+            jump = new AnimUnit(graph, jumpAnim.clip,jumpAnim.enterTime);
             AddStateAnim(AnimName.Jump,jump);
+            
+            AnimHelper.SetOutPut(graph,mixer,GameLoop.instance.animator);
+            AnimHelper.Go(graph,mixer);
         }
 
-        public void AddStateAnim(string animName, AnimBehaviour behaviour)
+        private void AddStateAnim(string animName, AnimBehaviour behaviour)
         {
             if (animIndexDics==null)
             {

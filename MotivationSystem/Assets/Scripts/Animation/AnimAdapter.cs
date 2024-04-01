@@ -29,5 +29,10 @@ namespace AnimSystem.Core
         {
             return animBehaviour.GetEnterTime();
         }
+
+        public override void OnGraphStop(Playable playable)
+        {
+            animBehaviour?.Stop();
+        }
     }
 }

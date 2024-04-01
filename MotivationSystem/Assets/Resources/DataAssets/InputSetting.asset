@@ -12,6 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d26f58d92bb4067a4121b7dcaa97942, type: 3}
   m_Name: InputSetting
   m_EditorClassIdentifier: 
-  keys: []
+  keys:
+  - name: jump
+    trigger: 0
+    enable: 1
+    isDown: 0
+    isDoubleDown: 0
+    acceptDoubleDown: 0
+    interval: 1
+    realInterval: 0
+    keyCode: 106
+  - name: shift
+    trigger: 2
+    enable: 1
+    isDown: 0
+    isDoubleDown: 0
+    acceptDoubleDown: 0
+    interval: 1
+    realInterval: 0
+    keyCode: 304
   valueKeys: []
-  axisKeys: []
+  axisKeys:
+  - name: vertical
+    range: {x: -1, y: 1}
+    value: 0
+    posKey: 119
+    negKey: 115
+    addSpeed: 1
+    enable: 1
+  - name: horizontal
+    range: {x: -1, y: 1}
+    value: 0
+    posKey: 100
+    negKey: 97
+    addSpeed: 1
+    enable: 1

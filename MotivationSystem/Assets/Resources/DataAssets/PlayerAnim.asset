@@ -15,19 +15,13 @@ MonoBehaviour:
   anims:
   - name: idle
     type: 0
-    enterTime: 0
+    enterTime: 0.1
     clip: {fileID: 7400002, guid: 74eb51e399cb70a419e316b56ceb9cc7, type: 3}
-    clips: []
-    blendClips: []
-  - name: jump
-    type: 0
-    enterTime: 0
-    clip: {fileID: 7400000, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
     clips: []
     blendClips: []
   - name: move
     type: 2
-    enterTime: 0
+    enterTime: 0.1
     clip: {fileID: 0}
     clips: []
     blendClips:
@@ -35,3 +29,9 @@ MonoBehaviour:
       pos: {x: 0, y: 1}
     - clip: {fileID: -6915611471441673787, guid: f2f9a6f31d218ef40871718667ffa92b, type: 3}
       pos: {x: 0, y: 2}
+  - name: jump
+    type: 0
+    enterTime: 0.1
+    clip: {fileID: 7400000, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
+    clips: []
+    blendClips: []

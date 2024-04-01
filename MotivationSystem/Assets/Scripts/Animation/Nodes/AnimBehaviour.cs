@@ -56,7 +56,7 @@ namespace AnimSystem.Core
             AddInput(new AnimUnit(this.graph,clip,enterTime));
         }
     
-        protected virtual void Stop()
+        public virtual void Stop()
         {
         }
 

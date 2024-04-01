@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace FSM
 {
@@ -86,6 +87,7 @@ namespace FSM
         
         public void OnEnter(T owner)
         {
+            Debug.Log("Now is "+stateName);
             onEnterHandle?.Invoke(owner);    
         }
 

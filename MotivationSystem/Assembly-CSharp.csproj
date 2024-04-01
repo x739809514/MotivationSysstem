@@ -787,6 +787,9 @@
      <Reference Include="Unity.Rider.Editor">
      <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.PlayableGraphVisualizer.Editor">
+     <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Library/ScriptAssemblies/Unity.PlayableGraphVisualizer.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
      </Reference>
@@ -798,6 +801,9 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.Flow.Editor">
      <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.PlayableGraphVisualizer">
+     <HintPath>/Users/innovation/CodePlace/MotivationSystem/MotivationSystem/Library/ScriptAssemblies/Unity.PlayableGraphVisualizer.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

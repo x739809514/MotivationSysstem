@@ -33,6 +33,13 @@ namespace MotionCore
             runForce = GameLoop.instance.runForce;
             walkForce = GameLoop.instance.walkForce;
             rotateForce = GameLoop.instance.rotateSpeed;
+            Init();
+        }
+
+        private void Init()
+        {
+            anim.TransitionTo(AnimName.Idle);
+            ai.SwitchState(ai.idle);
         }
 
         public void SwitchToJump()
@@ -45,16 +52,19 @@ namespace MotionCore
 
         public void SwitchToMove(Vector2 input)
         {
+            Debug.Log("Is Moving");
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
             if (param.runPress && input.y > 0)
             {
-                ai.SwitchState(ai.walk);
+                Debug.Log("Run");
+                ai.SwitchState(ai.run);
                 animMultiply = Mathf.Clamp(UpdateMultiply(animMultiply, 5f), 1f, 2f);
                 speedMultiply = Mathf.Clamp(UpdateMultiply(speedMultiply, 5f), walkForce, runForce);
             }
             else
             {
-                ai.SwitchState(ai.run);
+                Debug.Log("Walk");
+                ai.SwitchState(ai.walk);
                 animMultiply = Mathf.Clamp(UpdateMultiply(this.animMultiply, -5f), 1f, 2f);
                 speedMultiply = Mathf.Clamp(UpdateMultiply(speedMultiply, -5f), walkForce, runForce);
             }

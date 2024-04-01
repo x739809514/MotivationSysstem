@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 613763883}
   - component: {fileID: 613763882}
   - component: {fileID: 613763881}
+  - component: {fileID: 613763885}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -156,10 +157,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   model: {fileID: 0}
+  animator: {fileID: 613763885}
   rotateSpeed: 5
   jumpForce: 10
   walkForce: 7
   runForce: 14
+  inputData: {fileID: 11400000, guid: 99a2245058655476fb2da6513f1f631f, type: 2}
+  animSetting: {fileID: 11400000, guid: 14c07667d0a3642449013d0fa22141e9, type: 2}
 --- !u!54 &613763882
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -226,6 +230,27 @@ Transform:
   - {fileID: 2099349305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &613763885
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613763880}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: cea7b4908e889df4ea1487e9f97c3c67, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +594,14 @@ PrefabInstance:
     - target: {fileID: 2686890238580948232, guid: 4a076a09e2096f140b4008b73dea295f, type: 3}
       propertyPath: m_Name
       value: BasicMotionsDummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686890238588325744, guid: 4a076a09e2096f140b4008b73dea295f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686890238588325744, guid: 4a076a09e2096f140b4008b73dea295f, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

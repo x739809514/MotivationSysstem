@@ -112,9 +112,10 @@ namespace AnimSystem.Core
             animAdapter.Pause();
         }
 
-        protected override void Stop()
+        public override void Stop()
         {
             base.Stop();
+            // free to avoid leak
             computeBuffer.Dispose();
         }
     }

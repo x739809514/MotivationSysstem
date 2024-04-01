@@ -1,3 +1,5 @@
+#pragma kernel Compute
+
 struct DataPair
 {
     float x;
