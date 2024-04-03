@@ -9,11 +9,9 @@ namespace MotionCore
         public PlayerAnim playerAnim { get; }
         public PlayerModel playerModel { get; }
         public PlayerParam playerParam { get; }
-        private AnimSetting setting;
         
         public PlayerMotion(AnimSetting setting)
         {
-            this.setting = setting;
             playerParam = new PlayerParam();
             playerAI = new PlayerAI(this);
             playerAnim = new PlayerAnim(setting);
@@ -22,6 +20,7 @@ namespace MotionCore
 
             playerParam.jumpHandle += playerModel.SwitchToJump;
             playerParam.moveHandle += playerModel.SwitchToMove;
+            playerParam.onGroundHandle += playerModel.SwitchToIdle;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace MotionCore
@@ -12,11 +13,24 @@ namespace MotionCore
         public bool runPress;
         public Action jumpHandle;
         public Action<Vector2> moveHandle;
+        public Action onGroundHandle;
 
 
 #region Property
 
-        public bool onGround { get; }
+        public bool onGround
+        {
+            get => _onGround;
+            set
+            {
+                _onGround = value;
+                if (_onGround)
+                {
+                    jumpPress = false;
+                    onGroundHandle?.Invoke();
+                }
+            }
+        }
 
         public bool jumpPress
         {
@@ -26,6 +40,7 @@ namespace MotionCore
                 _jumpPress = value;
                 if (_jumpPress)
                 {
+                    onGround = false;
                     jumpHandle?.Invoke();
                 }
             }
@@ -41,7 +56,6 @@ namespace MotionCore
                     return;
                 }
 
-                Debug.Log(Math.Abs(_inputMove.x - value.x) + "___" + Math.Abs(_inputMove.y - value.y));
                 _inputMove = value;
                 moveHandle?.Invoke(value);
             }

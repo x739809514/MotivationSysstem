@@ -8,7 +8,7 @@ namespace AnimSystem.Core
     {
         private AnimationClipPlayable clipPlayable;
         private AnimationClip clip;
-        private double animStopTime;
+        //private double animStopTime;
 
         public AnimUnit(PlayableGraph graph,AnimationClip clip,float enterTime=0f):base(graph,enterTime)
         {
@@ -22,8 +22,8 @@ namespace AnimSystem.Core
         public override void Enable()
         {
             base.Enable();
-            animAdapter.SetTime(animStopTime);
-            clipPlayable.SetTime(animStopTime);
+            animAdapter.SetTime(0f);
+            clipPlayable.SetTime(0f);
             animAdapter.Play();
             clipPlayable.Play();
         }
@@ -33,7 +33,7 @@ namespace AnimSystem.Core
             base.Disable();
             animAdapter.Pause();
             clipPlayable.Pause();
-            animStopTime = animAdapter.GetTime();
+            //animStopTime = animAdapter.GetTime();
         }
 
         public override float GetAnimLength()

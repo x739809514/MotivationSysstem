@@ -57,6 +57,7 @@ namespace AnimSystem.Core
             clipCount = clips.Length;
             pointer.Set(1, 1);
             SetPoint(0,0);
+            Disable();
         }
 
         public void SetPoint(float x, float y)

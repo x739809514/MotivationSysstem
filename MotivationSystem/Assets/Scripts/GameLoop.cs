@@ -1,3 +1,4 @@
+using System;
 using AnimSystem.Core;
 using Core;
 using MotionCore;
@@ -40,8 +41,20 @@ public class GameLoop : MonoBehaviour
     private void Update()
     {
         InputManager.instance.Update(Time.deltaTime);
-        param.jumpPress = InputManager.instance.GetKeyDown("jump");
+        if (InputManager.instance.GetKeyDown("jump"))
+        {
+            param.jumpPress = true;
+        }
+        
         param.runPress = InputManager.instance.GetKeyDown("shift");
-        //param.inputMove = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
+        param.inputMove = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("ground"))
+        {
+            param.onGround = true;
+        }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AnimSystem.Core;
 using Tool;
-using UnityEditor.AnimatedValues;
-using UnityEngine;
 using UnityEngine.Playables;
 
 namespace MotionCore
@@ -15,7 +12,6 @@ namespace MotionCore
         private AnimUnit jump;
         private PlayableGraph graph;
         private Mixer mixer;
-       // private Dictionary<string, AnimBehaviour> animDics;
         private Dictionary<string, int> animIndexDics;
         
         public PlayerAnim(AnimSetting setting)

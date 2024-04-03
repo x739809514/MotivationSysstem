@@ -33,10 +33,17 @@ namespace MotionCore
             runForce = GameLoop.instance.runForce;
             walkForce = GameLoop.instance.walkForce;
             rotateForce = GameLoop.instance.rotateSpeed;
-            Init();
+        }
+        
+        private float UpdateMultiply(float value, float speed)
+        {
+            return value + speed * Time.deltaTime;
         }
 
-        private void Init()
+
+#region Motion Switch
+
+        public void SwitchToIdle()
         {
             anim.TransitionTo(AnimName.Idle);
             ai.SwitchState(ai.idle);
@@ -52,7 +59,6 @@ namespace MotionCore
 
         public void SwitchToMove(Vector2 input)
         {
-            Debug.Log("Is Moving");
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
             if (param.runPress && input.y > 0)
             {
@@ -76,9 +82,6 @@ namespace MotionCore
             model.Rotate(Vector3.up * input.x * rotateForce * Time.deltaTime);
         }
 
-        private float UpdateMultiply(float value, float speed)
-        {
-            return value + speed * Time.deltaTime;
-        }
+#endregion
     }
 }

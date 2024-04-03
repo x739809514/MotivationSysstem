@@ -87,7 +87,7 @@ namespace FSM
         
         public void OnEnter(T owner)
         {
-            Debug.Log("Now is "+stateName);
+            Debug.Log("<color=green>Now is "+stateName+"</color>");
             onEnterHandle?.Invoke(owner);    
         }
 
