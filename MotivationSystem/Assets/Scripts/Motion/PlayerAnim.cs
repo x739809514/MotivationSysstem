@@ -10,6 +10,7 @@ namespace MotionCore
         private AnimUnit idle;
         private BlendTree2D move;
         private AnimUnit jump;
+        private BlendTree2D fall;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -30,6 +31,10 @@ namespace MotionCore
             var jumpAnim = setting.GetAnim(AnimName.Jump);
             jump = new AnimUnit(graph, jumpAnim.clip,jumpAnim.enterTime);
             AddStateAnim(AnimName.Jump,jump);
+
+            var fallAnim = setting.GetAnim(AnimName.Fall);
+            fall = new BlendTree2D(graph,fallAnim.enterTime,fallAnim.blendClips);
+            AddStateAnim(AnimName.Fall,fall);
             
             AnimHelper.SetOutPut(graph,mixer,GameLoop.instance.animator);
             AnimHelper.Go(graph,mixer);

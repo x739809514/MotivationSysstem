@@ -35,3 +35,9 @@ MonoBehaviour:
     clip: {fileID: 7400000, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
     clips: []
     blendClips: []
+  - name: fall
+    type: 0
+    enterTime: 0.1
+    clip: {fileID: 7400004, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
+    clips: []
+    blendClips: []

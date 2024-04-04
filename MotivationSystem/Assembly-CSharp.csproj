@@ -57,6 +57,7 @@
      <Compile Include="Assets/Scripts/GameLoop.cs" />
      <Compile Include="Assets/Scripts/FSM/OrConditionNode.cs" />
      <Compile Include="Assets/Scripts/FSM/FSMStateNode.cs" />
+     <Compile Include="Assets/Scripts/Animation/Nodes/AnimGroup.cs" />
      <Compile Include="Assets/Scripts/Input/Core/Key.cs" />
      <Compile Include="Assets/Scripts/Motion/PlayerMotion.cs" />
      <Compile Include="Assets/Scripts/FSM/FSMConditionNode.cs" />

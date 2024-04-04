@@ -53,6 +53,8 @@ public class GameLoop : MonoBehaviour
             // Todo: better to use Vector2.Set() to reduce allocate
             param.inputVal = new Vector2(0f, 0f);
         }
+
+        param.velocity = rb.velocity;
     }
 
     private void OnCollisionEnter(Collision other)

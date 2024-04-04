@@ -97,6 +97,14 @@ namespace MotionCore
             model.Rotate(Vector3.up * input.x * rotateForce * Time.deltaTime);
         }
 
+        public void SwitchToFallToLand(Vector3 velocity)
+        {
+            var landClip = setting.GetAnim(AnimName.Fall).blendClips[0];
+            ai.SwitchState(ai.fall);
+            
+            anim.TransitionTo(AnimName.Fall);
+        }
+
         private bool ExitMoveState(Vector2 input)
         {
             if (input == Vector2.zero)
@@ -113,6 +121,7 @@ namespace MotionCore
 
             return false;
         }
+        
 
 #endregion
     }
