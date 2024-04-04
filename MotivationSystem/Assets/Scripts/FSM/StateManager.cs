@@ -40,7 +40,7 @@ namespace FSM
             {
                 if (newState.CheckCondition(owner)==false)
                 {
-                    Debug.LogError("transmit state fail! The transmit condition is not accessed!");
+                    Debug.LogError("Condition is not accessed!---"+newState.stateName);
                     return;
                 }
                 if (curState != null)
@@ -64,6 +64,11 @@ namespace FSM
             {
                 curState.OnUpdate(owner);
             }
+        }
+
+        public void ExitState()
+        {
+            curState.OnExitState(owner);
         }
     }
 }

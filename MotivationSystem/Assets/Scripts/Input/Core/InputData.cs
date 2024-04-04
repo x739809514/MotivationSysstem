@@ -95,6 +95,28 @@ namespace Core
             return axisKey.value;
         }
 
+        public bool GetValueOfVkDown(string name)
+        {
+            var valueKey = GetValueKeyObject(name);
+            if (Input.GetKey(valueKey.keyCode))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool GetValueOfAkDown(string name)
+        {
+            var axis = GetAxisKeyObject(name);
+            if (Input.GetKey(axis.posKey) || Input.GetKey(axis.negKey))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
 #endregion
 
 

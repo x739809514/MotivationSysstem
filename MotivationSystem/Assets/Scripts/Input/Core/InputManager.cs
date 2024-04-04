@@ -60,6 +60,16 @@ namespace Core
             return inputData.GetValueOfAK(name);
         }
 
+        public bool GetValueDown(string name)
+        {
+            return inputData.GetValueOfAkDown(name);
+        }
+
+        public bool GetAxisDown(string name)
+        {
+            return inputData.GetValueOfAkDown(name);
+        }
+
 #endregion
 
 

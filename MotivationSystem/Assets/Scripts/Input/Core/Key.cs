@@ -47,7 +47,7 @@ public class ValueKey
     public Vector2 range = new Vector2(0, 1);
     [HideInInspector]
     public float value;
-    public float addSpeed = 1f;
+    public float addSpeed = 10f;
     public KeyCode keyCode;
     public bool enable=true;
 

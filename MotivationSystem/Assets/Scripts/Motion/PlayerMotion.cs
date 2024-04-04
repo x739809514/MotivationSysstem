@@ -20,7 +20,7 @@ namespace MotionCore
 
             playerParam.jumpHandle += playerModel.SwitchToJump;
             playerParam.moveHandle += playerModel.SwitchToMove;
-            playerParam.onGroundHandle += playerModel.SwitchToIdle;
+            playerParam.idleHandle += playerModel.SwitchToIdle;
         }
     }
 }

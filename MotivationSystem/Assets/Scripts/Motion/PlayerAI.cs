@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using System.IO;
+using FSM;
 using UnityEngine;
 
 namespace MotionCore
@@ -13,7 +14,7 @@ namespace MotionCore
         public FSMStateNode<PlayerMotion> run { get; }
         public FSMStateNode<PlayerMotion> jump { get; }
 
-        public string curStateName => stateManager.curState.stateName;
+        public string curStateName => stateManager.curState?.stateName;
 
         public PlayerAI(PlayerMotion motion)
         {
@@ -54,7 +55,7 @@ namespace MotionCore
 
             // Todo: Just Test, need update later
             var idleCondition = new FSMConditionNode<PlayerMotion>(p => true,1000);
-            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.inputMove.magnitude>0, 1001);
+            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.inputVal.magnitude>0, 1001);
             var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.jumpPress, 1002);
             var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
 

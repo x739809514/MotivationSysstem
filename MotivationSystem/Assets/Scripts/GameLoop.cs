@@ -9,7 +9,6 @@ public class GameLoop : MonoBehaviour
     public static GameLoop instance;
     [HideInInspector]
     public Rigidbody rb;
-    [HideInInspector]
     public Transform model;
     public Animator animator;
     public float rotateSpeed;
@@ -26,16 +25,12 @@ public class GameLoop : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        rb = GetComponent<Rigidbody>();
+        model = transform;
+        
         motion = new PlayerMotion(animSetting);
         param = motion.playerParam;
         inputManager = new InputManager(inputData, "inputJson");
-    }
-
-    private void Start()
-    {
-        rb = this.GetComponent<Rigidbody>();
-        model = this.transform;
-        //animator = model.GetComponent<Animator>();
     }
 
     private void Update()
@@ -47,7 +42,17 @@ public class GameLoop : MonoBehaviour
         }
         
         param.runPress = InputManager.instance.GetKeyDown("shift");
-        param.inputMove = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
+        if (InputManager.instance.GetAxisDown("horizontal") || InputManager.instance.GetAxisDown("vertical"))
+        {
+            param.inputPress = true;
+            // Todo: better to use Vector2.Set() to reduce allocate
+            param.inputVal = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
+        }
+        else
+        {
+            // Todo: better to use Vector2.Set() to reduce allocate
+            param.inputVal = new Vector2(0f, 0f);
+        }
     }
 
     private void OnCollisionEnter(Collision other)

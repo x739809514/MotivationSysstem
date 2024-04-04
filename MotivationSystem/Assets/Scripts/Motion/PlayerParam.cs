@@ -8,12 +8,13 @@ namespace MotionCore
     {
         private bool _onGround;
         private bool _jumpPress;
-        private Vector2 _inputMove = Vector2.zero;
+        private Vector2 _inputVal = Vector2.zero;
         public Vector3 velocity;
         public bool runPress;
+        public bool inputPress;
         public Action jumpHandle;
         public Action<Vector2> moveHandle;
-        public Action onGroundHandle;
+        public Action idleHandle;
 
 
 #region Property
@@ -27,7 +28,7 @@ namespace MotionCore
                 if (_onGround)
                 {
                     jumpPress = false;
-                    onGroundHandle?.Invoke();
+                    idleHandle?.Invoke();
                 }
             }
         }
@@ -46,17 +47,14 @@ namespace MotionCore
             }
         }
 
-        public Vector2 inputMove
+        public Vector2 inputVal
         {
-            get => _inputMove;
+            get => _inputVal;
             set
             {
-                if (Math.Abs(_inputMove.x - value.x) < 0.01f && Math.Abs(_inputMove.y - value.y) < 0.01f)
-                {
-                    return;
-                }
-
-                _inputMove = value;
+                _inputVal = value;
+                if (inputPress==false) return;
+                
                 moveHandle?.Invoke(value);
             }
         }
