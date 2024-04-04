@@ -72,7 +72,7 @@ namespace MotionCore
         {
             // clear
             if (ExitMoveState(input)) return;
-            
+
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
             if (param.runPress && input.y > 0)
             {
@@ -103,6 +103,11 @@ namespace MotionCore
             {
                 param.inputPress = false;
                 SwitchToIdle();
+                return true;
+            }
+
+            if (param.onGround==false)
+            {
                 return true;
             }
 
