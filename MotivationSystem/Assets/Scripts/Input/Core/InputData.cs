@@ -245,6 +245,7 @@ namespace Core
                 }
                 else
                 {
+                    Debug.Log("back to:" + key.value);
                     key.value = Mathf.Lerp(key.value, 0f, key.addSpeed * Time.deltaTime);
                     if (Mathf.Abs(key.value - 0) < 0.01f)
                     {

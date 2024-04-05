@@ -46,17 +46,14 @@
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Idles" />
      <Folder Include="Assets\Plugins" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Social\Conversation" />
-     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Prefabs" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Materials" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Models" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Social" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions" />
      <Folder Include="Assets\Plugins\Kevin Iglesias" />
-     <Folder Include="Assets\Plugins\Sirenix" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Movement" />
      <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Textures" />
-     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector" />
      <Reference Include="UnityEngine">
      <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

@@ -97,7 +97,7 @@ namespace MotionCore
             rb.velocity = new Vector3(model.forward.x * input.y * speedMultiply, rb.velocity.y,
                 model.forward.z * input.y * speedMultiply);
             param.velocity = rb.velocity;
-            model.Rotate(Vector3.up * input.x * rotateForce * Time.deltaTime);
+            Rotate(input);
         }
 
         public void SwitchToLand()
@@ -123,6 +123,20 @@ namespace MotionCore
             return false;
         }
         
+        
+
+#endregion
+
+
+#region Method
+
+        private void Rotate(Vector2 input)
+        {
+            Debug.Log(input.x);
+            Quaternion delta = Quaternion.Euler(0,input.x*rotateForce*Time.deltaTime,0);
+            var target = rb.rotation * delta;
+            rb.MoveRotation(target);
+        }
 
 #endregion
     }
