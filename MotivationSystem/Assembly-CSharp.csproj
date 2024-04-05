@@ -73,21 +73,37 @@
      <Compile Include="Assets\Scripts\Input\Core\InputManager.cs" />
      <Compile Include="Assets\Scripts\Input\Core\InputData.cs" />
      <Folder Include="Assets" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Prefabs" />
      <Folder Include="Assets\Resources\Shaders" />
      <None Include="Assets\Resources\Shaders\BlendTree2D.compute" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Models" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Animations\Unarmed" />
      <Folder Include="Assets\Scripts\Tools" />
      <Folder Include="Assets\Scripts\Input" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Animations" />
      <Folder Include="Assets\Scripts" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Avatars" />
      <Folder Include="Assets\Resources" />
      <Folder Include="Assets\Scripts\Enum" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Textures" />
      <Folder Include="Assets\Scripts\Motion" />
      <Folder Include="Assets\Scripts\Animation\Nodes" />
      <Folder Include="Assets\Resources\Materials" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Prefabs\Character" />
      <Folder Include="Assets\Scripts\Input\Core" />
      <Folder Include="Assets\Scripts\Animation" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Materials" />
      <Folder Include="Assets\Resources\DataAssets" />
      <Folder Include="Assets\Scripts\FSM" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Scenes\RPG-Character" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Presets" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Models\Characters" />
+     <Folder Include="Assets\ExplosiveLLC" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Scenes" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Animations\2Hand-Sword" />
+     <Folder Include="Assets\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Models\Weapons" />
      <Reference Include="UnityEngine">
      <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
