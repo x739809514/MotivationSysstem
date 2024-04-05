@@ -15,7 +15,7 @@ namespace MotionCore
         public Action jumpHandle;
         public Action<Vector2> moveHandle;
         public Action idleHandle;
-        public Action<Vector3> fallToLandHandle;
+        public Action landhandle;
 
 
 #region Property
@@ -29,9 +29,9 @@ namespace MotionCore
                 if (_onGround)
                 {
                     jumpPress = false;
-                    if (velocity.y>0)
+                    if (velocity.y<0)
                     {
-                        fallToLandHandle?.Invoke(velocity);
+                        landhandle?.Invoke();
                     }
                     else
                     {

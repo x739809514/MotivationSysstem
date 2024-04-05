@@ -17,13 +17,13 @@ MonoBehaviour:
     type: 0
     enterTime: 0.1
     clip: {fileID: 7400002, guid: 74eb51e399cb70a419e316b56ceb9cc7, type: 3}
-    clips: []
+    groupClips: []
     blendClips: []
   - name: move
     type: 2
     enterTime: 0.1
     clip: {fileID: 0}
-    clips: []
+    groupClips: []
     blendClips:
     - clip: {fileID: 1695192892109923712, guid: 90cc8eeb37fb3f841b1892529070a4e7, type: 3}
       pos: {x: 0, y: 1}
@@ -33,11 +33,13 @@ MonoBehaviour:
     type: 0
     enterTime: 0.1
     clip: {fileID: 7400000, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
-    clips: []
+    groupClips: []
     blendClips: []
-  - name: fall
-    type: 0
+  - name: land
+    type: 1
     enterTime: 0.1
-    clip: {fileID: 7400004, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
-    clips: []
+    clip: {fileID: 0}
+    groupClips:
+    - {fileID: 7400004, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
+    - {fileID: 7400002, guid: 74eb51e399cb70a419e316b56ceb9cc7, type: 3}
     blendClips: []

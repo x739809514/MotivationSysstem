@@ -14,7 +14,7 @@ namespace MotionCore
         public FSMStateNode<PlayerMotion> walk { get; }
         public FSMStateNode<PlayerMotion> run { get; }
         public FSMStateNode<PlayerMotion> jump { get; }
-        public FSMStateNode<PlayerMotion> fall { get; }
+        public FSMStateNode<PlayerMotion> land { get; }
 
         public string curStateName => stateManager.curState?.stateName;
 
@@ -35,20 +35,20 @@ namespace MotionCore
             jump = new FSMStateNode<PlayerMotion>("jump");
             stateManager.AddState(jump);
 
-            fall = new FSMStateNode<PlayerMotion>("falltoland");
-            stateManager.AddState(fall);
+            land = new FSMStateNode<PlayerMotion>("land");
+            stateManager.AddState(land);
             
             var idleCondition = new FSMConditionNode<PlayerMotion>(p => true,1000);
             var moveInput = new FSMConditionNode<PlayerMotion>(p => param.inputVal.magnitude>0, 1001);
             var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.jumpPress, 1002);
             var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
-            var fallInput = new FSMConditionNode<PlayerMotion>(p => param.velocity.y > 0, 1004);
-
+            var landInput = new FSMConditionNode<PlayerMotion>(p => param.velocity.y < 0, 1004);
+            
             idle.AddConditions(idleCondition);
             walk.AddConditions(moveInput);
             run.AddConditions(runInput);
             jump.AddConditions(jumpInput);
-            fall.AddConditions(fallInput);
+            land.AddConditions(landInput);
         }
 
         public void Update()

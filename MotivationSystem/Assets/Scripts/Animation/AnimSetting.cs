@@ -22,7 +22,7 @@ namespace AnimSystem.Core
         [ShowIf("type",Type.Single)]
         public AnimationClip clip;
         [ShowIf("type",Type.Group)]
-        public AnimationClip[] clips;
+        public AnimationClip[] groupClips;
         [ShowIf("type",Type.Blend)]
         public ClipData[] blendClips;
     }

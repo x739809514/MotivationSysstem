@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AnimSystem.Core;
 using Tool;
+using UnityEngine;
 using UnityEngine.Playables;
 
 namespace MotionCore
@@ -10,7 +11,7 @@ namespace MotionCore
         private AnimUnit idle;
         private BlendTree2D move;
         private AnimUnit jump;
-        private BlendTree2D fall;
+        private AnimGroup land;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -32,12 +33,21 @@ namespace MotionCore
             jump = new AnimUnit(graph, jumpAnim.clip,jumpAnim.enterTime);
             AddStateAnim(AnimName.Jump,jump);
 
-            var fallAnim = setting.GetAnim(AnimName.Fall);
-            fall = new BlendTree2D(graph,fallAnim.enterTime,fallAnim.blendClips);
-            AddStateAnim(AnimName.Fall,fall);
+            var landAnim = setting.GetAnim(AnimName.Land);
+            land = new AnimGroup(graph,0.1f);
+            AddGroupAnim(landAnim.groupClips,landAnim.enterTime);
+            AddStateAnim(AnimName.Land,land);
             
             AnimHelper.SetOutPut(graph,mixer,GameLoop.instance.animator);
             AnimHelper.Go(graph,mixer);
+        }
+
+        private void AddGroupAnim(AnimationClip[] clips, float enterTime)
+        {
+            for (int i = 0,length = clips.Length; i < length; i++)
+            {
+                land.AddInput(clips[i],enterTime);
+            }
         }
 
         private void AddStateAnim(string animName, AnimBehaviour behaviour)

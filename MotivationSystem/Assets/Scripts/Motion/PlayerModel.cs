@@ -97,12 +97,10 @@ namespace MotionCore
             model.Rotate(Vector3.up * input.x * rotateForce * Time.deltaTime);
         }
 
-        public void SwitchToFallToLand(Vector3 velocity)
+        public void SwitchToLand()
         {
-            var landClip = setting.GetAnim(AnimName.Fall).blendClips[0];
-            ai.SwitchState(ai.fall);
-            
-            anim.TransitionTo(AnimName.Fall);
+            anim.TransitionTo(AnimName.Land);
+            ai.SwitchState(ai.land);
         }
 
         private bool ExitMoveState(Vector2 input)
