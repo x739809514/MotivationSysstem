@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+using Tools;
 using UnityEngine;
 
 
@@ -19,11 +19,8 @@ namespace AnimSystem.Core
         public string name = "anim";
         public Type type = Type.Single;
         public float enterTime;
-        [ShowIf("type",Type.Single)]
         public AnimationClip clip;
-        [ShowIf("type",Type.Group)]
         public AnimationClip[] groupClips;
-        [ShowIf("type",Type.Blend)]
         public ClipData[] blendClips;
     }
     

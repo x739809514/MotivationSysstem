@@ -41,46 +41,30 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Folder Include="Assets/Plugins/Sirenix/Odin Inspector/Assets" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/AnimationControllers" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Idles" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.Config.xml" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Editor.xml" />
-     <Folder Include="Assets/Plugins/Sirenix/Assemblies" />
-     <Folder Include="Assets/Plugins/Sirenix/Odin Inspector/Modules" />
-     <Folder Include="Assets/Plugins" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Social/Conversation" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.xml" />
-     <Folder Include="Assets/Plugins/Sirenix/Assemblies/NoEmitAndNoEditor" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.xml" />
-     <Folder Include="Assets/Plugins/Sirenix/Odin Inspector/Config" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Prefabs" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Materials" />
-     <Folder Include="Assets/Plugins/Sirenix/Demos" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Models" />
-     <None Include="Assets/Plugins/Sirenix/Readme.txt" />
-     <Folder Include="Assets/Plugins/Sirenix/Assemblies/NoEditor" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/link.xml" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Social" />
-     <Folder Include="Assets/Plugins/Sirenix/Odin Inspector/Config/Resources/Sirenix" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.xml" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias" />
-     <Folder Include="Assets/Plugins/Sirenix/Odin Inspector/Config/Resources" />
-     <Folder Include="Assets/Plugins/Sirenix" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Movement" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Textures" />
-     <Folder Include="Assets/Plugins/Sirenix/Odin Inspector" />
-     <None Include="Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.xml" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\AnimationControllers" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Idles" />
+     <Folder Include="Assets\Plugins" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Social\Conversation" />
+     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Prefabs" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Materials" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Models" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Social" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias" />
+     <Folder Include="Assets\Plugins\Sirenix" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Movement" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Textures" />
+     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector" />
      <Reference Include="UnityEngine">
-     <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
+     <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.CoreModule">
-     <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+     <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor">
-     <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.dll</HintPath>
+     <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
