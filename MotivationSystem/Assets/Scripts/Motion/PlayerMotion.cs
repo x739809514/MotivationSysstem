@@ -1,8 +1,10 @@
 ﻿using AnimSystem.Core;
-using Tool;
 
 namespace MotionCore
 {
+    /// <summary>
+    /// middle stuff
+    /// </summary>
     public class PlayerMotion
     {
         public PlayerAI playerAI { get; }
@@ -14,7 +16,7 @@ namespace MotionCore
         {
             playerParam = new PlayerParam();
             playerAI = new PlayerAI(this);
-            playerAnim = new PlayerAnim(setting);
+            playerAnim = new PlayerAnim(setting,this);
             playerModel = new PlayerModel(this,setting);
             
 

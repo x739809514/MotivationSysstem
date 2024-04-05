@@ -1,9 +1,11 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 
 namespace MotionCore
 {
+    /// <summary>
+    /// player parameters
+    /// </summary>
     public class PlayerParam
     {
         private bool _onGround;

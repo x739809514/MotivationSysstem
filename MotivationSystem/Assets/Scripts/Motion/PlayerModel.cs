@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace MotionCore
 {
+    /// <summary>
+    /// logic of change state
+    /// </summary>
     public class PlayerModel
     {
         private PlayerMotion motion;

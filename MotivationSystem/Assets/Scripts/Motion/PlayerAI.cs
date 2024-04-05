@@ -1,10 +1,11 @@
-﻿using System.IO;
-using FSM;
-using Tool;
-using UnityEngine;
+﻿using FSM;
 
 namespace MotionCore
 {
+    /// <summary>
+    /// FSM of player
+    /// Add State and Condition here
+    /// </summary>
     public class PlayerAI
     {
         private StateManager<PlayerMotion> stateManager;

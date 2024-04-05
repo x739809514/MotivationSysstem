@@ -6,6 +6,10 @@ using UnityEngine.Playables;
 
 namespace MotionCore
 {
+    /// <summary>
+    /// Animation of player
+    /// Add animattion for player
+    /// </summary>
     public class PlayerAnim
     {
         private AnimUnit idle;
@@ -16,7 +20,7 @@ namespace MotionCore
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
         
-        public PlayerAnim(AnimSetting setting)
+        public PlayerAnim(AnimSetting setting,PlayerMotion motion)
         {
             graph = PlayableGraph.Create();
             mixer = new Mixer(graph);
@@ -35,6 +39,10 @@ namespace MotionCore
 
             var landAnim = setting.GetAnim(AnimName.Land);
             land = new AnimGroup(graph,0.1f);
+            land.BindCallBackHandle(() =>
+            {
+                motion.playerAI.SwitchState(motion.playerAI.idle);
+            });
             AddGroupAnim(landAnim.groupClips,landAnim.enterTime);
             AddStateAnim(AnimName.Land,land);
             

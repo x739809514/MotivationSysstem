@@ -16,7 +16,7 @@ namespace AnimSystem.Core
         private float curClipTime;
         private float declineSpeed = 2f;
 
-        private int curIndex
+        public int curIndex
         {
             get => _curIndex;
             set
@@ -42,7 +42,7 @@ namespace AnimSystem.Core
         {
             base.AddInput(playable);
             mixerPlayable.AddInput(playable, 0, 0f);
-            clipCount++; 
+            clipCount++;
             if (clipCount == 1)
             {
                 mixerPlayable.SetInputWeight(0, 1f);
@@ -60,14 +60,19 @@ namespace AnimSystem.Core
             {
                 return;
             }
-            
+
             if (curClipTime > 0f)
             {
                 curClipTime -= info.deltaTime * declineSpeed;
             }
             else
             {
-                if (curIndex + 1 >= clipCount) return;
+                if (curIndex + 1 >= clipCount)
+                {
+                    callback?.Invoke();
+                    return;
+                }
+
                 lastIndex = curIndex;
                 curIndex += 1;
                 Transition(lastIndex, curIndex);
@@ -88,6 +93,7 @@ namespace AnimSystem.Core
         public override void Disable()
         {
             base.Disable();
+            curIndex = 0;
             for (int i = 0; i < clipCount; i++)
             {
                 mixerPlayable.SetInputWeight(i, 0f);

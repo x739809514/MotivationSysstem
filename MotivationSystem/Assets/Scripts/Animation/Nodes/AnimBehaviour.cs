@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -9,6 +10,7 @@ namespace AnimSystem.Core
         protected Playable animAdapter;
         private PlayableGraph graph;
         protected float remainTime;
+        protected Action callback;
     
         protected float EnterTime
         {
@@ -85,6 +87,11 @@ namespace AnimSystem.Core
         {
             if(enabled==false)return;
             remainTime = remainTime > 0 ? remainTime - info.deltaTime : 0f;
+        }
+
+        public virtual void BindCallBackHandle(Action handle)
+        {
+            callback += handle;
         }
 
 #endregion
