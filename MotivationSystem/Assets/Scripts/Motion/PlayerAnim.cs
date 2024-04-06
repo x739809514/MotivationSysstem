@@ -86,5 +86,10 @@ namespace MotionCore
                 move.SetPoint(x,y);
             }
         }
+
+        public void OnDestroy()
+        {
+            graph.Destroy();
+        }
     }
 }

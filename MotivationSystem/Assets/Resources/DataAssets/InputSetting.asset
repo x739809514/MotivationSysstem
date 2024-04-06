@@ -35,15 +35,15 @@ MonoBehaviour:
   axisKeys:
   - name: vertical
     range: {x: -1, y: 1}
-    value: 0
+    value: -0.012170074
     posKey: 119
     negKey: 115
-    addSpeed: 1
+    addSpeed: 3
     enable: 1
   - name: horizontal
     range: {x: -1, y: 1}
     value: 0
     posKey: 100
     negKey: 97
-    addSpeed: 1
+    addSpeed: 3
     enable: 1

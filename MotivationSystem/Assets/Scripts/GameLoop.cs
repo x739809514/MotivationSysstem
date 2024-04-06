@@ -33,7 +33,7 @@ public class GameLoop : MonoBehaviour
         inputManager = new InputManager(inputData, "inputJson");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         InputManager.instance.Update(Time.deltaTime);
         if (InputManager.instance.GetKeyDown("jump"))
@@ -55,6 +55,11 @@ public class GameLoop : MonoBehaviour
         }
 
         param.velocity = rb.velocity;
+    }
+
+    private void OnDestroy()
+    {
+        motion.OnDestroy();
     }
 
     private void OnCollisionEnter(Collision other)

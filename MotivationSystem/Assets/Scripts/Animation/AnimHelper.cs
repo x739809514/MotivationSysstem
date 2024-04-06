@@ -25,9 +25,12 @@ namespace AnimSystem.Core
 
         public static void Disable(Playable playable)
         {
+            
             var adapter = GetAdapter(playable);
             if (adapter != null)
+            {
                 adapter.Disable();
+            }
         }
 
         public static void SetOutPut(PlayableGraph graph,AnimBehaviour behaviour,Animator animator)

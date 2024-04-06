@@ -25,5 +25,10 @@ namespace MotionCore
             playerParam.idleHandle += playerModel.SwitchToIdle;
             playerParam.landhandle += playerModel.SwitchToLand;
         }
+
+        public void OnDestroy()
+        {
+            playerAnim.OnDestroy();
+        }
     }
 }

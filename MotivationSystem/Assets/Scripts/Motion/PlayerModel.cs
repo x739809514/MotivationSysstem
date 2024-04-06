@@ -1,5 +1,6 @@
 ﻿using AnimSystem.Core;
 using Tool;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MotionCore
@@ -53,7 +54,6 @@ namespace MotionCore
             {
                 return;
             }
-
             anim.TransitionTo(AnimName.Idle);
             ai.SwitchState(ai.idle);
         }
@@ -75,9 +75,9 @@ namespace MotionCore
         {
             // clear
             if (ExitMoveState(input)) return;
-
+            
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
-            if (param.runPress && input.y > 0)
+            if (param.runPress)
             {
                 // run
                 ai.SwitchState(ai.run);
@@ -94,10 +94,29 @@ namespace MotionCore
 
             anim.TransitionTo(AnimName.Move);
             anim.UpdateMove(moveClip.pos.x, moveClip.pos.y * animMultiply);
-            rb.velocity = new Vector3(model.forward.x * input.y * speedMultiply, rb.velocity.y,
-                model.forward.z * input.y * speedMultiply);
-            param.velocity = rb.velocity;
-            Rotate(input);
+
+            if (Camera.main != null)
+            {
+                var transform = Camera.main.transform;
+                Vector3 forward = transform.forward;
+                Vector3 right = transform.right;
+                forward.y = 0;
+                right.y = 0;
+                forward.Normalize();
+                right.Normalize();
+
+                Vector3 direction = forward * input.y + right * input.x;
+                Vector3 rotationDirection = direction.normalized;
+
+                
+                if (direction != Vector3.zero)
+                {
+                    rb.velocity = direction * speedMultiply;
+                    Quaternion toRotation = Quaternion.LookRotation(rotationDirection, Vector3.up);
+                    model.rotation = Quaternion.RotateTowards(model.rotation, toRotation, rotateForce * Time.deltaTime);
+                }
+                param.velocity = rb.velocity;
+            }
         }
 
         public void SwitchToLand()
@@ -105,13 +124,18 @@ namespace MotionCore
             anim.TransitionTo(AnimName.Land);
             ai.SwitchState(ai.land);
         }
+        
+#endregion
 
+
+#region Method
         private bool ExitMoveState(Vector2 input)
         {
             if (input == Vector2.zero)
             {
                 param.inputPress = false;
                 SwitchToIdle();
+                rb.velocity = Vector3.zero;
                 return true;
             }
 
@@ -122,22 +146,6 @@ namespace MotionCore
 
             return false;
         }
-        
-        
-
-#endregion
-
-
-#region Method
-
-        private void Rotate(Vector2 input)
-        {
-            Debug.Log(input.x);
-            Quaternion delta = Quaternion.Euler(0,input.x*rotateForce*Time.deltaTime,0);
-            var target = rb.rotation * delta;
-            rb.MoveRotation(target);
-        }
-
 #endregion
     }
 }
