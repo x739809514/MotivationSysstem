@@ -33,9 +33,13 @@ public class GameLoop : MonoBehaviour
         inputManager = new InputManager(inputData, "inputJson");
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         InputManager.instance.Update(Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
         if (InputManager.instance.GetKeyDown("jump"))
         {
             param.jumpPress = true;

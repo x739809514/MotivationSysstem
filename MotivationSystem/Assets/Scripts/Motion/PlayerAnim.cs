@@ -75,6 +75,7 @@ namespace MotionCore
         {
             if (animIndexDics.TryGetValue(animName,out var index))
             {
+                Debug.Log("Transition to: "+index);
                 mixer.TransitionTo(index);
             }
         }

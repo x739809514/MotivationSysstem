@@ -59,6 +59,7 @@ namespace FSM
             {
                 if (conditionNode.Value.Condition(owner)==false)
                 {
+                    Debug.LogError("Condition check failed!" + conditionNode.Value.id);
                     return false;
                 }
             }

@@ -31,7 +31,7 @@ namespace AnimSystem.Core
             base.AddInput(playable);
             mixerPlayable.AddInput(playable, 0, 0f);
             clipCount++;
-            if(clipCount == 1)
+            if (clipCount == 1)
             {
                 mixerPlayable.SetInputWeight(0, 1f);
                 curIndex = 0;
@@ -55,9 +55,9 @@ namespace AnimSystem.Core
             animAdapter.SetInputWeight(0, 1f);
 
             curIndex = 0;
-            targetIndex = -1; 
+            targetIndex = -1;
         }
-    
+
         public override void Disable()
         {
             base.Disable();
@@ -66,6 +66,7 @@ namespace AnimSystem.Core
                 mixerPlayable.SetInputWeight(i, 0f);
                 AnimHelper.Disable(mixerPlayable.GetInput(i));
             }
+
             mixerPlayable.Pause();
             animAdapter.Pause();
         }
@@ -82,7 +83,8 @@ namespace AnimSystem.Core
                 for (int i = 0; i < declineIndex.Count; i++)
                 {
                     var w = ModifyWeight(declineIndex[i], -info.deltaTime * declineSpeed);
-                    if (w < 0)
+                    Debug.Log("<color=purple>declineIndex[i] is: " + declineIndex[i] + "weight is: " + w + "</color>");
+                    if (w <= 0)
                     {
                         AnimHelper.Disable(mixerPlayable.GetInput(declineIndex[i]));
                         declineIndex.Remove(declineIndex[i]);
@@ -94,7 +96,7 @@ namespace AnimSystem.Core
                 }
 
                 declineWeight += ModifyWeight(curIndex, -info.deltaTime * normalSpeed);
-                SetInputWeight(targetIndex,1.0f-declineWeight);
+                SetInputWeight(targetIndex, 1.0f - declineWeight);
                 return;
             }
 
@@ -129,6 +131,7 @@ namespace AnimSystem.Core
             }
 
             targetIndex = index;
+            Debug.Log("<color=red>curIndex is: " + curIndex + "targetIndex is: " + targetIndex + "</color>");
             // if new clip is already in decline array, move it out
             declineIndex.Remove(targetIndex);
             AnimHelper.Enable(mixerPlayable.GetInput(targetIndex));
@@ -162,7 +165,7 @@ namespace AnimSystem.Core
         {
             if (index >= 0 && index < clipCount)
             {
-                mixerPlayable.SetInputWeight(index,weight);
+                mixerPlayable.SetInputWeight(index, weight);
             }
         }
     }

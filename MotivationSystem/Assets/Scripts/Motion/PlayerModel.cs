@@ -74,7 +74,10 @@ namespace MotionCore
         public void SwitchToMove(Vector2 input)
         {
             // clear
-            if (ExitMoveState(input)) return;
+            if (ExitMoveState(input))
+            {
+                return;
+            }
             
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
             if (param.runPress)
@@ -91,7 +94,6 @@ namespace MotionCore
                 animMultiply = Mathf.Clamp(UpdateMultiply(this.animMultiply, -5f), 1f, 2f);
                 speedMultiply = Mathf.Clamp(UpdateMultiply(speedMultiply, -5f), walkForce, runForce);
             }
-
             anim.TransitionTo(AnimName.Move);
             anim.UpdateMove(moveClip.pos.x, moveClip.pos.y * animMultiply);
 
@@ -143,7 +145,7 @@ namespace MotionCore
             {
                 return true;
             }
-
+            
             return false;
         }
 #endregion

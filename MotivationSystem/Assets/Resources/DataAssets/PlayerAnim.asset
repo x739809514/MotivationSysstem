@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: idle
     type: 0
     enterTime: 0.1
-    clip: {fileID: 7400002, guid: 74eb51e399cb70a419e316b56ceb9cc7, type: 3}
+    clip: {fileID: 7400000, guid: 94c75858633b4e04f9e28db3b52b2bba, type: 3}
     groupClips: []
     blendClips: []
   - name: move
@@ -25,14 +25,14 @@ MonoBehaviour:
     clip: {fileID: 0}
     groupClips: []
     blendClips:
-    - clip: {fileID: 1695192892109923712, guid: 90cc8eeb37fb3f841b1892529070a4e7, type: 3}
+    - clip: {fileID: 7400000, guid: a3c7daf5dbba19245938db35245052fa, type: 3}
       pos: {x: 0, y: 1}
-    - clip: {fileID: -6915611471441673787, guid: f2f9a6f31d218ef40871718667ffa92b, type: 3}
+    - clip: {fileID: 7400000, guid: a7e98d51bd73b0348b47acf6a9f02766, type: 3}
       pos: {x: 0, y: 2}
   - name: jump
     type: 0
     enterTime: 0.1
-    clip: {fileID: 7400000, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
+    clip: {fileID: 7400000, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
     groupClips: []
     blendClips: []
   - name: land
@@ -40,6 +40,6 @@ MonoBehaviour:
     enterTime: 0.1
     clip: {fileID: 0}
     groupClips:
-    - {fileID: 7400004, guid: 6cd59c0feb396aa48bc91c5ac6862204, type: 3}
-    - {fileID: 7400002, guid: 74eb51e399cb70a419e316b56ceb9cc7, type: 3}
+    - {fileID: 7400002, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
+    - {fileID: 7400000, guid: 94c75858633b4e04f9e28db3b52b2bba, type: 3}
     blendClips: []
