@@ -50,6 +50,11 @@ namespace Core
             return inputData.GetkeyDoubleDown(name);
         }
 
+        public bool CheckDoubleKeyFirstDown(string name)
+        {
+            return inputData.CheckDoubleKeyFirstDown(name);
+        }
+
         public float GetValue(string name)
         {
             return inputData.GetValueOfVK(name);

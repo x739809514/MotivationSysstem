@@ -83,6 +83,12 @@ namespace Core
             return key.isDoubleDown;
         }
 
+        public bool CheckDoubleKeyFirstDown(string name)
+        {
+            var key = GetKeyObject(name);
+            return key.acceptDoubleDown;
+        }
+
         public float GetValueOfVK(string name)
         {
             var valueKey = GetValueKeyObject(name);
@@ -109,12 +115,7 @@ namespace Core
         public bool GetValueOfAkDown(string name)
         {
             var axis = GetAxisKeyObject(name);
-            if (Input.GetKey(axis.posKey) || Input.GetKey(axis.negKey))
-            {
-                return true;
-            }
-
-            return false;
+            return axis.isDown;
         }
 
 #endregion
@@ -234,13 +235,17 @@ namespace Core
         {
             foreach (var key in axisKeys)
             {
+                var posDown = false;
+                var negDown = false;
                 if (key.enable == false) continue;
                 if (Input.GetKey(key.posKey))
                 {
+                    posDown = true;
                     key.value = Mathf.Clamp(key.value + key.addSpeed * Time.deltaTime, key.range.x, key.range.y);
                 }
                 else if (Input.GetKey(key.negKey))
                 {
+                    negDown = true;
                     key.value = Mathf.Clamp(key.value - key.addSpeed * Time.deltaTime, key.range.x, key.range.y);
                 }
                 else
@@ -251,6 +256,8 @@ namespace Core
                         key.value = 0f;
                     }
                 }
+
+                key.isDown = posDown || negDown;
             }
         }
 

@@ -35,29 +35,40 @@ public class GameLoop : MonoBehaviour
 
     private void Update()
     {
-        InputManager.instance.Update(Time.deltaTime);
+        
     }
 
     private void FixedUpdate()
     {
+        InputManager.instance.Update(Time.deltaTime);
+        // jump
         if (InputManager.instance.GetKeyDown("jump"))
         {
-            param.jumpPress = true;
+            param.JumpPress = true;
         }
-        
+        // move
         param.runPress = InputManager.instance.GetKeyDown("shift");
         if (InputManager.instance.GetAxisDown("horizontal") || InputManager.instance.GetAxisDown("vertical"))
         {
             param.inputPress = true;
             // Todo: better to use Vector2.Set() to reduce allocate
-            param.inputVal = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
+            param.InputVal = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
         }
         else
         {
             // Todo: better to use Vector2.Set() to reduce allocate
-            param.inputVal = new Vector2(0f, 0f);
+            param.InputVal = new Vector2(0f, 0f);
         }
-
+        // attack
+        if (InputManager.instance.CheckDoubleKeyFirstDown("attack") && InputManager.instance.GetKeyDoubleDown("attack")==false)
+        {
+            param.AttackLevel = 1;
+        }
+        if (InputManager.instance.GetKeyDoubleDown("attack"))
+        {
+            param.AttackLevel = 2;
+        }
+        
         param.velocity = rb.velocity;
     }
 
@@ -70,7 +81,7 @@ public class GameLoop : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ground"))
         {
-            param.onGround = true;
+            param.OnGround = true;
         }
     }
 }

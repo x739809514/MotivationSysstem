@@ -43,3 +43,13 @@ MonoBehaviour:
     - {fileID: 7400002, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
     - {fileID: 7400000, guid: 94c75858633b4e04f9e28db3b52b2bba, type: 3}
     blendClips: []
+  - name: attack
+    type: 2
+    enterTime: 0.1
+    clip: {fileID: 0}
+    groupClips: []
+    blendClips:
+    - clip: {fileID: 7400000, guid: 95dc4fbaa01379f4f908847fb44054d4, type: 3}
+      pos: {x: 0, y: 1}
+    - clip: {fileID: 7400000, guid: 69f3b1b43eb337548a8633b7b82d6fc6, type: 3}
+      pos: {x: 0, y: 2}

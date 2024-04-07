@@ -24,6 +24,7 @@ namespace MotionCore
             playerParam.moveHandle += playerModel.SwitchToMove;
             playerParam.idleHandle += playerModel.SwitchToIdle;
             playerParam.landhandle += playerModel.SwitchToLand;
+            playerParam.attackHandle += playerModel.SwitchToAttack;
         }
 
         public void OnDestroy()

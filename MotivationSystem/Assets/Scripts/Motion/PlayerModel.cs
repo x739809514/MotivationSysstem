@@ -126,6 +126,20 @@ namespace MotionCore
             anim.TransitionTo(AnimName.Land);
             ai.SwitchState(ai.land);
         }
+
+        public void SwitchToAttack(int alv)
+        {
+            if (alv==0) return;
+            if (alv==1)
+            {
+                // Todo: logic for attack level 1
+                Debug.Log("Attack Level 1");
+            }else if (alv==2)
+            {
+               // Todo: logic for attack level 2
+               Debug.Log("Attack Level 2");
+            }
+        }
         
 #endregion
 
@@ -141,7 +155,7 @@ namespace MotionCore
                 return true;
             }
 
-            if (param.onGround==false)
+            if (param.OnGround==false)
             {
                 return true;
             }

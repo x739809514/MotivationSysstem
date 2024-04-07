@@ -31,6 +31,15 @@ MonoBehaviour:
     interval: 1
     realInterval: 0
     keyCode: 304
+  - name: attack
+    trigger: 1
+    enable: 1
+    isDown: 0
+    isDoubleDown: 0
+    acceptDoubleDown: 0
+    interval: 1
+    realInterval: 0
+    keyCode: 107
   valueKeys: []
   axisKeys:
   - name: vertical

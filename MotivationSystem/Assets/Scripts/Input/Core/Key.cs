@@ -74,6 +74,7 @@ public class AxisKey
     public KeyCode negKey;
     public float addSpeed = 1f;
     public bool enable=true;
+    public bool isDown;
 
     public void SetKey(KeyCode pos, KeyCode neg)
     {

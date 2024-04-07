@@ -8,9 +8,10 @@ namespace MotionCore
     /// </summary>
     public class PlayerParam
     {
-        private bool _onGround;
-        private bool _jumpPress;
-        private Vector2 _inputVal = Vector2.zero;
+        private bool onGround;
+        private bool jumpPress;
+        private int attackLevel;
+        private Vector2 inputVal = Vector2.zero;
         public Vector3 velocity;
         public bool runPress;
         public bool inputPress;
@@ -18,19 +19,20 @@ namespace MotionCore
         public Action<Vector2> moveHandle;
         public Action idleHandle;
         public Action landhandle;
+        public Action<int> attackHandle;
 
 
 #region Property
 
-        public bool onGround
+        public bool OnGround
         {
-            get => _onGround;
+            get => onGround;
             set
             {
-                _onGround = value;
-                if (_onGround)
+                onGround = value;
+                if (onGround)
                 {
-                    jumpPress = false;
+                    JumpPress = false;
                     if (velocity.y<0)
                     {
                         landhandle?.Invoke();
@@ -43,29 +45,39 @@ namespace MotionCore
             }
         }
 
-        public bool jumpPress
+        public bool JumpPress
         {
-            get => _jumpPress;
+            get => jumpPress;
             set
             {
-                _jumpPress = value;
-                if (_jumpPress)
+                jumpPress = value;
+                if (jumpPress)
                 {
-                    onGround = false;
+                    OnGround = false;
                     jumpHandle?.Invoke();
                 }
             }
         }
 
-        public Vector2 inputVal
+        public Vector2 InputVal
         {
-            get => _inputVal;
+            get => inputVal;
             set
             {
-                _inputVal = value;
+                inputVal = value;
                 if (inputPress==false) return;
                 
                 moveHandle?.Invoke(value);
+            }
+        }
+
+        public int AttackLevel
+        {
+            get => attackLevel;
+            set
+            {
+                attackLevel = value;
+                attackHandle?.Invoke(attackLevel);
             }
         }
 
