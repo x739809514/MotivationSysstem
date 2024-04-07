@@ -31,24 +31,34 @@ MonoBehaviour:
     interval: 1
     realInterval: 0
     keyCode: 304
-  - name: attack
+  - name: attackLevel1
+    trigger: 0
+    enable: 1
+    isDown: 0
+    isDoubleDown: 0
+    acceptDoubleDown: 0
+    interval: 1
+    realInterval: 0.13999999
+    keyCode: 107
+  - name: attackLevel2
     trigger: 1
     enable: 1
     isDown: 0
     isDoubleDown: 0
     acceptDoubleDown: 0
     interval: 1
-    realInterval: 0
+    realInterval: 0.13999999
     keyCode: 107
   valueKeys: []
   axisKeys:
   - name: vertical
     range: {x: -1, y: 1}
-    value: -0.012170074
+    value: 0
     posKey: 119
     negKey: 115
     addSpeed: 3
     enable: 1
+    isDown: 0
   - name: horizontal
     range: {x: -1, y: 1}
     value: 0
@@ -56,3 +66,4 @@ MonoBehaviour:
     negKey: 97
     addSpeed: 3
     enable: 1
+    isDown: 0

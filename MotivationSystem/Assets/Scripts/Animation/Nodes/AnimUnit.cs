@@ -8,14 +8,34 @@ namespace AnimSystem.Core
     {
         private AnimationClipPlayable clipPlayable;
         private AnimationClip clip;
+        private float curClipTime;
+        private float declineSpeed = 2f;
         //private double animStopTime;
 
-        public AnimUnit(PlayableGraph graph,AnimationClip clip,float enterTime=0f):base(graph,enterTime)
+        public AnimUnit(PlayableGraph graph, AnimationClip clip, float enterTime = 0f) : base(graph, enterTime)
         {
             this.clip = clip;
-            clipPlayable = AnimationClipPlayable.Create(graph,clip);
-            animAdapter.AddInput(clipPlayable,0,1.0f);
+            clipPlayable = AnimationClipPlayable.Create(graph, clip);
+            animAdapter.AddInput(clipPlayable, 0, 1.0f);
+            curClipTime = clip.length;
             Disable();
+        }
+
+        public override void Execute(Playable playable, FrameData info)
+        {
+            base.Execute(playable, info);
+            if (enabled == false) return;
+
+            if (curClipTime > 0f)
+            {
+                curClipTime -= info.deltaTime * declineSpeed;
+            }
+            else
+            {
+                curClipTime = clip.length;
+                Debug.Log("curClipTime: " + curClipTime);
+                callback?.Invoke();
+            }
         }
 
 

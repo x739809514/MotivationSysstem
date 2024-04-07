@@ -7,8 +7,7 @@ using UnityEngine;
 public class GameLoop : MonoBehaviour
 {
     public static GameLoop instance;
-    [HideInInspector]
-    public Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     public Transform model;
     public Animator animator;
     public float rotateSpeed;
@@ -21,13 +20,18 @@ public class GameLoop : MonoBehaviour
     private PlayerMotion motion;
     private PlayerParam param;
     private InputManager inputManager;
+    
+    //Attack
+    private bool acceptAttackLevel2;
+    private float attackInterval = 2f;
+    private float realInterval = 0f;
 
     private void Awake()
     {
         instance = this;
         rb = GetComponent<Rigidbody>();
         model = transform;
-        
+
         motion = new PlayerMotion(animSetting);
         param = motion.playerParam;
         inputManager = new InputManager(inputData, "inputJson");
@@ -35,7 +39,6 @@ public class GameLoop : MonoBehaviour
 
     private void Update()
     {
-        
     }
 
     private void FixedUpdate()
@@ -46,29 +49,52 @@ public class GameLoop : MonoBehaviour
         {
             param.JumpPress = true;
         }
+
         // move
         param.runPress = InputManager.instance.GetKeyDown("shift");
         if (InputManager.instance.GetAxisDown("horizontal") || InputManager.instance.GetAxisDown("vertical"))
         {
             param.inputPress = true;
             // Todo: better to use Vector2.Set() to reduce allocate
-            param.InputVal = new Vector2(InputManager.instance.GetAxisValue("horizontal") ,InputManager.instance.GetAxisValue("vertical"));
+            param.InputVal = new Vector2(InputManager.instance.GetAxisValue("horizontal"),
+                InputManager.instance.GetAxisValue("vertical"));
         }
         else
         {
             // Todo: better to use Vector2.Set() to reduce allocate
             param.InputVal = new Vector2(0f, 0f);
         }
+
         // attack
-        if (InputManager.instance.CheckDoubleKeyFirstDown("attack") && InputManager.instance.GetKeyDoubleDown("attack")==false)
+        if (acceptAttackLevel2)
         {
-            param.AttackLevel = 1;
+            realInterval += Time.deltaTime;
+            if (realInterval>attackInterval)
+            {
+                param.AttackLevel = 0;
+                realInterval = 0;
+                acceptAttackLevel2 = false;
+            }
+            else
+            {
+                if (InputManager.instance.GetKeyDown("attack"))
+                {
+                    param.AttackLevel = 2;
+                    realInterval = 0;
+                    acceptAttackLevel2 = false;
+                }
+            }
         }
-        if (InputManager.instance.GetKeyDoubleDown("attack"))
+        else
         {
-            param.AttackLevel = 2;
+            if (InputManager.instance.GetKeyDown("attack"))
+            {
+                param.AttackLevel = 1;
+                acceptAttackLevel2 = true;
+                realInterval = 0f;
+            }
         }
-        
+
         param.velocity = rb.velocity;
     }
 

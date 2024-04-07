@@ -129,16 +129,18 @@ namespace MotionCore
 
         public void SwitchToAttack(int alv)
         {
-            if (alv==0) return;
-            if (alv==1)
+            if (alv == 0)
             {
-                // Todo: logic for attack level 1
-                Debug.Log("Attack Level 1");
+                anim.TransitionTo(AnimName.Idle);
+            }
+            else if (alv==1)
+            {
+                anim.TransitionTo(AnimName.AttackLv1);
             }else if (alv==2)
             {
-               // Todo: logic for attack level 2
-               Debug.Log("Attack Level 2");
+                anim.TransitionTo(AnimName.AttackLv2);
             }
+            ai.SwitchState(ai.attack);
         }
         
 #endregion

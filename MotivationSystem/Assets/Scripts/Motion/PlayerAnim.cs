@@ -16,7 +16,8 @@ namespace MotionCore
         private BlendTree2D move;
         private AnimUnit jump;
         private AnimGroup land;
-        private BlendTree2D attack;
+        private AnimUnit alv1;
+        private AnimUnit alv2;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -44,9 +45,13 @@ namespace MotionCore
             AddGroupAnim(landAnim.groupClips, landAnim.enterTime);
             AddStateAnim(AnimName.Land, land);
 
-            var attackAnim = setting.GetAnim(AnimName.Attack);
-            attack = new BlendTree2D(graph, attackAnim.enterTime, attackAnim.blendClips);
-            AddStateAnim(AnimName.Attack, attack);
+            var attackLv1Anim = setting.GetAnim(AnimName.AttackLv1);
+            alv1 = new AnimUnit(graph, attackLv1Anim.clip, attackLv1Anim.enterTime);
+            AddStateAnim(AnimName.AttackLv1, alv1);
+            
+            var attackLv2Anim = setting.GetAnim(AnimName.AttackLv2);
+            alv2 = new AnimUnit(graph, attackLv2Anim.clip, attackLv2Anim.enterTime);
+            AddStateAnim(AnimName.AttackLv2, alv2);
 
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
             AnimHelper.Go(graph, mixer);

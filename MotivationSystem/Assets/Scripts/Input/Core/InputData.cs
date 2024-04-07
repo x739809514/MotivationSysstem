@@ -83,12 +83,6 @@ namespace Core
             return key.isDoubleDown;
         }
 
-        public bool CheckDoubleKeyFirstDown(string name)
-        {
-            var key = GetKeyObject(name);
-            return key.acceptDoubleDown;
-        }
-
         public float GetValueOfVK(string name)
         {
             var valueKey = GetValueKeyObject(name);
