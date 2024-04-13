@@ -41,41 +41,41 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Prefabs" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Models" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations/Unarmed" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/AnimationControllers" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Idles" />
-     <Folder Include="Assets/Plugins" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Social/Conversation" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Avatars" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Textures" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Prefabs" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Materials" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Models" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Prefabs/Character" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Materials" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Social" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Presets" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Models/Characters" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Animations/Movement" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations/2Hand-Sword" />
-     <Folder Include="Assets/Plugins/Kevin Iglesias/Basic Motions/Textures" />
-     <Folder Include="Assets/Plugins/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Models/Weapons" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Prefabs" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Models" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Animations\Unarmed" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Animations" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\AnimationControllers" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Idles" />
+     <Folder Include="Assets\Plugins" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Social\Conversation" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Avatars" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Textures" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Prefabs" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Materials" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Models" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Prefabs\Character" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Materials" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Social" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Presets" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Models\Characters" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Animations\Movement" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Animations\2Hand-Sword" />
+     <Folder Include="Assets\Plugins\Kevin Iglesias\Basic Motions\Textures" />
+     <Folder Include="Assets\Plugins\ExplosiveLLC\RPG Character Mecanim Animation Pack FREE\Models\Weapons" />
      <Reference Include="UnityEngine">
-     <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
+     <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.CoreModule">
-     <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+     <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor">
-     <HintPath>/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.dll</HintPath>
+     <HintPath>D:\Unity\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
