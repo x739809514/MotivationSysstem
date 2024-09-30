@@ -44,7 +44,7 @@ namespace MotionCore
             stateManager.AddState(attack);
             
             var idleCondition = new FSMConditionNode<PlayerMotion>(p => true,1000);
-            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.InputVal.magnitude>0, 1001);
+            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.InputVal.normalized.magnitude>=0.1f, 1001);
             var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.JumpPress, 1002);
             var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
             var landInput = new FSMConditionNode<PlayerMotion>(p => param.velocity.y < 0, 1004);

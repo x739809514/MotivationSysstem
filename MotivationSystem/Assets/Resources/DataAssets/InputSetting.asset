@@ -31,7 +31,7 @@ MonoBehaviour:
     interval: 1
     realInterval: 0
     keyCode: 304
-  - name: attackLevel1
+  - name: attack
     trigger: 0
     enable: 1
     isDown: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     interval: 1
     realInterval: 0.13999999
     keyCode: 107
-  - name: attackLevel2
+  - name: attack
     trigger: 1
     enable: 1
     isDown: 0

@@ -10,7 +10,6 @@ public class GameLoop : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     public Transform model;
     public Animator animator;
-    public float rotateSpeed;
     public float jumpForce;
     public float walkForce;
     public float runForce;

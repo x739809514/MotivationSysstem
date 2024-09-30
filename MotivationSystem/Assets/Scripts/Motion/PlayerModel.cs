@@ -20,9 +20,9 @@ namespace MotionCore
         private float jumpForce;
         private float runForce;
         private float walkForce;
-        private float rotateForce;
         private float animMultiply = 1f;
         private float speedMultiply = 1f;
+        private float turnSmoothVal;
 
 
         public PlayerModel(PlayerMotion motion, AnimSetting setting)
@@ -37,7 +37,6 @@ namespace MotionCore
             jumpForce = GameLoop.instance.jumpForce;
             runForce = GameLoop.instance.runForce;
             walkForce = GameLoop.instance.walkForce;
-            rotateForce = GameLoop.instance.rotateSpeed;
         }
 
         private float UpdateMultiply(float value, float speed)
@@ -107,16 +106,20 @@ namespace MotionCore
                 forward.Normalize();
                 right.Normalize();
 
-                Vector3 direction = forward * input.y + right * input.x;
-                Vector3 rotationDirection = direction.normalized;
+                Vector3 direction = new Vector3(input.x,0,input.y).normalized;
 
-                
-                if (direction != Vector3.zero)
+                var moveDirection = Vector3.zero;
+                if (direction.magnitude>=0.1f)
                 {
-                    rb.velocity = direction * speedMultiply;
-                    Quaternion toRotation = Quaternion.LookRotation(rotationDirection, Vector3.up);
-                    model.rotation = Quaternion.RotateTowards(model.rotation, toRotation, rotateForce * Time.deltaTime);
+                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                           Camera.main.transform.eulerAngles.y;
+                    float angle = Mathf.SmoothDampAngle(model.eulerAngles.y, targetAngle, ref turnSmoothVal, 0.1f);
+                    model.rotation = Quaternion.Euler(0f,angle,0f);
+                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                    moveDirection = moveDir.normalized * speedMultiply;
                 }
+                Vector3 move = moveDirection * Time.fixedDeltaTime;
+                rb.MovePosition(rb.position + move);
                 param.velocity = rb.velocity;
             }
         }
