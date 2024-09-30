@@ -10,14 +10,18 @@ namespace AnimSystem.Core
         private AnimationClip clip;
         private float curClipTime;
         private float declineSpeed = 2f;
+
+        private bool interrupt;
         //private double animStopTime;
 
-        public AnimUnit(PlayableGraph graph, AnimationClip clip, float enterTime = 0f) : base(graph, enterTime)
+        public AnimUnit(PlayableGraph graph, AnimationClip clip, float enterTime = 0f, bool canInterrupt = true) : base(
+            graph, enterTime)
         {
             this.clip = clip;
             clipPlayable = AnimationClipPlayable.Create(graph, clip);
             animAdapter.AddInput(clipPlayable, 0, 1.0f);
             curClipTime = clip.length;
+            interrupt = canInterrupt;
             Disable();
         }
 
@@ -33,7 +37,7 @@ namespace AnimSystem.Core
             else
             {
                 curClipTime = clip.length;
-                Debug.Log("curClipTime: " + curClipTime);
+                //Debug.Log("curClipTime: " + curClipTime);
                 callback?.Invoke();
             }
         }
@@ -59,6 +63,16 @@ namespace AnimSystem.Core
         public override float GetAnimLength()
         {
             return clip.length;
+        }
+
+        public float GetClipRemainTime()
+        {
+            return remainTime;
+        }
+
+        public bool CanAnimInterrupt()
+        {
+            return interrupt;
         }
     }
 }

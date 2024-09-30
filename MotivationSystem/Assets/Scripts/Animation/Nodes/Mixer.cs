@@ -108,6 +108,12 @@ namespace AnimSystem.Core
 
         public void TransitionTo(int index)
         {
+            if (GetCurClipAnimLength() > 0)
+            {
+                Debug.Log("当前动画尚未播放完毕，无法切换到新动画");
+                return;
+            }
+
             if (isTransition && targetIndex > 0)
             {
                 if (index == targetIndex) return;
@@ -131,7 +137,7 @@ namespace AnimSystem.Core
             }
 
             targetIndex = index;
-            Debug.Log("<color=red>curIndex is: " + curIndex + "targetIndex is: " + targetIndex + "</color>");
+            //Debug.Log("<color=red>curIndex is: " + curIndex + "targetIndex is: " + targetIndex + "</color>");
             // if new clip is already in decline array, move it out
             declineIndex.Remove(targetIndex);
             AnimHelper.Enable(mixerPlayable.GetInput(targetIndex));
@@ -167,6 +173,23 @@ namespace AnimSystem.Core
             {
                 mixerPlayable.SetInputWeight(index, weight);
             }
+        }
+
+        private float GetCurClipAnimLength()
+        {
+            var remain = 0f;
+            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
+                .animBehaviour;
+            if (behaviour is AnimUnit unit)
+            {
+                remain = unit.GetClipRemainTime();
+                if (unit.CanAnimInterrupt())
+                {
+                    remain = 0f;
+                }
+            }
+
+            return remain;
         }
     }
 }

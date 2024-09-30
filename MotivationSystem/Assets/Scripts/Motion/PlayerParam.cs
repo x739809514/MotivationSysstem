@@ -51,11 +51,11 @@ namespace MotionCore
             set
             {
                 jumpPress = value;
-                if (jumpPress)
+                /*if (jumpPress)
                 {
                     OnGround = false;
                     jumpHandle?.Invoke();
-                }
+                }*/
             }
         }
 
@@ -65,9 +65,9 @@ namespace MotionCore
             set
             {
                 inputVal = value;
-                if (inputPress==false) return;
+                /*if (inputPress==false) return;
                 
-                moveHandle?.Invoke(value);
+                moveHandle?.Invoke(value);*/
             }
         }
 

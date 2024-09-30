@@ -46,11 +46,12 @@ namespace MotionCore
             AddStateAnim(AnimName.Land, land);
 
             var attackLv1Anim = setting.GetAnim(AnimName.AttackLv1);
-            alv1 = new AnimUnit(graph, attackLv1Anim.clip, attackLv1Anim.enterTime);
+            alv1 = new AnimUnit(graph, attackLv1Anim.clip, attackLv1Anim.enterTime, false);
             AddStateAnim(AnimName.AttackLv1, alv1);
-            
+
             var attackLv2Anim = setting.GetAnim(AnimName.AttackLv2);
-            alv2 = new AnimUnit(graph, attackLv2Anim.clip, attackLv2Anim.enterTime);
+            alv2 = new AnimUnit(graph, attackLv2Anim.clip, attackLv2Anim.enterTime, false);
+            alv2.BindCallBackHandle(() => { motion.playerParam.AttackLevel = 0;});
             AddStateAnim(AnimName.AttackLv2, alv2);
 
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
@@ -83,7 +84,7 @@ namespace MotionCore
         {
             if (animIndexDics.TryGetValue(animName, out var index))
             {
-                Debug.Log("Transition to: " + index);
+                //Debug.Log("Transition to: " + index);
                 mixer.TransitionTo(index);
             }
         }

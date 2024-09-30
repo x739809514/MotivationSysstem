@@ -19,10 +19,10 @@ public class GameLoop : MonoBehaviour
     private PlayerMotion motion;
     private PlayerParam param;
     private InputManager inputManager;
-    
+
     //Attack
     private bool acceptAttackLevel2;
-    private float attackInterval = 2f;
+    private float attackInterval = 0.8f;
     private float realInterval = 0f;
 
     private void Awake()
@@ -37,10 +37,6 @@ public class GameLoop : MonoBehaviour
     }
 
     private void Update()
-    {
-    }
-
-    private void FixedUpdate()
     {
         InputManager.instance.Update(Time.deltaTime);
         // jump
@@ -68,7 +64,7 @@ public class GameLoop : MonoBehaviour
         if (acceptAttackLevel2)
         {
             realInterval += Time.deltaTime;
-            if (realInterval>attackInterval)
+            if (realInterval > attackInterval)
             {
                 param.AttackLevel = 0;
                 realInterval = 0;
@@ -92,6 +88,21 @@ public class GameLoop : MonoBehaviour
                 acceptAttackLevel2 = true;
                 realInterval = 0f;
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (param.JumpPress)
+        {
+            param.OnGround = false;
+            param.jumpHandle?.Invoke();
+        }
+
+        // move
+        if (param.inputPress && param.AttackLevel == 0)
+        {
+            param.moveHandle?.Invoke(param.InputVal);
         }
 
         param.velocity = rb.velocity;

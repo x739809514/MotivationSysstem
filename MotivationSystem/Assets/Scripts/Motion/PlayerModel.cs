@@ -53,6 +53,7 @@ namespace MotionCore
             {
                 return;
             }
+
             anim.TransitionTo(AnimName.Idle);
             ai.SwitchState(ai.idle);
         }
@@ -67,7 +68,8 @@ namespace MotionCore
             anim.TransitionTo(AnimName.Jump);
             ai.SwitchState(ai.jump);
             //Todo: model motion
-            GameLoop.instance.rb.velocity += Vector3.up * jumpForce;
+            GameLoop.instance.rb.velocity = param.velocity;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
         public void SwitchToMove(Vector2 input)
@@ -77,7 +79,7 @@ namespace MotionCore
             {
                 return;
             }
-            
+
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
             if (param.runPress)
             {
@@ -93,6 +95,7 @@ namespace MotionCore
                 animMultiply = Mathf.Clamp(UpdateMultiply(this.animMultiply, -5f), 1f, 2f);
                 speedMultiply = Mathf.Clamp(UpdateMultiply(speedMultiply, -5f), walkForce, runForce);
             }
+
             anim.TransitionTo(AnimName.Move);
             anim.UpdateMove(moveClip.pos.x, moveClip.pos.y * animMultiply);
 
@@ -106,18 +109,19 @@ namespace MotionCore
                 forward.Normalize();
                 right.Normalize();
 
-                Vector3 direction = new Vector3(input.x,0,input.y).normalized;
+                Vector3 direction = new Vector3(input.x, 0, input.y).normalized;
 
                 var moveDirection = Vector3.zero;
-                if (direction.magnitude>=0.1f)
+                if (direction.magnitude >= 0.1f)
                 {
                     float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
-                                           Camera.main.transform.eulerAngles.y;
+                                        Camera.main.transform.eulerAngles.y;
                     float angle = Mathf.SmoothDampAngle(model.eulerAngles.y, targetAngle, ref turnSmoothVal, 0.1f);
-                    model.rotation = Quaternion.Euler(0f,angle,0f);
+                    model.rotation = Quaternion.Euler(0f, angle, 0f);
                     Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                     moveDirection = moveDir.normalized * speedMultiply;
                 }
+
                 Vector3 move = moveDirection * Time.fixedDeltaTime;
                 rb.MovePosition(rb.position + move);
                 param.velocity = rb.velocity;
@@ -132,24 +136,29 @@ namespace MotionCore
 
         public void SwitchToAttack(int alv)
         {
+            if (param.OnGround == false) return;
             if (alv == 0)
             {
+                // back to normal
                 anim.TransitionTo(AnimName.Idle);
             }
-            else if (alv==1)
+            else if (alv == 1)
             {
                 anim.TransitionTo(AnimName.AttackLv1);
-            }else if (alv==2)
+            }
+            else if (alv == 2)
             {
                 anim.TransitionTo(AnimName.AttackLv2);
             }
+
             ai.SwitchState(ai.attack);
         }
-        
+
 #endregion
 
 
 #region Method
+
         private bool ExitMoveState(Vector2 input)
         {
             if (input == Vector2.zero)
@@ -160,13 +169,14 @@ namespace MotionCore
                 return true;
             }
 
-            if (param.OnGround==false)
+            if (param.OnGround == false)
             {
                 return true;
             }
-            
+
             return false;
         }
+
 #endregion
     }
 }
