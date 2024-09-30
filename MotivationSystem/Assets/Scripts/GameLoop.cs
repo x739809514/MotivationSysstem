@@ -22,7 +22,7 @@ public class GameLoop : MonoBehaviour
 
     //Attack
     private bool acceptAttackLevel2;
-    private float attackInterval = 0.8f;
+    private float attackInterval = 0.9f;
     private float realInterval = 0f;
 
     private void Awake()
@@ -40,10 +40,10 @@ public class GameLoop : MonoBehaviour
     {
         InputManager.instance.Update(Time.deltaTime);
         // jump
-        if (InputManager.instance.GetKeyDown("jump"))
+        /*if (InputManager.instance.GetKeyDown("jump"))
         {
             param.JumpPress = true;
-        }
+        }*/
 
         // move
         param.runPress = InputManager.instance.GetKeyDown("shift");
@@ -69,11 +69,13 @@ public class GameLoop : MonoBehaviour
                 param.AttackLevel = 0;
                 realInterval = 0;
                 acceptAttackLevel2 = false;
+                param.attacking = false;
             }
             else
             {
                 if (InputManager.instance.GetKeyDown("attack"))
                 {
+                    param.attacking = true;
                     param.AttackLevel = 2;
                     realInterval = 0;
                     acceptAttackLevel2 = false;
@@ -86,6 +88,7 @@ public class GameLoop : MonoBehaviour
             {
                 param.AttackLevel = 1;
                 acceptAttackLevel2 = true;
+                param.attacking = true;
                 realInterval = 0f;
             }
         }
@@ -93,14 +96,14 @@ public class GameLoop : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (param.JumpPress)
+        /*if (param.JumpPress)
         {
             param.OnGround = false;
             param.jumpHandle?.Invoke();
-        }
+        }*/
 
         // move
-        if (param.inputPress && param.AttackLevel == 0)
+        if (param.inputPress && param.attacking == false)
         {
             param.moveHandle?.Invoke(param.InputVal);
         }

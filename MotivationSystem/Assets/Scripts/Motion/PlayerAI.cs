@@ -14,7 +14,7 @@ namespace MotionCore
         public FSMStateNode<PlayerMotion> idle { get; }
         public FSMStateNode<PlayerMotion> walk { get; }
         public FSMStateNode<PlayerMotion> run { get; }
-        public FSMStateNode<PlayerMotion> jump { get; }
+        //public FSMStateNode<PlayerMotion> jump { get; }
         public FSMStateNode<PlayerMotion> land { get; }
         public FSMStateNode<PlayerMotion> attack { get; }
 
@@ -34,8 +34,8 @@ namespace MotionCore
             run = new FSMStateNode<PlayerMotion>("run");
             stateManager.AddState(run);
 
-            jump = new FSMStateNode<PlayerMotion>("jump");
-            stateManager.AddState(jump);
+            /*jump = new FSMStateNode<PlayerMotion>("jump");
+            stateManager.AddState(jump);*/
 
             land = new FSMStateNode<PlayerMotion>("land");
             stateManager.AddState(land);
@@ -45,7 +45,7 @@ namespace MotionCore
             
             var idleCondition = new FSMConditionNode<PlayerMotion>(p => true,1000);
             var moveInput = new FSMConditionNode<PlayerMotion>(p => param.InputVal.normalized.magnitude>=0.1f, 1001);
-            var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.JumpPress, 1002);
+            //var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.JumpPress, 1002);
             var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
             var landInput = new FSMConditionNode<PlayerMotion>(p => param.velocity.y < 0, 1004);
             var attackInput = new FSMConditionNode<PlayerMotion>(p => param.AttackLevel >= 1, 1005);
@@ -53,7 +53,7 @@ namespace MotionCore
             idle.AddConditions(idleCondition);
             walk.AddConditions(moveInput);
             run.AddConditions(runInput);
-            jump.AddConditions(jumpInput);
+            //jump.AddConditions(jumpInput);
             land.AddConditions(landInput);
             attack.AddConditions(attackInput);
         }

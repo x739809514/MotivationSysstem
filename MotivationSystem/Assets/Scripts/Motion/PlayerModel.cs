@@ -58,7 +58,7 @@ namespace MotionCore
             ai.SwitchState(ai.idle);
         }
 
-        public void SwitchToJump()
+        /*public void SwitchToJump()
         {
             if (ai.curStateName != null && ai.curStateName == AnimName.Jump)
             {
@@ -70,7 +70,7 @@ namespace MotionCore
             //Todo: model motion
             GameLoop.instance.rb.velocity = param.velocity;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        }*/
 
         public void SwitchToMove(Vector2 input)
         {

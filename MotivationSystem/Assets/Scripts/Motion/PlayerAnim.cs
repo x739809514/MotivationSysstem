@@ -47,11 +47,12 @@ namespace MotionCore
 
             var attackLv1Anim = setting.GetAnim(AnimName.AttackLv1);
             alv1 = new AnimUnit(graph, attackLv1Anim.clip, attackLv1Anim.enterTime, false);
+            //alv1.BindCallBackHandle(() => { motion.playerParam.attacking=false;});
             AddStateAnim(AnimName.AttackLv1, alv1);
 
             var attackLv2Anim = setting.GetAnim(AnimName.AttackLv2);
             alv2 = new AnimUnit(graph, attackLv2Anim.clip, attackLv2Anim.enterTime, false);
-            alv2.BindCallBackHandle(() => { motion.playerParam.AttackLevel = 0;});
+            alv2.BindCallBackHandle(() => { motion.playerParam.attacking=false;});
             AddStateAnim(AnimName.AttackLv2, alv2);
 
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);

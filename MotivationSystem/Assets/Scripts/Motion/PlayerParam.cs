@@ -15,11 +15,12 @@ namespace MotionCore
         public Vector3 velocity;
         public bool runPress;
         public bool inputPress;
-        public Action jumpHandle;
+        //public Action jumpHandle;
         public Action<Vector2> moveHandle;
         public Action idleHandle;
         public Action landhandle;
         public Action<int> attackHandle;
+        public bool attacking;
 
 
 #region Property
@@ -32,7 +33,7 @@ namespace MotionCore
                 onGround = value;
                 if (onGround)
                 {
-                    JumpPress = false;
+                    //JumpPress = false;
                     if (velocity.y<0)
                     {
                         landhandle?.Invoke();
@@ -45,7 +46,7 @@ namespace MotionCore
             }
         }
 
-        public bool JumpPress
+        /*public bool JumpPress
         {
             get => jumpPress;
             set
@@ -55,9 +56,9 @@ namespace MotionCore
                 {
                     OnGround = false;
                     jumpHandle?.Invoke();
-                }*/
+                }#1#
             }
-        }
+        }*/
 
         public Vector2 InputVal
         {
