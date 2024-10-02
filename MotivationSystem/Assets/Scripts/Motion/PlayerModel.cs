@@ -137,21 +137,37 @@ namespace MotionCore
         public void SwitchToAttack(int alv)
         {
             if (param.OnGround == false) return;
-            if (alv == 0)
+            switch (alv)
             {
-                // back to normal
-                anim.TransitionTo(AnimName.Idle);
+                case 0:
+                    Debug.Log("idle");
+                    anim.TransitionTo(AnimName.Idle);
+                    break;
+                case 1:
+                    anim.TransitionTo(AnimName.AttackLv1);
+                    ai.SwitchState(ai.attack);
+                    break;
+                case 2:
+                    anim.TransitionTo(AnimName.AttackLv2);
+                    ai.SwitchState(ai.attack);
+                    break;
+                case 3:
+                    anim.TransitionTo(AnimName.AttackLv3);
+                    ai.SwitchState(ai.attack);
+                    break;
+                case 4:
+                    anim.TransitionTo(AnimName.AttackLv4);
+                    ai.SwitchState(ai.attack);
+                    break;
+                case 5:
+                    anim.TransitionTo(AnimName.AttackLv5);
+                    ai.SwitchState(ai.attack);
+                    break;
+                case 6:
+                    anim.TransitionTo(AnimName.AttackLv6);
+                    ai.SwitchState(ai.attack);
+                    break;
             }
-            else if (alv == 1)
-            {
-                anim.TransitionTo(AnimName.AttackLv1);
-            }
-            else if (alv == 2)
-            {
-                anim.TransitionTo(AnimName.AttackLv2);
-            }
-
-            ai.SwitchState(ai.attack);
         }
 
 #endregion

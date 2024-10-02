@@ -7,9 +7,9 @@ namespace AnimSystem.Core
 {
     public class Mixer : AnimBehaviour
     {
-        private AnimationMixerPlayable mixerPlayable;
+        private static AnimationMixerPlayable mixerPlayable;
         private List<int> declineIndex;
-        private int curIndex;
+        private static int curIndex;
         private int targetIndex;
         private int clipCount;
         private bool isTransition;
@@ -106,14 +106,9 @@ namespace AnimSystem.Core
             targetIndex = -1;
         }
 
+        // 当前mixer会默认打断上一个动画
         public void TransitionTo(int index)
         {
-            if (GetCurClipAnimLength() > 0)
-            {
-                Debug.Log("当前动画尚未播放完毕，无法切换到新动画");
-                return;
-            }
-
             if (isTransition && targetIndex > 0)
             {
                 if (index == targetIndex) return;
@@ -175,7 +170,7 @@ namespace AnimSystem.Core
             }
         }
 
-        private float GetCurClipAnimLength()
+        private float GetCurClipRemain()
         {
             var remain = 0f;
             var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
@@ -190,6 +185,18 @@ namespace AnimSystem.Core
             }
 
             return remain;
+        }
+        
+        public static float GetCurClipLength()
+        {
+            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
+                .animBehaviour;
+            if (behaviour is AnimUnit unit)
+            {
+                return unit.GetAnimLength();
+            }
+
+            return 0f;
         }
     }
 }

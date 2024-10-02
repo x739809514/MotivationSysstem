@@ -20,7 +20,6 @@ namespace MotionCore
         public Action idleHandle;
         public Action landhandle;
         public Action<int> attackHandle;
-        public bool attacking;
 
 
 #region Property
@@ -78,7 +77,7 @@ namespace MotionCore
             set
             {
                 attackLevel = value;
-                attackHandle?.Invoke(attackLevel);
+                //attackHandle?.Invoke(attackLevel);
             }
         }
 

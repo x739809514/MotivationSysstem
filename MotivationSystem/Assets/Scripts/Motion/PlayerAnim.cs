@@ -18,6 +18,10 @@ namespace MotionCore
         private AnimGroup land;
         private AnimUnit alv1;
         private AnimUnit alv2;
+        private AnimUnit alv3;
+        private AnimUnit alv4;
+        private AnimUnit alv5;
+        private AnimUnit alv6;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -47,13 +51,27 @@ namespace MotionCore
 
             var attackLv1Anim = setting.GetAnim(AnimName.AttackLv1);
             alv1 = new AnimUnit(graph, attackLv1Anim.clip, attackLv1Anim.enterTime, false);
-            //alv1.BindCallBackHandle(() => { motion.playerParam.attacking=false;});
             AddStateAnim(AnimName.AttackLv1, alv1);
 
             var attackLv2Anim = setting.GetAnim(AnimName.AttackLv2);
             alv2 = new AnimUnit(graph, attackLv2Anim.clip, attackLv2Anim.enterTime, false);
-            alv2.BindCallBackHandle(() => { motion.playerParam.attacking=false;});
             AddStateAnim(AnimName.AttackLv2, alv2);
+
+            var attackLv3Anim = setting.GetAnim(AnimName.AttackLv3);
+            alv3 = new AnimUnit(graph, attackLv3Anim.clip, attackLv3Anim.enterTime, false);
+            AddStateAnim(AnimName.AttackLv3, alv3);
+
+            var attackLv4Anim = setting.GetAnim(AnimName.AttackLv4);
+            alv4 = new AnimUnit(graph, attackLv4Anim.clip, attackLv4Anim.enterTime, false);
+            AddStateAnim(AnimName.AttackLv4, alv4);
+
+            var attackLv5Anim = setting.GetAnim(AnimName.AttackLv5);
+            alv5 = new AnimUnit(graph, attackLv5Anim.clip, attackLv5Anim.enterTime, false);
+            AddStateAnim(AnimName.AttackLv5, alv5);
+
+            var attackLv6Anim = setting.GetAnim(AnimName.AttackLv6);
+            alv6 = new AnimUnit(graph, attackLv6Anim.clip, attackLv6Anim.enterTime, false);
+            AddStateAnim(AnimName.AttackLv6, alv6);
 
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
             AnimHelper.Go(graph, mixer);

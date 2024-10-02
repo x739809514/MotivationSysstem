@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using AnimSystem.Core;
 using Core;
 using MotionCore;
@@ -21,9 +22,11 @@ public class GameLoop : MonoBehaviour
     private InputManager inputManager;
 
     //Attack
-    private bool acceptAttackLevel2;
-    private float attackInterval = 0.9f;
-    private float realInterval = 0f;
+    public float comboTimeout = 1.2f; // 连招超时时间
+    public int maxComboCount = 6; // 连招最大段数
+
+    private bool isAttacking = false; // 是否正在攻击
+    private bool attackPressedDuringComboWindow = false; // 记录在等待期间是否按下攻击键
 
     private void Awake()
     {
@@ -61,35 +64,12 @@ public class GameLoop : MonoBehaviour
         }
 
         // attack
-        if (acceptAttackLevel2)
+        if (InputManager.instance.GetKeyDown("attack"))
         {
-            realInterval += Time.deltaTime;
-            if (realInterval > attackInterval)
+            attackPressedDuringComboWindow = true;
+            if (param.AttackLevel == 0 && !isAttacking)
             {
-                param.AttackLevel = 0;
-                realInterval = 0;
-                acceptAttackLevel2 = false;
-                param.attacking = false;
-            }
-            else
-            {
-                if (InputManager.instance.GetKeyDown("attack"))
-                {
-                    param.attacking = true;
-                    param.AttackLevel = 2;
-                    realInterval = 0;
-                    acceptAttackLevel2 = false;
-                }
-            }
-        }
-        else
-        {
-            if (InputManager.instance.GetKeyDown("attack"))
-            {
-                param.AttackLevel = 1;
-                acceptAttackLevel2 = true;
-                param.attacking = true;
-                realInterval = 0f;
+                StartCoroutine(ExecuteCombo());
             }
         }
     }
@@ -103,7 +83,7 @@ public class GameLoop : MonoBehaviour
         }*/
 
         // move
-        if (param.inputPress && param.attacking == false)
+        if (param.inputPress && isAttacking == false)
         {
             param.moveHandle?.Invoke(param.InputVal);
         }
@@ -122,5 +102,72 @@ public class GameLoop : MonoBehaviour
         {
             param.OnGround = true;
         }
+    }
+
+    // 执行连招攻击
+    // 执行连招攻击
+    // 捕捉攻击键按下
+    IEnumerator ExecuteCombo()
+    {
+        isAttacking = true;
+        param.AttackLevel = 1;
+
+        while (param.AttackLevel <= maxComboCount)
+        {
+            PlayComboAnimation();
+
+            // 等待当前动画播放完毕
+            yield return new WaitForSeconds(Mixer.GetCurClipLength());
+
+            // 如果连招计数器超过最大值，重置
+            if (param.AttackLevel >= maxComboCount)
+            {
+                ResetCombo();
+                param.attackHandle?.Invoke(param.AttackLevel); // back to idle
+                break;
+            }
+
+            // 开启连招窗口
+            attackPressedDuringComboWindow = false;
+            float timeRemaining = comboTimeout;
+
+            // 等待玩家输入或超时
+            while (timeRemaining > 0)
+            {
+                if (attackPressedDuringComboWindow)
+                {
+                    attackPressedDuringComboWindow = false;
+                    param.AttackLevel++;
+                    break;
+                }
+                timeRemaining -= Time.deltaTime;
+                yield return null;
+            }
+
+            // 如果超时未按下攻击键，重置连招
+            if (timeRemaining <= 0)
+            {
+                ResetCombo();
+                param.attackHandle?.Invoke(param.AttackLevel); // back to idle
+                break;
+            }
+        }
+
+        isAttacking = false;
+    }
+
+    // 播放连招动画
+    void PlayComboAnimation()
+    {
+        param.attackHandle?.Invoke(param.AttackLevel);
+    }
+
+    // 重置连招
+    void ResetCombo()
+    {
+        param.AttackLevel = 0;
+        isAttacking = false;
+        attackPressedDuringComboWindow = false; // 重置标志位
+        Debug.Log("Combo reset.");
     }
 }

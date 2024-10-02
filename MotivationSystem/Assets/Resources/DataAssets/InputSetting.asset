@@ -39,7 +39,7 @@ MonoBehaviour:
     acceptDoubleDown: 0
     interval: 1
     realInterval: 0.13999999
-    keyCode: 107
+    keyCode: 323
   - name: attack
     trigger: 1
     enable: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
     isDoubleDown: 0
     acceptDoubleDown: 0
     interval: 1
-    realInterval: 0.13999999
+    realInterval: 0
     keyCode: 107
   valueKeys: []
   axisKeys:
