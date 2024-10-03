@@ -14,8 +14,8 @@ namespace MotionCore
     {
         private AnimUnit idle;
         private BlendTree2D move;
-        private AnimUnit jump;
-        private AnimGroup land;
+        /*private AnimUnit jump;
+        private AnimGroup land;*/
         private AnimUnit alv1;
         private AnimUnit alv2;
         private AnimUnit alv3;
@@ -39,7 +39,7 @@ namespace MotionCore
             move = new BlendTree2D(graph, moveAnim.enterTime, moveAnim.blendClips);
             AddStateAnim(AnimName.Move, move);
 
-            var jumpAnim = setting.GetAnim(AnimName.Jump);
+            /*var jumpAnim = setting.GetAnim(AnimName.Jump);
             jump = new AnimUnit(graph, jumpAnim.clip, jumpAnim.enterTime);
             AddStateAnim(AnimName.Jump, jump);
 
@@ -47,7 +47,7 @@ namespace MotionCore
             land = new AnimGroup(graph, 0.1f);
             land.BindCallBackHandle(() => { motion.playerAI.SwitchState(motion.playerAI.idle); });
             AddGroupAnim(landAnim.groupClips, landAnim.enterTime);
-            AddStateAnim(AnimName.Land, land);
+            AddStateAnim(AnimName.Land, land);*/
 
             var attackLv1Anim = setting.GetAnim(AnimName.AttackLv1);
             alv1 = new AnimUnit(graph, attackLv1Anim.clip, attackLv1Anim.enterTime, false);
@@ -77,13 +77,13 @@ namespace MotionCore
             AnimHelper.Go(graph, mixer);
         }
 
-        private void AddGroupAnim(AnimationClip[] clips, float enterTime)
+        /*private void AddGroupAnim(AnimationClip[] clips, float enterTime)
         {
             for (int i = 0, length = clips.Length; i < length; i++)
             {
                 land.AddInput(clips[i], enterTime);
             }
-        }
+        }*/
 
         private void AddStateAnim(string animName, AnimBehaviour behaviour)
         {
