@@ -36,8 +36,6 @@ namespace AnimSystem.Core
             }
             else
             {
-                curClipTime = clip.length;
-                //Debug.Log("curClipTime: " + curClipTime);
                 callback?.Invoke();
             }
         }

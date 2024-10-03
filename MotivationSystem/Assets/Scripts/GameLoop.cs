@@ -20,9 +20,10 @@ public class GameLoop : MonoBehaviour
     private PlayerMotion motion;
     private PlayerParam param;
     private InputManager inputManager;
+    private bool canMove = true;
 
     //Attack
-    public float comboTimeout = 1.2f; // 连招超时时间
+    public float comboTimeout = 0.2f; // 连招超时时间
     public int maxComboCount = 6; // 连招最大段数
 
     private bool isAttacking = false; // 是否正在攻击
@@ -67,6 +68,7 @@ public class GameLoop : MonoBehaviour
         if (InputManager.instance.GetKeyDown("attack"))
         {
             attackPressedDuringComboWindow = true;
+            canMove = false;
             if (param.AttackLevel == 0 && !isAttacking)
             {
                 StartCoroutine(ExecuteCombo());
@@ -83,7 +85,7 @@ public class GameLoop : MonoBehaviour
         }*/
 
         // move
-        if (param.inputPress && isAttacking == false)
+        if (param.inputPress && canMove)
         {
             param.moveHandle?.Invoke(param.InputVal);
         }
@@ -117,8 +119,9 @@ public class GameLoop : MonoBehaviour
             PlayComboAnimation();
 
             // 等待当前动画播放完毕
-            yield return new WaitForSeconds(Mixer.GetCurClipLength());
-
+            yield return new WaitForSeconds(Mixer.GetCurClipLength());  //
+            canMove = true;
+            
             // 如果连招计数器超过最大值，重置
             if (param.AttackLevel >= maxComboCount)
             {
@@ -140,6 +143,7 @@ public class GameLoop : MonoBehaviour
                     param.AttackLevel++;
                     break;
                 }
+
                 timeRemaining -= Time.deltaTime;
                 yield return null;
             }

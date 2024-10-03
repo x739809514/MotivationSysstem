@@ -9,8 +9,8 @@ namespace AnimSystem.Core
     {
         private static AnimationMixerPlayable mixerPlayable;
         private List<int> declineIndex;
-        private static int curIndex;
-        private int targetIndex;
+        private int curIndex;
+        private static int targetIndex;
         private int clipCount;
         private bool isTransition;
         private float normalSpeed;
@@ -74,8 +74,6 @@ namespace AnimSystem.Core
         public override void Execute(Playable playable, FrameData info)
         {
             base.Execute(playable, info);
-            Debug.Log("targetIndex: " + targetIndex + " enable: " + enabled + " isTrans: " + isTransition +
-                      " targetIndex: " + targetIndex);
             if (enabled == false) return;
             if (isTransition == false || targetIndex < 0) return;
             if (timeToNext > 0f)
@@ -85,7 +83,6 @@ namespace AnimSystem.Core
                 for (int i = declineIndex.Count - 1; i >= 0; i--)
                 {
                     var w = ModifyWeight(declineIndex[i], -info.deltaTime * declineSpeed);
-                    Debug.Log("<color=purple>declineIndex[i] is: " + declineIndex[i] + "weight is: " + w + "</color>");
                     if (w <= 0)
                     {
                         AnimHelper.Disable(mixerPlayable.GetInput(declineIndex[i]));
@@ -99,8 +96,6 @@ namespace AnimSystem.Core
 
                 declineWeight += ModifyWeight(curIndex, -info.deltaTime * normalSpeed);
                 SetInputWeight(targetIndex, 1.0f - declineWeight);
-                Debug.Log("CurIndex: " + curIndex + "weight: " + declineWeight + "targetIndex:" + targetIndex +
-                          " weight: " + mixerPlayable.GetInputWeight(targetIndex));
                 return;
             }
 
@@ -111,13 +106,12 @@ namespace AnimSystem.Core
         }
 
 
-        // 当前mixer会默认打断上一个动画
+        // cur mixer is interrupt in default
         public void TransitionTo(int index)
         {
             if (isTransition && targetIndex >= 0)
             {
                 if (index == targetIndex) return;
-                Debug.Log("<color=red>curIndex: " + curIndex + "targetIndex: " + targetIndex + "</color>");
                 if (index == curIndex)
                 {
                     curIndex = targetIndex;
@@ -138,7 +132,6 @@ namespace AnimSystem.Core
             }
 
             targetIndex = index;
-            //Debug.Log("<color=red>curIndex is: " + curIndex + "targetIndex is: " + targetIndex + "</color>");
             // if new clip is already in decline array, move it out
             declineIndex.Remove(targetIndex);
             AnimHelper.Enable(mixerPlayable.GetInput(targetIndex));
@@ -159,14 +152,6 @@ namespace AnimSystem.Core
         {
             return ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(index)).GetBehaviour().GetAnimEnterTime();
         }
-
-        /*private float ModifyWeight(int index, float delta)
-        {
-            if (index < 0 || index >= clipCount) return 0;
-            var weight = Mathf.Clamp01(mixerPlayable.GetInputWeight(index) + delta);
-            mixerPlayable.SetInputWeight(index, weight);
-            return weight;
-        }*/
 
         private float ModifyWeight(int index, float delta)
         {
@@ -195,7 +180,7 @@ namespace AnimSystem.Core
         private float GetCurClipRemain()
         {
             var remain = 0f;
-            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
+            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(targetIndex)).GetBehaviour()
                 .animBehaviour;
             if (behaviour is AnimUnit unit)
             {
@@ -211,7 +196,7 @@ namespace AnimSystem.Core
 
         public static float GetCurClipLength()
         {
-            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
+            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(targetIndex)).GetBehaviour()
                 .animBehaviour;
             if (behaviour is AnimUnit unit)
             {
