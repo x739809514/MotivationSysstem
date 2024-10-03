@@ -136,7 +136,7 @@ namespace MotionCore
 
         public void SwitchToAttack(int alv)
         {
-            if (param.OnGround == false) return;
+            /*if (param.OnGround == false) return;*/
             switch (alv)
             {
                 case 0:

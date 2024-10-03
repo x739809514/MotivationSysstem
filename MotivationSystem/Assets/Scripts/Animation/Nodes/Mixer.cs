@@ -74,20 +74,22 @@ namespace AnimSystem.Core
         public override void Execute(Playable playable, FrameData info)
         {
             base.Execute(playable, info);
+            Debug.Log("targetIndex: " + targetIndex + " enable: " + enabled + " isTrans: " + isTransition +
+                      " targetIndex: " + targetIndex);
             if (enabled == false) return;
             if (isTransition == false || targetIndex < 0) return;
             if (timeToNext > 0f)
             {
                 declineWeight = 0f;
                 timeToNext -= info.deltaTime;
-                for (int i = 0; i < declineIndex.Count; i++)
+                for (int i = declineIndex.Count - 1; i >= 0; i--)
                 {
                     var w = ModifyWeight(declineIndex[i], -info.deltaTime * declineSpeed);
                     Debug.Log("<color=purple>declineIndex[i] is: " + declineIndex[i] + "weight is: " + w + "</color>");
                     if (w <= 0)
                     {
                         AnimHelper.Disable(mixerPlayable.GetInput(declineIndex[i]));
-                        declineIndex.Remove(declineIndex[i]);
+                        declineIndex.RemoveAt(i);
                     }
                     else
                     {
@@ -97,6 +99,8 @@ namespace AnimSystem.Core
 
                 declineWeight += ModifyWeight(curIndex, -info.deltaTime * normalSpeed);
                 SetInputWeight(targetIndex, 1.0f - declineWeight);
+                Debug.Log("CurIndex: " + curIndex + "weight: " + declineWeight + "targetIndex:" + targetIndex +
+                          " weight: " + mixerPlayable.GetInputWeight(targetIndex));
                 return;
             }
 
@@ -106,12 +110,14 @@ namespace AnimSystem.Core
             targetIndex = -1;
         }
 
+
         // 当前mixer会默认打断上一个动画
         public void TransitionTo(int index)
         {
-            if (isTransition && targetIndex > 0)
+            if (isTransition && targetIndex >= 0)
             {
                 if (index == targetIndex) return;
+                Debug.Log("<color=red>curIndex: " + curIndex + "targetIndex: " + targetIndex + "</color>");
                 if (index == curIndex)
                 {
                     curIndex = targetIndex;
@@ -144,7 +150,7 @@ namespace AnimSystem.Core
 
         private float GetWeight(int index)
         {
-            if (index < 0 || index > clipCount) return 0;
+            if (index < 0 || index >= clipCount) return 0;
             var w = mixerPlayable.GetInputWeight(index);
             return w;
         }
@@ -154,13 +160,29 @@ namespace AnimSystem.Core
             return ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(index)).GetBehaviour().GetAnimEnterTime();
         }
 
-        private float ModifyWeight(int index, float delta)
+        /*private float ModifyWeight(int index, float delta)
         {
-            if (index < 0 || index > clipCount) return 0;
+            if (index < 0 || index >= clipCount) return 0;
             var weight = Mathf.Clamp01(mixerPlayable.GetInputWeight(index) + delta);
             mixerPlayable.SetInputWeight(index, weight);
             return weight;
+        }*/
+
+        private float ModifyWeight(int index, float delta)
+        {
+            if (index < 0 || index >= clipCount) return 0;
+            var weight = Mathf.Clamp01(mixerPlayable.GetInputWeight(index) + delta);
+            mixerPlayable.SetInputWeight(index, weight);
+
+            // Disable animation if weight is zero
+            if (weight <= 0f)
+            {
+                AnimHelper.Disable(mixerPlayable.GetInput(index));
+            }
+
+            return weight;
         }
+
 
         private void SetInputWeight(int index, float weight)
         {
@@ -186,7 +208,7 @@ namespace AnimSystem.Core
 
             return remain;
         }
-        
+
         public static float GetCurClipLength()
         {
             var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
