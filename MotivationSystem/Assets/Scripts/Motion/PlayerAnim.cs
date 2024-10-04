@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AnimSystem.Core;
 using Tool;
+using UnityEngine;
 using UnityEngine.Playables;
 
 namespace MotionCore
@@ -18,11 +19,10 @@ namespace MotionCore
         private Dictionary<string, int> animIndexDics;
         private AnimSetting curSetting;
 
-        public PlayerAnim(AnimSetting setting,string name, PlayerMotion motion)
+        public PlayerAnim(AnimSetting setting, string name, PlayerMotion motion)
         {
             graph = PlayableGraph.Create(name);
             mixer = new Mixer(graph);
-            
             curSetting = setting;
 
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
@@ -46,7 +46,7 @@ namespace MotionCore
             var moveAnim = curSetting.GetAnim(AnimName.Move);
             move = new BlendTree2D(graph, moveAnim.enterTime, moveAnim.blendClips);
             AddStateAnim(AnimName.Move, move);
-            
+
             for (int i = 0; i < curSetting.attacks.Count; i++)
             {
                 var anim = curSetting.attacks[i];
@@ -73,21 +73,34 @@ namespace MotionCore
         {
             if (animIndexDics.TryGetValue(animName, out var index))
             {
-                //Debug.Log("Transition to: " + index);
                 mixer.TransitionTo(index);
             }
         }
 
         public void UpdateMove(float x, float y)
         {
+            Debug.Log(move.enabled);
             if (move.enabled)
             {
                 move.SetPoint(x, y);
             }
         }
 
+        public void StopGraph()
+        {
+            mixer.TransitToDefault();
+            graph.Stop();
+        }
+
+        public void RePlayGraph()
+        {
+            AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
+            AnimHelper.Go(graph, mixer);
+        }
+
         public void OnDestroy()
         {
+            move.Destroy();
             graph.Destroy();
         }
     }

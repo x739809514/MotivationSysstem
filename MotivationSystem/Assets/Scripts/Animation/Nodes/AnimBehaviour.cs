@@ -8,7 +8,7 @@ namespace AnimSystem.Core
     {
         public bool enabled;
         protected Playable animAdapter;
-        private PlayableGraph graph;
+        protected PlayableGraph graph;
         protected float remainTime;
         protected Action callback;
 

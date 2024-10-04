@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using AnimSystem.Core;
 using Core;
@@ -15,9 +14,11 @@ public class GameLoop : MonoBehaviour
     public float jumpForce;
     public float walkForce;
     public float runForce;
+    public GameObject weapon;
+
     public InputData inputData;
-    public AnimSetting animSetting;
-    //public AnimSetting riotSetting;
+    public AnimSetting riotSetting;
+    public AnimSetting swordSetting;
 
     private PlayerMotion motion;
     private PlayerParam param;
@@ -36,15 +37,14 @@ public class GameLoop : MonoBehaviour
         instance = this;
         rb = GetComponent<Rigidbody>();
         model = transform;
-
-        motion = new PlayerMotion(animSetting);
+        motion = new PlayerMotion(riotSetting, swordSetting);
         param = motion.playerParam;
         inputManager = new InputManager(inputData, "inputJson");
     }
 
     private void Start()
     {
-        motion.LoadRiotAttack();
+        motion.LoadSwordAttack();
     }
 
     private void Update()
@@ -80,7 +80,15 @@ public class GameLoop : MonoBehaviour
         // roit
         if (InputManager.instance.GetKeyDown("riot"))
         {
+            weapon.SetActive(false);
             motion.LoadRiotAttack();
+        }
+
+        // sword
+        if (InputManager.instance.GetKeyDown("sword"))
+        {
+            weapon.SetActive(true);
+            motion.LoadSwordAttack();
         }
     }
 
@@ -119,7 +127,7 @@ public class GameLoop : MonoBehaviour
             PlayComboAnimation();
 
             // 等待当前动画播放完毕
-            yield return new WaitForSeconds(Mixer.GetCurClipLength()); //
+            yield return new WaitForSeconds(0.8f); //Mixer.GetCurClipLength()
             canMove = true;
 
             // 如果连招计数器超过最大值，重置

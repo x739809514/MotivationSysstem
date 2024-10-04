@@ -9,19 +9,28 @@ namespace MotionCore
     public class PlayerMotion
     {
         public PlayerAI playerAI { get; }
-        public PlayerAnim playerAnim { get; }
-        public PlayerModel playerModel { get; }
+        public PlayerAnim curAnim { get; private set; }
         public PlayerParam playerParam { get; }
         private AttackType curAttackType;
-        
-        public PlayerMotion(AnimSetting setting)
+        private PlayerModel playerModel { get; }
+        private PlayerAnim attackAnim;
+        private PlayerAnim swordAnim;
+
+        public PlayerMotion(AnimSetting setting, AnimSetting setting2)
         {
             playerParam = new PlayerParam();
             playerAI = new PlayerAI(this);
-            playerAnim = new PlayerAnim(setting,"Riot",this);
-            playerModel = new PlayerModel(this,setting);
-            curAttackType = AttackType.Null;
+
+            attackAnim = new PlayerAnim(setting, "Riot", this);
+            attackAnim.LoadAttackAnimation();
+            swordAnim = new PlayerAnim(setting2, "sword", this);
+            swordAnim.LoadAttackAnimation();
             
+            curAnim = swordAnim;
+
+            playerModel = new PlayerModel(this, setting);
+            curAttackType = AttackType.Null;
+
             playerParam.moveHandle += playerModel.SwitchToMove;
             playerParam.idleHandle += playerModel.SwitchToIdle;
             playerParam.landhandle += playerModel.SwitchToLand;
@@ -30,10 +39,25 @@ namespace MotionCore
 
         public void LoadRiotAttack()
         {
-            if (curAttackType!=AttackType.Riot)
+            if (curAttackType != AttackType.Riot)
             {
                 curAttackType = AttackType.Riot;
-                playerAnim.LoadAttackAnimation();
+                curAnim.StopGraph();
+                curAnim = attackAnim;
+                playerModel.SetCurAnim();
+                curAnim.RePlayGraph();
+            }
+        }
+
+        public void LoadSwordAttack()
+        {
+            if (curAttackType != AttackType.Sword)
+            {
+                curAttackType = AttackType.Sword;
+                curAnim.StopGraph();
+                curAnim = swordAnim;
+                playerModel.SetCurAnim();
+                curAnim.RePlayGraph();
             }
         }
 
@@ -44,7 +68,8 @@ namespace MotionCore
 
         public void OnDestroy()
         {
-            playerAnim.OnDestroy();
+            attackAnim.OnDestroy();
+            swordAnim.OnDestroy();
         }
     }
 }

@@ -40,15 +40,6 @@ MonoBehaviour:
     interval: 1
     realInterval: 0.13999999
     keyCode: 323
-  - name: attack
-    trigger: 1
-    enable: 1
-    isDown: 0
-    isDoubleDown: 0
-    acceptDoubleDown: 0
-    interval: 1
-    realInterval: 0
-    keyCode: 107
   - name: riot
     trigger: 0
     enable: 1
@@ -58,6 +49,15 @@ MonoBehaviour:
     interval: 1
     realInterval: 0
     keyCode: 49
+  - name: sword
+    trigger: 0
+    enable: 1
+    isDown: 0
+    isDoubleDown: 0
+    acceptDoubleDown: 0
+    interval: 1
+    realInterval: 0
+    keyCode: 50
   valueKeys: []
   axisKeys:
   - name: vertical

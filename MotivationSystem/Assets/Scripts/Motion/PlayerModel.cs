@@ -29,7 +29,7 @@ namespace MotionCore
         {
             this.motion = motion;
             ai = motion.playerAI;
-            anim = motion.playerAnim;
+            anim = motion.curAnim;
             param = motion.playerParam;
             this.setting = setting;
             rb = GameLoop.instance.rb;
@@ -58,20 +58,6 @@ namespace MotionCore
             ai.SwitchState(ai.idle);
         }
 
-        /*public void SwitchToJump()
-        {
-            if (ai.curStateName != null && ai.curStateName == AnimName.Jump)
-            {
-                return;
-            }
-
-            anim.TransitionTo(AnimName.Jump);
-            ai.SwitchState(ai.jump);
-            //Todo: model motion
-            GameLoop.instance.rb.velocity = param.velocity;
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }*/
-
         public void SwitchToMove(Vector2 input)
         {
             // clear
@@ -98,6 +84,7 @@ namespace MotionCore
 
             anim.TransitionTo(AnimName.Move);
             anim.UpdateMove(moveClip.pos.x, moveClip.pos.y * animMultiply);
+            Debug.Log("point: (" + moveClip.pos.x + "," + moveClip.pos.y * animMultiply + ")");
 
             if (Camera.main != null)
             {
@@ -191,6 +178,11 @@ namespace MotionCore
             }
 
             return false;
+        }
+
+        public void SetCurAnim()
+        {
+            anim = motion.curAnim;
         }
 
 #endregion

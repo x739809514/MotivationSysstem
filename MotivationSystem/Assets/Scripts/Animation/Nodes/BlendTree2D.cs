@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -90,6 +91,13 @@ namespace AnimSystem.Core
         {
             base.Enable();
             SetPoint(0,0);
+            
+            if (computeBuffer == null)
+            {
+                computeBuffer = new ComputeBuffer(clipCount, 12);
+                computeShader.SetBuffer(kernel, "dataBuffer", computeBuffer);
+            }
+            
             for (int i = 0; i < clipCount; i++)
             {
                 mix.GetInput(i).Play();
@@ -116,6 +124,11 @@ namespace AnimSystem.Core
         public override void Stop()
         {
             base.Stop();
+            
+        }
+
+        public void Destroy()
+        {
             // free to avoid leak
             computeBuffer.Dispose();
         }

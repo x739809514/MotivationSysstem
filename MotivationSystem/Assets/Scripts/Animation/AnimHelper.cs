@@ -25,7 +25,6 @@ namespace AnimSystem.Core
 
         public static void Disable(Playable playable)
         {
-            
             var adapter = GetAdapter(playable);
             if (adapter != null)
             {
@@ -33,9 +32,18 @@ namespace AnimSystem.Core
             }
         }
 
-        public static void SetOutPut(PlayableGraph graph,AnimBehaviour behaviour,Animator animator)
+        public static void SetOutPut(PlayableGraph graph, AnimBehaviour behaviour, Animator animator)
         {
-            var output = AnimationPlayableOutput.Create(graph,"Animation Output",animator);
+            for (int i = 0; i < graph.GetOutputCount(); i++)
+            {
+                var o = graph.GetOutput(i);
+                if (o.IsOutputValid())
+                {
+                    graph.DestroyOutput(o);
+                }
+            }
+
+            var output = AnimationPlayableOutput.Create(graph, "Animation Output", animator);
             output.SetSourcePlayable(behaviour.GetAnimAdapter());
         }
 

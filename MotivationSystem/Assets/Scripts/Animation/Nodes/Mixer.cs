@@ -7,7 +7,7 @@ namespace AnimSystem.Core
 {
     public class Mixer : AnimBehaviour
     {
-        private static AnimationMixerPlayable mixerPlayable;
+        private AnimationMixerPlayable mixerPlayable;
         private List<int> declineIndex;
         private int curIndex;
         private static int targetIndex;
@@ -194,7 +194,7 @@ namespace AnimSystem.Core
             return remain;
         }
 
-        public static float GetCurClipLength()
+        public float GetCurClipLength()
         {
             var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(targetIndex)).GetBehaviour()
                 .animBehaviour;
@@ -204,6 +204,14 @@ namespace AnimSystem.Core
             }
 
             return 0f;
+        }
+
+        public void TransitToDefault()
+        {
+            for (int i = 0; i < mixerPlayable.GetInputCount(); i++)
+            {
+                mixerPlayable.SetInputWeight(i, i == 0 ? 1f : 0f);
+            }
         }
     }
 }
