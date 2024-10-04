@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using AnimSystem.Core;
 using Core;
@@ -16,7 +17,7 @@ public class GameLoop : MonoBehaviour
     public float runForce;
     public InputData inputData;
     public AnimSetting animSetting;
-    public AnimSetting riotSetting;
+    //public AnimSetting riotSetting;
 
     private PlayerMotion motion;
     private PlayerParam param;
@@ -39,6 +40,11 @@ public class GameLoop : MonoBehaviour
         motion = new PlayerMotion(animSetting);
         param = motion.playerParam;
         inputManager = new InputManager(inputData, "inputJson");
+    }
+
+    private void Start()
+    {
+        motion.LoadRiotAttack();
     }
 
     private void Update()
@@ -74,7 +80,7 @@ public class GameLoop : MonoBehaviour
         // roit
         if (InputManager.instance.GetKeyDown("riot"))
         {
-            motion.LoadRiotAttack(riotSetting);
+            motion.LoadRiotAttack();
         }
     }
 

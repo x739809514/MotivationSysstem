@@ -28,6 +28,7 @@ namespace AnimSystem.Core
     public class AnimSetting : ScriptableObject
     {
         public List<AnimInfo> anims;
+        public List<AnimInfo> attacks;
 
         public AnimInfo GetAnim(string name)
         {

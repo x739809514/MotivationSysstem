@@ -18,18 +18,12 @@ namespace MotionCore
         private Dictionary<string, int> animIndexDics;
         private AnimSetting curSetting;
 
-        public PlayerAnim(AnimSetting setting, PlayerMotion motion)
+        public PlayerAnim(AnimSetting setting,string name, PlayerMotion motion)
         {
-            graph = PlayableGraph.Create();
+            graph = PlayableGraph.Create(name);
             mixer = new Mixer(graph);
-
-            var idleAnim = setting.GetAnim(AnimName.Idle);
-            idle = new AnimUnit(graph, idleAnim.clip, idleAnim.enterTime);
-            AddStateAnim(AnimName.Idle, idle);
-
-            var moveAnim = setting.GetAnim(AnimName.Move);
-            move = new BlendTree2D(graph, moveAnim.enterTime, moveAnim.blendClips);
-            AddStateAnim(AnimName.Move, move);
+            
+            curSetting = setting;
 
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
             AnimHelper.Go(graph, mixer);
@@ -43,12 +37,19 @@ namespace MotionCore
             }
         }*/
 
-        public void LoadAttackAnimation(AnimSetting setting)
+        public void LoadAttackAnimation()
         {
-            curSetting = setting;
-            for (int i = 0; i < setting.anims.Count; i++)
+            var idleAnim = curSetting.GetAnim(AnimName.Idle);
+            idle = new AnimUnit(graph, idleAnim.clip, idleAnim.enterTime);
+            AddStateAnim(AnimName.Idle, idle);
+
+            var moveAnim = curSetting.GetAnim(AnimName.Move);
+            move = new BlendTree2D(graph, moveAnim.enterTime, moveAnim.blendClips);
+            AddStateAnim(AnimName.Move, move);
+            
+            for (int i = 0; i < curSetting.attacks.Count; i++)
             {
-                var anim = setting.anims[i];
+                var anim = curSetting.attacks[i];
                 var alv = new AnimUnit(graph, anim.clip, anim.enterTime);
                 AddStateAnim(anim.name, alv);
             }

@@ -18,7 +18,7 @@ namespace MotionCore
         {
             playerParam = new PlayerParam();
             playerAI = new PlayerAI(this);
-            playerAnim = new PlayerAnim(setting,this);
+            playerAnim = new PlayerAnim(setting,"Riot",this);
             playerModel = new PlayerModel(this,setting);
             curAttackType = AttackType.Null;
             
@@ -28,12 +28,12 @@ namespace MotionCore
             playerParam.attackHandle += playerModel.SwitchToAttack;
         }
 
-        public void LoadRiotAttack(AnimSetting setting)
+        public void LoadRiotAttack()
         {
             if (curAttackType!=AttackType.Riot)
             {
                 curAttackType = AttackType.Riot;
-                playerAnim.LoadAttackAnimation(setting);
+                playerAnim.LoadAttackAnimation();
             }
         }
 
