@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using AnimSystem.Core;
 using Core;
 using MotionCore;
+using Tool;
 using UnityEngine;
 
 public class GameLoop : MonoBehaviour
@@ -16,6 +16,7 @@ public class GameLoop : MonoBehaviour
     public float runForce;
     public InputData inputData;
     public AnimSetting animSetting;
+    public AnimSetting riotSetting;
 
     private PlayerMotion motion;
     private PlayerParam param;
@@ -43,11 +44,6 @@ public class GameLoop : MonoBehaviour
     private void Update()
     {
         InputManager.instance.Update(Time.deltaTime);
-        // jump
-        /*if (InputManager.instance.GetKeyDown("jump"))
-        {
-            param.JumpPress = true;
-        }*/
 
         // move
         param.runPress = InputManager.instance.GetKeyDown("shift");
@@ -65,7 +61,7 @@ public class GameLoop : MonoBehaviour
         }
 
         // attack
-        if (InputManager.instance.GetKeyDown("attack"))
+        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null)
         {
             attackPressedDuringComboWindow = true;
             canMove = false;
@@ -74,16 +70,16 @@ public class GameLoop : MonoBehaviour
                 StartCoroutine(ExecuteCombo());
             }
         }
+
+        // roit
+        if (InputManager.instance.GetKeyDown("riot"))
+        {
+            motion.LoadRiotAttack(riotSetting);
+        }
     }
 
     private void FixedUpdate()
     {
-        /*if (param.JumpPress)
-        {
-            param.OnGround = false;
-            param.jumpHandle?.Invoke();
-        }*/
-
         // move
         if (param.inputPress && canMove)
         {
@@ -107,8 +103,6 @@ public class GameLoop : MonoBehaviour
     }
 
     // 执行连招攻击
-    // 执行连招攻击
-    // 捕捉攻击键按下
     IEnumerator ExecuteCombo()
     {
         isAttacking = true;
@@ -119,9 +113,9 @@ public class GameLoop : MonoBehaviour
             PlayComboAnimation();
 
             // 等待当前动画播放完毕
-            yield return new WaitForSeconds(Mixer.GetCurClipLength());  //
+            yield return new WaitForSeconds(Mixer.GetCurClipLength()); //
             canMove = true;
-            
+
             // 如果连招计数器超过最大值，重置
             if (param.AttackLevel >= maxComboCount)
             {

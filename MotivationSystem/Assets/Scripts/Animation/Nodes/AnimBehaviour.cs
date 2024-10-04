@@ -4,39 +4,31 @@ using UnityEngine.Playables;
 
 namespace AnimSystem.Core
 {
-    public abstract class AnimBehaviour 
+    public abstract class AnimBehaviour
     {
         public bool enabled;
         protected Playable animAdapter;
         private PlayableGraph graph;
         protected float remainTime;
         protected Action callback;
-    
-        protected float EnterTime
-        {
-            get;
-            private set;
-        }
 
-        protected float AnimLength
-        {
-            get;
-            private set;
-        }
+        protected float EnterTime { get; private set; }
+
+        protected float AnimLength { get; private set; }
         public PlayableGraph playableGraph;
 
-        protected AnimBehaviour(){}
+        protected AnimBehaviour() { }
 
-        protected AnimBehaviour(PlayableGraph graph, float enter=0)
+        protected AnimBehaviour(PlayableGraph graph, float enter = 0)
         {
             this.graph = graph;
             EnterTime = enter;
             AnimLength = float.NaN;
             animAdapter = ScriptPlayable<AnimAdapter>.Create(graph);
             ((ScriptPlayable<AnimAdapter>)animAdapter).GetBehaviour().Init(this);
-            playableGraph= graph;
+            playableGraph = graph;
         }
-    
+
         public Playable GetAnimAdapter()
         {
             return animAdapter;
@@ -44,23 +36,20 @@ namespace AnimSystem.Core
 
 
 #region override
-        protected virtual void AddInput(Playable playable)
-        {
-        }
-    
+
+        protected virtual void AddInput(Playable playable) { }
+
         public virtual void AddInput(AnimBehaviour behavior)
         {
             AddInput(behavior.GetAnimAdapter());
         }
 
-        public virtual void AddInput(AnimationClip clip,float enterTime=0)
+        public virtual void AddInput(AnimationClip clip, float enterTime = 0)
         {
-            AddInput(new AnimUnit(this.graph,clip,enterTime));
+            AddInput(new AnimUnit(this.graph, clip, enterTime));
         }
-    
-        public virtual void Stop()
-        {
-        }
+
+        public virtual void Stop() { }
 
         public virtual float GetEnterTime()
         {
@@ -71,21 +60,21 @@ namespace AnimSystem.Core
         {
             return AnimLength;
         }
-    
+
         public virtual void Enable()
         {
-            enabled=true;
+            enabled = true;
             remainTime = GetAnimLength();
         }
 
         public virtual void Disable()
         {
-            enabled=false;
+            enabled = false;
         }
 
-        public virtual void Execute(Playable playable,FrameData info)
+        public virtual void Execute(Playable playable, FrameData info)
         {
-            if(enabled==false)return;
+            if (enabled == false) return;
             remainTime = remainTime > 0 ? remainTime - info.deltaTime : 0f;
         }
 
@@ -95,6 +84,5 @@ namespace AnimSystem.Core
         }
 
 #endregion
-    
     }
 }

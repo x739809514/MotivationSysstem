@@ -303,6 +303,9 @@ MonoBehaviour:
   runForce: 8
   inputData: {fileID: 11400000, guid: 99a2245058655476fb2da6513f1f631f, type: 2}
   animSetting: {fileID: 11400000, guid: 14c07667d0a3642449013d0fa22141e9, type: 2}
+  riotSetting: {fileID: 11400000, guid: 047781e4224b9ab458cbeedbc1c54376, type: 2}
+  comboTimeout: 1.2
+  maxComboCount: 6
 --- !u!54 &613763882
 Rigidbody:
   m_ObjectHideFlags: 0
