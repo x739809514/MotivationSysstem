@@ -55,7 +55,7 @@ namespace MotionCore
                 block.BindCallBackHandle(() =>
                 {
                     GameLoop.instance.canMove = true;
-                    //TransitionTo(AnimName.Idle);
+                    TransitionTo(AnimName.Idle);
                 });
                 AddStateAnim(AnimName.Block, block);
             }

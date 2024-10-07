@@ -41,6 +41,7 @@ namespace AnimSystem.Core
             if (remainTime<=0)
             {
                 callback?.Invoke();
+                Disable();
             }
         }
 

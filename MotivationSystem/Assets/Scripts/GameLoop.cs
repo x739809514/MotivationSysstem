@@ -28,7 +28,7 @@ public class GameLoop : MonoBehaviour
     //Attack
     public float comboTimeout = 0.2f; // 连招超时时间
     public int maxComboCount = 6; // 连招最大段数
-
+    private Coroutine comboCoroutine;
     private bool isAttacking = false; // 是否正在攻击
     private bool attackPressedDuringComboWindow = false; // 记录在等待期间是否按下攻击键
 
@@ -73,14 +73,13 @@ public class GameLoop : MonoBehaviour
             canMove = false;
             if (param.AttackLevel == 0 && !isAttacking)
             {
-                StartCoroutine(ExecuteCombo());
+                comboCoroutine = StartCoroutine(ExecuteCombo());
             }
         }
 
         if (InputManager.instance.GetKeyDown("block"))
         {
-            param.blockPress = true;
-            canMove = false;
+            EnterBlock();
             param.blockHandle?.Invoke();
         }
 
@@ -124,6 +123,23 @@ public class GameLoop : MonoBehaviour
             param.OnGround = true;
         }
     }
+
+
+#region Methods
+
+    private void EnterBlock()
+    {
+        StopCoroutine(comboCoroutine);
+        param.AttackLevel = 0;
+        isAttacking = false;
+        param.blockPress = true;
+        canMove = false;
+    }
+
+#endregion
+
+
+#region combo
 
     // 执行连招攻击
     IEnumerator ExecuteCombo()
@@ -191,4 +207,6 @@ public class GameLoop : MonoBehaviour
         attackPressedDuringComboWindow = false; // 重置标志位
         Debug.Log("Combo reset.");
     }
+
+#endregion
 }
