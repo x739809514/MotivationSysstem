@@ -10,13 +10,16 @@ namespace MotionCore
     {
         private StateManager<PlayerMotion> stateManager;
         private PlayerParam param;
-        
+
         public FSMStateNode<PlayerMotion> idle { get; }
         public FSMStateNode<PlayerMotion> walk { get; }
+
         public FSMStateNode<PlayerMotion> run { get; }
+
         //public FSMStateNode<PlayerMotion> jump { get; }
         public FSMStateNode<PlayerMotion> land { get; }
         public FSMStateNode<PlayerMotion> attack { get; }
+        public FSMStateNode<PlayerMotion> block { get; }
 
         public string curStateName => stateManager.curState?.stateName;
 
@@ -34,28 +37,30 @@ namespace MotionCore
             run = new FSMStateNode<PlayerMotion>("run");
             stateManager.AddState(run);
 
-            /*jump = new FSMStateNode<PlayerMotion>("jump");
-            stateManager.AddState(jump);*/
+            block = new FSMStateNode<PlayerMotion>("block");
+            stateManager.AddState(block);
 
             land = new FSMStateNode<PlayerMotion>("land");
             stateManager.AddState(land);
 
             attack = new FSMStateNode<PlayerMotion>("attack");
             stateManager.AddState(attack);
-            
-            var idleCondition = new FSMConditionNode<PlayerMotion>(p => true,1000);
-            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.InputVal.normalized.magnitude>=0.1f, 1001);
+
+            var idleCondition = new FSMConditionNode<PlayerMotion>(p => true, 1000);
+            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.InputVal.normalized.magnitude >= 0.1f, 1001);
             //var jumpInput = new FSMConditionNode<PlayerMotion>(p => param.JumpPress, 1002);
             var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
             var landInput = new FSMConditionNode<PlayerMotion>(p => param.velocity.y < 0, 1004);
             var attackInput = new FSMConditionNode<PlayerMotion>(p => param.AttackLevel >= 1, 1005);
-            
+            var blockInput = new FSMConditionNode<PlayerMotion>(PlayerMotion => param.blockPress, 1006);
+
             idle.AddConditions(idleCondition);
             walk.AddConditions(moveInput);
             run.AddConditions(runInput);
             //jump.AddConditions(jumpInput);
             land.AddConditions(landInput);
             attack.AddConditions(attackInput);
+            block.AddConditions(blockInput);
         }
 
         public void Update()

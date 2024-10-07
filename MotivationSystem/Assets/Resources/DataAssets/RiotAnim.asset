@@ -29,16 +29,18 @@ MonoBehaviour:
       pos: {x: 0, y: 1}
     - clip: {fileID: 7400000, guid: a7e98d51bd73b0348b47acf6a9f02766, type: 3}
       pos: {x: 0, y: 2}
-  - name: jump
-    type: 0
-    enterTime: 0.1
-    clip: {fileID: 7400000, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
-    groupClips: []
-    blendClips: []
   - name: land
     type: 1
     enterTime: 0.1
     clip: {fileID: 0}
+    groupClips:
+    - {fileID: 7400002, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
+    - {fileID: 7400000, guid: 94c75858633b4e04f9e28db3b52b2bba, type: 3}
+    blendClips: []
+  - name: block
+    type: 0
+    enterTime: 0.1
+    clip: {fileID: -203655887218126122, guid: 8b317ef825ce10b4ca4f804749ee2667, type: 3}
     groupClips:
     - {fileID: 7400002, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
     - {fileID: 7400000, guid: 94c75858633b4e04f9e28db3b52b2bba, type: 3}

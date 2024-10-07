@@ -109,6 +109,11 @@ namespace AnimSystem.Core
         // cur mixer is interrupt in default
         public void TransitionTo(int index)
         {
+            if (GetCurClipRemain() > 0)
+            {
+                return;
+            }
+
             if (isTransition && targetIndex >= 0)
             {
                 if (index == targetIndex) return;
@@ -180,7 +185,8 @@ namespace AnimSystem.Core
         private float GetCurClipRemain()
         {
             var remain = 0f;
-            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(targetIndex)).GetBehaviour()
+            if (curIndex == -1) return 0;
+            var behaviour = ((ScriptPlayable<AnimAdapter>)mixerPlayable.GetInput(curIndex)).GetBehaviour()
                 .animBehaviour;
             if (behaviour is AnimUnit unit)
             {

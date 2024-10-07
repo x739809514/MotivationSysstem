@@ -8,7 +8,7 @@ namespace AnimSystem.Core
     {
         private AnimationClipPlayable clipPlayable;
         private AnimationClip clip;
-        private float curClipTime;
+        //private float curClipTime;
         private float declineSpeed = 2f;
 
         private bool interrupt;
@@ -20,7 +20,7 @@ namespace AnimSystem.Core
             this.clip = clip;
             clipPlayable = AnimationClipPlayable.Create(graph, clip);
             animAdapter.AddInput(clipPlayable, 0, 1.0f);
-            curClipTime = clip.length;
+            //curClipTime = clip.length;
             interrupt = canInterrupt;
             Disable();
         }
@@ -30,11 +30,15 @@ namespace AnimSystem.Core
             base.Execute(playable, info);
             if (enabled == false) return;
 
-            if (curClipTime > 0f)
+            /*if (curClipTime > 0f)
             {
                 curClipTime -= info.deltaTime * declineSpeed;
             }
             else
+            {
+                callback?.Invoke();
+            }*/
+            if (remainTime<=0)
             {
                 callback?.Invoke();
             }

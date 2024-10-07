@@ -78,6 +78,10 @@ namespace AnimSystem.Core
             remainTime = remainTime > 0 ? remainTime - info.deltaTime : 0f;
         }
 
+        /// <summary>
+        /// Callback when animation finished
+        /// </summary>
+        /// <param name="handle"></param>
         public virtual void BindCallBackHandle(Action handle)
         {
             callback += handle;

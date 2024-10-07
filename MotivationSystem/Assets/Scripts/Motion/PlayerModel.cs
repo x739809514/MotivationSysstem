@@ -157,6 +157,12 @@ namespace MotionCore
             }
         }
 
+        public void SwitchToBlock()
+        {
+            anim.TransitionTo(AnimName.Block);
+            ai.SwitchState(ai.block);
+        }
+
 #endregion
 
 

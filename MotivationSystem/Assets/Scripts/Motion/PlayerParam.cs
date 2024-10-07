@@ -15,11 +15,13 @@ namespace MotionCore
         public Vector3 velocity;
         public bool runPress;
         public bool inputPress;
+        public bool blockPress;
         //public Action jumpHandle;
         public Action<Vector2> moveHandle;
         public Action idleHandle;
         public Action landhandle;
         public Action<int> attackHandle;
+        public Action blockHandle;
 
 
 #region Property
@@ -44,20 +46,6 @@ namespace MotionCore
                 }
             }
         }
-
-        /*public bool JumpPress
-        {
-            get => jumpPress;
-            set
-            {
-                jumpPress = value;
-                /*if (jumpPress)
-                {
-                    OnGround = false;
-                    jumpHandle?.Invoke();
-                }#1#
-            }
-        }*/
 
         public Vector2 InputVal
         {

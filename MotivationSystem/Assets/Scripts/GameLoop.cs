@@ -23,7 +23,7 @@ public class GameLoop : MonoBehaviour
     private PlayerMotion motion;
     private PlayerParam param;
     private InputManager inputManager;
-    private bool canMove = true;
+    public bool canMove = true;
 
     //Attack
     public float comboTimeout = 0.2f; // 连招超时时间
@@ -77,10 +77,18 @@ public class GameLoop : MonoBehaviour
             }
         }
 
+        if (InputManager.instance.GetKeyDown("block"))
+        {
+            param.blockPress = true;
+            canMove = false;
+            param.blockHandle?.Invoke();
+        }
+
         // roit
         if (InputManager.instance.GetKeyDown("riot"))
         {
             weapon.SetActive(false);
+            canMove = true;
             motion.LoadRiotAttack();
         }
 
@@ -88,6 +96,7 @@ public class GameLoop : MonoBehaviour
         if (InputManager.instance.GetKeyDown("sword"))
         {
             weapon.SetActive(true);
+            canMove = true;
             motion.LoadSwordAttack();
         }
     }

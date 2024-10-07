@@ -14,6 +14,7 @@ namespace MotionCore
     {
         private AnimUnit idle;
         private BlendTree2D move;
+        private AnimUnit block;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -46,6 +47,18 @@ namespace MotionCore
             var moveAnim = curSetting.GetAnim(AnimName.Move);
             move = new BlendTree2D(graph, moveAnim.enterTime, moveAnim.blendClips);
             AddStateAnim(AnimName.Move, move);
+
+            var blockAnim = curSetting.GetAnim(AnimName.Block);
+            if (blockAnim != null)
+            {
+                block = new AnimUnit(graph, blockAnim.clip, blockAnim.enterTime, false);
+                block.BindCallBackHandle(() =>
+                {
+                    GameLoop.instance.canMove = true;
+                    //TransitionTo(AnimName.Idle);
+                });
+                AddStateAnim(AnimName.Block, block);
+            }
 
             for (int i = 0; i < curSetting.attacks.Count; i++)
             {
