@@ -26,12 +26,6 @@ public class GameLoop : MonoBehaviour
     private PlayerParam param;
     private InputManager inputManager;
 
-    //private bool isRolling;
-
-    //private bool isBlocking;
-    ///private bool isExecution;
-    //private bool canMove = true;
-
     private float executionTimeout;
     private bool inExecutionWindow;
 
@@ -184,49 +178,34 @@ public class GameLoop : MonoBehaviour
     // block
     private void EnterBlock()
     {
-        //if (param.isBlocking) return;
         if (comboCoroutine != null)
         {
             StopCoroutine(comboCoroutine);
         }
 
-        //param.AttackLevel = 0;
         isAttacking = false;
         param.blockPress = true;
-        /*param.canMove = false;
-        param.isBlocking = true;*/
         param.blockHandle?.Invoke();
     }
 
     private void QuitBlock()
     {
         if (param.isBlocking == false) return;
-        /*param.isBlocking = false;
-        param.canMove = true;*/
         param.idleHandle?.Invoke();
     }
 
     IEnumerator Execution()
     {
-        //param.isBlocking = false;
         param.executionHandle?.Invoke();
-        //isExecution = true;
         yield return new WaitForSeconds(1.2f);
-        //isExecution = false;
-        //param.canMove = true;
         param.idleHandle?.Invoke();
     }
 
     // roll
     IEnumerator ExecuteRoll()
     {
-        /*isRolling = true;
-        param.canMove = false;*/
         param.rollHandle?.Invoke();
-        //param.rollPress = false;
         yield return new WaitForSeconds(1.2f);
-        /*param.canMove = true;
-        isRolling = false;*/
         param.idleHandle?.Invoke();
     }
 

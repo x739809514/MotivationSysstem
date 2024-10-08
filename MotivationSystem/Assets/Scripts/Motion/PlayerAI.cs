@@ -1,6 +1,4 @@
 ﻿using FSM;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEditor.MemoryProfiler;
 
 namespace MotionCore
 {
@@ -130,6 +128,8 @@ namespace MotionCore
 #endregion
 
 
+#region State
+
         private void EnterBlockState(PlayerMotion obj)
         {
             param.AttackLevel = 0;
@@ -167,5 +167,8 @@ namespace MotionCore
             param.canMove = true;
             param.isRolling = false;
         }
+
+#endregion
+        
     }
 }
