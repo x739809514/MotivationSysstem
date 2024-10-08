@@ -35,6 +35,12 @@ MonoBehaviour:
     clip: {fileID: 7400000, guid: 96ed5e4a6dc56fe4c9c2de75fc8a077c, type: 3}
     groupClips: []
     blendClips: []
+  - name: roll
+    type: 0
+    enterTime: 0.1
+    clip: {fileID: 7400000, guid: 6c53184d9a4fe38429cf4aac4a3979d2, type: 3}
+    groupClips: []
+    blendClips: []
   attacks:
   - name: attackLevel1
     type: 0

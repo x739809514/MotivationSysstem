@@ -16,12 +16,15 @@ namespace MotionCore
         public bool runPress;
         public bool inputPress;
         public bool blockPress;
-        //public Action jumpHandle;
+        public bool rollPress;
+
+        // event handle
         public Action<Vector2> moveHandle;
         public Action idleHandle;
         public Action landhandle;
         public Action<int> attackHandle;
         public Action blockHandle;
+        public Action rollHandle;
 
 
 #region Property
@@ -34,7 +37,6 @@ namespace MotionCore
                 onGround = value;
                 if (onGround)
                 {
-                    //JumpPress = false;
                     if (velocity.y<0)
                     {
                         landhandle?.Invoke();
@@ -53,9 +55,6 @@ namespace MotionCore
             set
             {
                 inputVal = value;
-                /*if (inputPress==false) return;
-                
-                moveHandle?.Invoke(value);*/
             }
         }
 
@@ -65,7 +64,6 @@ namespace MotionCore
             set
             {
                 attackLevel = value;
-                //attackHandle?.Invoke(attackLevel);
             }
         }
 

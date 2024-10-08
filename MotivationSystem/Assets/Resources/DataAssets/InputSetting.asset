@@ -67,6 +67,15 @@ MonoBehaviour:
     interval: 1
     realInterval: 0
     keyCode: 324
+  - name: roll
+    trigger: 0
+    enable: 1
+    isDown: 0
+    isDoubleDown: 0
+    acceptDoubleDown: 0
+    interval: 1
+    realInterval: 0
+    keyCode: 99
   valueKeys: []
   axisKeys:
   - name: vertical

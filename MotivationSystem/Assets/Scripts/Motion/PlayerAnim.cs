@@ -8,13 +8,14 @@ namespace MotionCore
 {
     /// <summary>
     /// Animation of player
-    /// Add animattion for player
+    /// Add animation for player
     /// </summary>
     public class PlayerAnim
     {
         private AnimUnit idle;
         private BlendTree2D move;
         private AnimUnit block;
+        private AnimUnit roll;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -29,15 +30,7 @@ namespace MotionCore
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
             AnimHelper.Go(graph, mixer);
         }
-
-        /*private void AddGroupAnim(AnimationClip[] clips, float enterTime)
-        {
-            for (int i = 0, length = clips.Length; i < length; i++)
-            {
-                land.AddInput(clips[i], enterTime);
-            }
-        }*/
-
+        
         public void LoadAttackAnimation()
         {
             var idleAnim = curSetting.GetAnim(AnimName.Idle);
@@ -49,16 +42,13 @@ namespace MotionCore
             AddStateAnim(AnimName.Move, move);
 
             var blockAnim = curSetting.GetAnim(AnimName.Block);
-            if (blockAnim != null)
-            {
-                block = new AnimUnit(graph, blockAnim.clip, blockAnim.enterTime, false);
-                block.BindCallBackHandle(() =>
-                {
-                    GameLoop.instance.canMove = true;
-                    TransitionTo(AnimName.Idle);
-                });
-                AddStateAnim(AnimName.Block, block);
-            }
+            block = new AnimUnit(graph, blockAnim.clip, blockAnim.enterTime, false);
+            AddStateAnim(AnimName.Block, block);
+
+
+            var rollAnim = curSetting.GetAnim(AnimName.Roll);
+            roll = new AnimUnit(graph, rollAnim.clip, rollAnim.enterTime, false);
+            AddStateAnim(AnimName.Roll,roll);
 
             for (int i = 0; i < curSetting.attacks.Count; i++)
             {

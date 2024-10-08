@@ -1,6 +1,5 @@
 ﻿using AnimSystem.Core;
 using Tool;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MotionCore
@@ -17,9 +16,9 @@ namespace MotionCore
         private PlayerAI ai;
         private Rigidbody rb;
         private Transform model;
-        private float jumpForce;
         private float runForce;
         private float walkForce;
+        private float rollForce;
         private float animMultiply = 1f;
         private float speedMultiply = 1f;
         private float turnSmoothVal;
@@ -34,7 +33,7 @@ namespace MotionCore
             this.setting = setting;
             rb = GameLoop.instance.rb;
             model = GameLoop.instance.model;
-            jumpForce = GameLoop.instance.jumpForce;
+            rollForce = GameLoop.instance.rollForce;
             runForce = GameLoop.instance.runForce;
             walkForce = GameLoop.instance.walkForce;
         }
@@ -123,7 +122,6 @@ namespace MotionCore
 
         public void SwitchToAttack(int alv)
         {
-            /*if (param.OnGround == false) return;*/
             switch (alv)
             {
                 case 0:
@@ -161,6 +159,13 @@ namespace MotionCore
         {
             anim.TransitionTo(AnimName.Block);
             ai.SwitchState(ai.block);
+        }
+
+        public void SwitchToRoll()
+        {
+            rb.AddForce(model.forward * rollForce, ForceMode.Impulse);
+            anim.TransitionTo(AnimName.Roll);
+            ai.SwitchState(ai.roll);
         }
 
 #endregion
