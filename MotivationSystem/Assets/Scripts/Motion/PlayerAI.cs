@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor.MemoryProfiler;
 
 namespace MotionCore
@@ -43,6 +44,8 @@ namespace MotionCore
             stateManager.AddState(block);
 
             roll = new FSMStateNode<PlayerMotion>("roll");
+            roll.BindEnterHandle(EnterRoll);
+            roll.BindExitHandle(ExitRoll);
             stateManager.AddState(roll);
 
             land = new FSMStateNode<PlayerMotion>("land");
@@ -52,6 +55,8 @@ namespace MotionCore
             stateManager.AddState(attack);
 
             execution = new FSMStateNode<PlayerMotion>("execution");
+            execution.BindEnterHandle(EnterExecution);
+            execution.BindExitHandle(ExitExecution);
             stateManager.AddState(execution);
 
             var idleCondition = new FSMConditionNode<PlayerMotion>(p => true, 1000);
@@ -114,7 +119,7 @@ namespace MotionCore
 
         private bool CheckRollCondition(PlayerMotion p)
         {
-            return param.rollPress;
+            return param.rollPress & param.isRolling==false;
         }
 
         private bool CheckExecutionCondition(PlayerMotion p)
@@ -136,6 +141,31 @@ namespace MotionCore
         {
             param.isBlocking = false;
             param.canMove = true;
+        }
+
+        private void EnterExecution(PlayerMotion obj)
+        {
+            param.isBlocking = false;
+            param.isExecution = true;
+        }
+
+        private void ExitExecution(PlayerMotion obj)
+        {
+            param.isExecution = false;
+            param.canMove = true;
+        }
+
+        private void EnterRoll(PlayerMotion obj)
+        {
+            param.isRolling = true;
+            param.canMove = false;
+            param.rollPress = false;
+        }
+
+        private void ExitRoll(PlayerMotion obj)
+        {
+            param.canMove = true;
+            param.isRolling = false;
         }
     }
 }

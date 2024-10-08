@@ -26,10 +26,10 @@ public class GameLoop : MonoBehaviour
     private PlayerParam param;
     private InputManager inputManager;
 
-    private bool isRolling;
+    //private bool isRolling;
 
     //private bool isBlocking;
-    private bool isExecution;
+    ///private bool isExecution;
     //private bool canMove = true;
 
     private float executionTimeout;
@@ -108,7 +108,7 @@ public class GameLoop : MonoBehaviour
         // block
         if (InputManager.instance.GetKeyDown("block"))
         {
-            if (isExecution == false)
+            if (param.isExecution == false)
             {
                 EnterBlock();
             }
@@ -119,7 +119,7 @@ public class GameLoop : MonoBehaviour
         }
 
         // roit
-        if (InputManager.instance.GetKeyDown("riot") && isRolling == false && param.isBlocking == false)
+        if (InputManager.instance.GetKeyDown("riot") && param.isRolling == false && param.isBlocking == false)
         {
             weapon.SetActive(false);
             param.canMove = true;
@@ -127,7 +127,7 @@ public class GameLoop : MonoBehaviour
         }
 
         // sword
-        if (InputManager.instance.GetKeyDown("sword") && isRolling == false && param.isBlocking == false)
+        if (InputManager.instance.GetKeyDown("sword") && param.isRolling == false && param.isBlocking == false)
         {
             weapon.SetActive(true);
             param.canMove = true;
@@ -159,7 +159,7 @@ public class GameLoop : MonoBehaviour
 
         param.velocity = rb.velocity;
 
-        if (param.rollPress && isRolling == false)
+        if (param.rollPress && param.isRolling == false)
         {
             StartCoroutine(ExecuteRoll());
         }
@@ -208,25 +208,25 @@ public class GameLoop : MonoBehaviour
 
     IEnumerator Execution()
     {
-        param.isBlocking = false;
+        //param.isBlocking = false;
         param.executionHandle?.Invoke();
-        isExecution = true;
+        //isExecution = true;
         yield return new WaitForSeconds(1.2f);
-        isExecution = false;
-        param.canMove = true;
+        //isExecution = false;
+        //param.canMove = true;
         param.idleHandle?.Invoke();
     }
 
     // roll
     IEnumerator ExecuteRoll()
     {
-        isRolling = true;
-        param.canMove = false;
+        /*isRolling = true;
+        param.canMove = false;*/
         param.rollHandle?.Invoke();
-        param.rollPress = false;
+        //param.rollPress = false;
         yield return new WaitForSeconds(1.2f);
-        param.canMove = true;
-        isRolling = false;
+        /*param.canMove = true;
+        isRolling = false;*/
         param.idleHandle?.Invoke();
     }
 

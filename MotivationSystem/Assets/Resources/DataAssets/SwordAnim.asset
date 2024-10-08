@@ -52,37 +52,37 @@ MonoBehaviour:
   attacks:
   - name: attackLevel1
     type: 0
-    enterTime: 0.3
+    enterTime: 0.15
     clip: {fileID: 7400000, guid: dce280ced5e006c4cb0eb0fab2f51b75, type: 3}
     groupClips: []
     blendClips: []
   - name: attackLevel2
     type: 0
-    enterTime: 0.3
+    enterTime: 0.15
     clip: {fileID: 7400000, guid: 7b5b17e2d42e0424f9c36012595dc9b6, type: 3}
     groupClips: []
     blendClips: []
   - name: attackLevel3
     type: 0
-    enterTime: 0.3
+    enterTime: 0.15
     clip: {fileID: 7400000, guid: 018ce46eeecfeae4abb8016f2c6841ca, type: 3}
     groupClips: []
     blendClips: []
   - name: attackLevel4
     type: 0
-    enterTime: 0.3
+    enterTime: 0.15
     clip: {fileID: 7400000, guid: cdd2643e8053d5b419629acf98510a71, type: 3}
     groupClips: []
     blendClips: []
   - name: attackLevel5
     type: 0
-    enterTime: 0.3
+    enterTime: 0.15
     clip: {fileID: 7400000, guid: 04cb27dc01c081446ba2c02f2761f01d, type: 3}
     groupClips: []
     blendClips: []
   - name: attackLevel6
     type: 0
-    enterTime: 0.3
+    enterTime: 0.15
     clip: {fileID: 7400000, guid: c9cdccfb9d6cfef4d9992105a94b5d86, type: 3}
     groupClips: []
     blendClips: []

@@ -192,9 +192,11 @@ namespace MotionCore
 
         public void SwitchToRoll()
         {
-            rb.AddForce(model.forward * rollForce, ForceMode.Impulse);
-            anim.TransitionTo(AnimName.Roll);
-            ai.SwitchState(ai.roll);
+            if (ai.SwitchState(ai.roll))
+            {
+                rb.AddForce(model.forward * rollForce, ForceMode.Impulse);
+                anim.TransitionTo(AnimName.Roll);
+            }
         }
 
         public void SwitchExecution()
