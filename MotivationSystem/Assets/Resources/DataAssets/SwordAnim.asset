@@ -30,10 +30,12 @@ MonoBehaviour:
     - clip: {fileID: 7400000, guid: 0000872662c8fb241bf2ab6cc00dd461, type: 3}
       pos: {x: 0, y: 2}
   - name: block
-    type: 0
+    type: 1
     enterTime: 0.1
-    clip: {fileID: 7400000, guid: 96ed5e4a6dc56fe4c9c2de75fc8a077c, type: 3}
-    groupClips: []
+    clip: {fileID: 0}
+    groupClips:
+    - {fileID: -203655887218126122, guid: df6690463c2c77a40bc12ad72e691f94, type: 3}
+    - {fileID: -203655887218126122, guid: 0766de7436e78664ca4a54ec84cd0938, type: 3}
     blendClips: []
   - name: roll
     type: 0

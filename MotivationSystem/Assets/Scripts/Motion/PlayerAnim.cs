@@ -14,7 +14,7 @@ namespace MotionCore
     {
         private AnimUnit idle;
         private BlendTree2D move;
-        private AnimUnit block;
+        private AnimGroup block;
         private AnimUnit roll;
         private PlayableGraph graph;
         private Mixer mixer;
@@ -30,7 +30,7 @@ namespace MotionCore
             AnimHelper.SetOutPut(graph, mixer, GameLoop.instance.animator);
             AnimHelper.Go(graph, mixer);
         }
-        
+
         public void LoadAttackAnimation()
         {
             var idleAnim = curSetting.GetAnim(AnimName.Idle);
@@ -42,13 +42,17 @@ namespace MotionCore
             AddStateAnim(AnimName.Move, move);
 
             var blockAnim = curSetting.GetAnim(AnimName.Block);
-            block = new AnimUnit(graph, blockAnim.clip, blockAnim.enterTime);
+            block = new AnimGroup(graph, blockAnim.enterTime);
+            foreach (var clip in blockAnim.groupClips)
+            {
+                block.AddInput(clip, 0.1f);
+            }
             AddStateAnim(AnimName.Block, block);
 
 
             var rollAnim = curSetting.GetAnim(AnimName.Roll);
             roll = new AnimUnit(graph, rollAnim.clip, rollAnim.enterTime, false);
-            AddStateAnim(AnimName.Roll,roll);
+            AddStateAnim(AnimName.Roll, roll);
 
             for (int i = 0; i < curSetting.attacks.Count; i++)
             {

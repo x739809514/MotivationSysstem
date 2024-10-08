@@ -27,10 +27,10 @@ public class GameLoop : MonoBehaviour
     private InputManager inputManager;
     private bool isRolling;
     private bool isBlocking;
+    private bool isExecution;
     private bool canMove = true;
 
     private float executionTimeout;
-    private Coroutine blockCoroutine;
     private bool inExecutionWindow;
 
     //Attack
@@ -83,7 +83,8 @@ public class GameLoop : MonoBehaviour
         }
 
         // attack
-        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null && isBlocking==false)
+        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null &&
+            isBlocking == false)
         {
             canMove = false;
             if (inExecutionWindow)
@@ -103,8 +104,14 @@ public class GameLoop : MonoBehaviour
         // block
         if (InputManager.instance.GetKeyDown("block"))
         {
-            EnterBlock();
-            param.blockHandle?.Invoke();
+            if (isExecution == false)
+            {
+                EnterBlock();
+            }
+        }
+        else
+        {
+            QuitBlock();
         }
 
         // roit
@@ -145,7 +152,7 @@ public class GameLoop : MonoBehaviour
         {
             param.moveHandle?.Invoke(param.InputVal);
         }
-        
+
         param.velocity = rb.velocity;
 
         if (param.rollPress && isRolling == false)
@@ -173,21 +180,23 @@ public class GameLoop : MonoBehaviour
     // block
     private void EnterBlock()
     {
+        if (isBlocking) return;
         if (comboCoroutine != null)
         {
             StopCoroutine(comboCoroutine);
         }
+
         param.AttackLevel = 0;
         isAttacking = false;
         param.blockPress = true;
         canMove = false;
         isBlocking = true;
-        blockCoroutine = StartCoroutine(ExecuteBlock());
+        param.blockHandle?.Invoke();
     }
 
-    IEnumerator ExecuteBlock()
+    private void QuitBlock()
     {
-        yield return new WaitForSeconds(1.2f);
+        if (isBlocking == false) return;
         isBlocking = false;
         canMove = true;
         param.idleHandle?.Invoke();
@@ -195,11 +204,12 @@ public class GameLoop : MonoBehaviour
 
     IEnumerator Execution()
     {
-        StopCoroutine(blockCoroutine);
         isBlocking = false;
         param.AttackLevel = 7;
         param.attackHandle?.Invoke(param.AttackLevel);
+        isExecution = true;
         yield return new WaitForSeconds(1.2f);
+        isExecution = false;
         param.AttackLevel = 0;
         canMove = true;
         param.idleHandle?.Invoke();

@@ -59,7 +59,7 @@ MonoBehaviour:
     realInterval: 0
     keyCode: 50
   - name: block
-    trigger: 0
+    trigger: 2
     enable: 1
     isDown: 0
     isDoubleDown: 0
