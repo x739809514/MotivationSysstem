@@ -25,10 +25,12 @@ public class GameLoop : MonoBehaviour
     private PlayerMotion motion;
     private PlayerParam param;
     private InputManager inputManager;
+
     private bool isRolling;
-    private bool isBlocking;
+
+    //private bool isBlocking;
     private bool isExecution;
-    private bool canMove = true;
+    //private bool canMove = true;
 
     private float executionTimeout;
     private bool inExecutionWindow;
@@ -36,7 +38,9 @@ public class GameLoop : MonoBehaviour
     //Attack
     public float comboTimeout = 0.2f; // 连招超时时间
     public int maxComboCount = 6; // 连招最大段数
+
     private Coroutine comboCoroutine;
+
     private bool isAttacking = false; // 是否正在攻击
     private bool attackPressedDuringComboWindow = false; // 记录在等待期间是否按下攻击键
 
@@ -53,6 +57,7 @@ public class GameLoop : MonoBehaviour
     private void Start()
     {
         motion.LoadSwordAttack();
+        param.canMove = true;
     }
 
     private void Update()
@@ -83,10 +88,9 @@ public class GameLoop : MonoBehaviour
         }
 
         // attack
-        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null &&
-            isBlocking == false)
+        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null)
         {
-            canMove = false;
+            param.canMove = false;
             if (inExecutionWindow)
             {
                 StartCoroutine(Execution());
@@ -115,18 +119,18 @@ public class GameLoop : MonoBehaviour
         }
 
         // roit
-        if (InputManager.instance.GetKeyDown("riot") && isRolling == false && isBlocking == false)
+        if (InputManager.instance.GetKeyDown("riot") && isRolling == false && param.isBlocking == false)
         {
             weapon.SetActive(false);
-            canMove = true;
+            param.canMove = true;
             motion.LoadRiotAttack();
         }
 
         // sword
-        if (InputManager.instance.GetKeyDown("sword") && isRolling == false && isBlocking == false)
+        if (InputManager.instance.GetKeyDown("sword") && isRolling == false && param.isBlocking == false)
         {
             weapon.SetActive(true);
-            canMove = true;
+            param.canMove = true;
             motion.LoadSwordAttack();
         }
 
@@ -140,15 +144,15 @@ public class GameLoop : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             executionTimeout = 0.8f;
-            canMove = true;
+            param.canMove = true;
             inExecutionWindow = true;
-            isBlocking = false;
+            param.isBlocking = false;
         }
     }
 
     private void FixedUpdate()
     {
-        if (param.inputPress && canMove)
+        if (param.inputPress)
         {
             param.moveHandle?.Invoke(param.InputVal);
         }
@@ -180,38 +184,36 @@ public class GameLoop : MonoBehaviour
     // block
     private void EnterBlock()
     {
-        if (isBlocking) return;
+        //if (param.isBlocking) return;
         if (comboCoroutine != null)
         {
             StopCoroutine(comboCoroutine);
         }
 
-        param.AttackLevel = 0;
+        //param.AttackLevel = 0;
         isAttacking = false;
         param.blockPress = true;
-        canMove = false;
-        isBlocking = true;
+        /*param.canMove = false;
+        param.isBlocking = true;*/
         param.blockHandle?.Invoke();
     }
 
     private void QuitBlock()
     {
-        if (isBlocking == false) return;
-        isBlocking = false;
-        canMove = true;
+        if (param.isBlocking == false) return;
+        /*param.isBlocking = false;
+        param.canMove = true;*/
         param.idleHandle?.Invoke();
     }
 
     IEnumerator Execution()
     {
-        isBlocking = false;
-        param.AttackLevel = 7;
-        param.attackHandle?.Invoke(param.AttackLevel);
+        param.isBlocking = false;
+        param.executionHandle?.Invoke();
         isExecution = true;
         yield return new WaitForSeconds(1.2f);
         isExecution = false;
-        param.AttackLevel = 0;
-        canMove = true;
+        param.canMove = true;
         param.idleHandle?.Invoke();
     }
 
@@ -219,11 +221,11 @@ public class GameLoop : MonoBehaviour
     IEnumerator ExecuteRoll()
     {
         isRolling = true;
-        canMove = false;
+        param.canMove = false;
         param.rollHandle?.Invoke();
         param.rollPress = false;
         yield return new WaitForSeconds(1.2f);
-        canMove = true;
+        param.canMove = true;
         isRolling = false;
         param.idleHandle?.Invoke();
     }
@@ -245,7 +247,7 @@ public class GameLoop : MonoBehaviour
 
             // 等待当前动画播放完毕
             yield return new WaitForSeconds(0.6f); //Mixer.GetCurClipLength()
-            canMove = true;
+            param.canMove = true;
 
             // 如果连招计数器超过最大值，重置
             if (param.AttackLevel >= maxComboCount)

@@ -43,6 +43,12 @@ MonoBehaviour:
     clip: {fileID: 7400000, guid: 6c53184d9a4fe38429cf4aac4a3979d2, type: 3}
     groupClips: []
     blendClips: []
+  - name: execution
+    type: 0
+    enterTime: 0.1
+    clip: {fileID: 7400000, guid: 5354b4f390c868842b96d7c4c201bdf8, type: 3}
+    groupClips: []
+    blendClips: []
   attacks:
   - name: attackLevel1
     type: 0
@@ -72,12 +78,6 @@ MonoBehaviour:
     type: 0
     enterTime: 0.3
     clip: {fileID: 7400000, guid: 04cb27dc01c081446ba2c02f2761f01d, type: 3}
-    groupClips: []
-    blendClips: []
-  - name: attackLevel7
-    type: 0
-    enterTime: 0.3
-    clip: {fileID: 7400000, guid: 5354b4f390c868842b96d7c4c201bdf8, type: 3}
     groupClips: []
     blendClips: []
   - name: attackLevel6

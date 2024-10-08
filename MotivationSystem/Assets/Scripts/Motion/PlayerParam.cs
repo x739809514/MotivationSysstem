@@ -9,14 +9,26 @@ namespace MotionCore
     public class PlayerParam
     {
         private bool onGround;
-        private bool jumpPress;
-        private int attackLevel;
         private Vector2 inputVal = Vector2.zero;
         public Vector3 velocity;
+        
+        // attack
+        private int attackLevel;
+        
+        // move
         public bool runPress;
         public bool inputPress;
+        public bool canMove;
+        
+        // block
         public bool blockPress;
+        public bool isExecution;
+        public bool isBlocking;
+        
+        // roll
         public bool rollPress;
+        public bool isRolling;
+        
 
         // event handle
         public Action<Vector2> moveHandle;
@@ -25,6 +37,7 @@ namespace MotionCore
         public Action<int> attackHandle;
         public Action blockHandle;
         public Action rollHandle;
+        public Action executionHandle;
 
 
 #region Property

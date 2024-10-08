@@ -1,4 +1,5 @@
 ﻿using FSM;
+using UnityEditor.MemoryProfiler;
 
 namespace MotionCore
 {
@@ -18,6 +19,7 @@ namespace MotionCore
         public FSMStateNode<PlayerMotion> attack { get; }
         public FSMStateNode<PlayerMotion> block { get; }
         public FSMStateNode<PlayerMotion> roll { get; }
+        public FSMStateNode<PlayerMotion> execution { get; }
 
         public string curStateName => stateManager.curState?.stateName;
 
@@ -36,6 +38,8 @@ namespace MotionCore
             stateManager.AddState(run);
 
             block = new FSMStateNode<PlayerMotion>("block");
+            block.BindEnterHandle(EnterBlockState);
+            block.BindExitHandle(ExitBlockState);
             stateManager.AddState(block);
 
             roll = new FSMStateNode<PlayerMotion>("roll");
@@ -47,13 +51,17 @@ namespace MotionCore
             attack = new FSMStateNode<PlayerMotion>("attack");
             stateManager.AddState(attack);
 
+            execution = new FSMStateNode<PlayerMotion>("execution");
+            stateManager.AddState(execution);
+
             var idleCondition = new FSMConditionNode<PlayerMotion>(p => true, 1000);
-            var moveInput = new FSMConditionNode<PlayerMotion>(p => param.InputVal.normalized.magnitude >= 0.1f, 1001);
-            var runInput = new FSMConditionNode<PlayerMotion>(p => param.runPress, 1003);
-            var landInput = new FSMConditionNode<PlayerMotion>(p => param.velocity.y < 0, 1004);
-            var attackInput = new FSMConditionNode<PlayerMotion>(p => param.AttackLevel >= 1, 1005);
-            var blockInput = new FSMConditionNode<PlayerMotion>(PlayerMotion => param.blockPress, 1006);
-            var rollInput = new FSMConditionNode<PlayerMotion>(p => param.rollPress, 1007);
+            var moveInput = new FSMConditionNode<PlayerMotion>(CheckWalkCondition, 1001);
+            var runInput = new FSMConditionNode<PlayerMotion>(CheckRunCondition, 1002);
+            var landInput = new FSMConditionNode<PlayerMotion>(CheckLandCondition, 1003);
+            var attackInput = new FSMConditionNode<PlayerMotion>(CheckAttackCondition, 1004);
+            var blockInput = new FSMConditionNode<PlayerMotion>(CheckBlockCondition, 1005);
+            var rollInput = new FSMConditionNode<PlayerMotion>(CheckRollCondition, 1006);
+            var executionInput = new FSMConditionNode<PlayerMotion>(CheckExecutionCondition, 1007);
 
             idle.AddConditions(idleCondition);
             walk.AddConditions(moveInput);
@@ -62,6 +70,7 @@ namespace MotionCore
             attack.AddConditions(attackInput);
             block.AddConditions(blockInput);
             roll.AddConditions(rollInput);
+            execution.AddConditions(executionInput);
         }
 
         public void Update()
@@ -69,9 +78,64 @@ namespace MotionCore
             stateManager.UpdateState();
         }
 
-        public void SwitchState(FSMStateNode<PlayerMotion> state)
+        public bool SwitchState(FSMStateNode<PlayerMotion> state)
         {
-            stateManager.SwitchState(state);
+            var flag = stateManager.SwitchState(state);
+            return flag;
+        }
+
+
+#region Conditions
+
+        private bool CheckWalkCondition(PlayerMotion p)
+        {
+            return param.InputVal.normalized.magnitude >= 0.1f & param.canMove;
+        }
+
+        private bool CheckRunCondition(PlayerMotion p)
+        {
+            return param.runPress & param.canMove;
+        }
+
+        private bool CheckLandCondition(PlayerMotion p)
+        {
+            return param.velocity.y < 0;
+        }
+
+        private bool CheckAttackCondition(PlayerMotion p)
+        {
+            return param.AttackLevel >= 1 & param.isBlocking==false;
+        }
+
+        private bool CheckBlockCondition(PlayerMotion p)
+        {
+            return param.blockPress & param.isBlocking==false;
+        }
+
+        private bool CheckRollCondition(PlayerMotion p)
+        {
+            return param.rollPress;
+        }
+
+        private bool CheckExecutionCondition(PlayerMotion p)
+        {
+            return true;
+        }
+
+#endregion
+
+
+        private void EnterBlockState(PlayerMotion obj)
+        {
+            param.AttackLevel = 0;
+            param.canMove = false;
+            param.isBlocking = true;
+        }
+        
+        private void ExitBlockState(PlayerMotion obj)
+        {
+            param.isBlocking = false;
+            param.canMove = true;
         }
     }
 }

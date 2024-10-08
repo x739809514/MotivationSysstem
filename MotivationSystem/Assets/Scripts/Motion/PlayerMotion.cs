@@ -37,6 +37,7 @@ namespace MotionCore
             playerParam.attackHandle += playerModel.SwitchToAttack;
             playerParam.blockHandle += playerModel.SwitchToBlock;
             playerParam.rollHandle += playerModel.SwitchToRoll;
+            playerParam.executionHandle += playerModel.SwitchExecution;
         }
 
         public void LoadRiotAttack()

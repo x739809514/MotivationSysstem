@@ -16,6 +16,7 @@ namespace MotionCore
         private BlendTree2D move;
         private AnimGroup block;
         private AnimUnit roll;
+        private AnimUnit execution;
         private PlayableGraph graph;
         private Mixer mixer;
         private Dictionary<string, int> animIndexDics;
@@ -49,6 +50,12 @@ namespace MotionCore
             }
             AddStateAnim(AnimName.Block, block);
 
+            var executionAnim = curSetting.GetAnim(AnimName.Execution);
+            if (executionAnim!=null)
+            {
+                execution = new AnimUnit(graph, executionAnim.clip, executionAnim.enterTime);
+                AddStateAnim(AnimName.Execution,execution);
+            }
 
             var rollAnim = curSetting.GetAnim(AnimName.Roll);
             roll = new AnimUnit(graph, rollAnim.clip, rollAnim.enterTime, false);

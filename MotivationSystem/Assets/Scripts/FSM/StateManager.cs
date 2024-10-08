@@ -34,14 +34,14 @@ namespace FSM
             stateDic.TryAdd(stateNode.stateName, stateNode);
         }
 
-        public void SwitchState(FSMStateNode<T> newState)
+        public bool SwitchState(FSMStateNode<T> newState)
         {
             if (stateDic.TryGetValue(newState.stateName, out var state))
             {
                 if (newState.CheckCondition(owner)==false)
                 {
                     Debug.LogError("Condition is not accessed!---"+newState.stateName);
-                    return;
+                    return false;
                 }
                 if (curState != null)
                 {
@@ -50,7 +50,10 @@ namespace FSM
 
                 newState.OnEnter(owner);
                 curState = newState;
+                return true;
             }
+            Debug.LogError("No this state!---"+newState.stateName);
+            return false;
         }
 
         public void UpdateState()

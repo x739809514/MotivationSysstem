@@ -53,8 +53,10 @@ namespace MotionCore
                 return;
             }
 
-            anim.TransitionTo(AnimName.Idle);
-            ai.SwitchState(ai.idle);
+            if (ai.SwitchState(ai.idle))
+            {
+                anim.TransitionTo(AnimName.Idle);
+            }
         }
 
         public void SwitchToMove(Vector2 input)
@@ -66,25 +68,26 @@ namespace MotionCore
             }
 
             var moveClip = setting.GetAnim(AnimName.Move).blendClips[0];
+            bool flag = false;
             if (param.runPress)
             {
                 // run
-                ai.SwitchState(ai.run);
+                flag = ai.SwitchState(ai.run);
                 animMultiply = Mathf.Clamp(UpdateMultiply(animMultiply, 5f), 1f, 2f);
                 speedMultiply = Mathf.Clamp(UpdateMultiply(speedMultiply, 5f), walkForce, runForce);
             }
             else
             {
                 // walk
-                ai.SwitchState(ai.walk);
+                flag = ai.SwitchState(ai.walk);
                 animMultiply = Mathf.Clamp(UpdateMultiply(this.animMultiply, -5f), 1f, 2f);
                 speedMultiply = Mathf.Clamp(UpdateMultiply(speedMultiply, -5f), walkForce, runForce);
             }
 
+            if (flag == false) return;
+
             anim.TransitionTo(AnimName.Move);
             anim.UpdateMove(moveClip.pos.x, moveClip.pos.y * animMultiply);
-            Debug.Log("point: (" + moveClip.pos.x + "," + moveClip.pos.y * animMultiply + ")");
-
             if (Camera.main != null)
             {
                 var transform = Camera.main.transform;
@@ -116,8 +119,10 @@ namespace MotionCore
 
         public void SwitchToLand()
         {
-            anim.TransitionTo(AnimName.Land);
-            ai.SwitchState(ai.land);
+            if (ai.SwitchState(ai.land))
+            {
+                anim.TransitionTo(AnimName.Land);
+            }
         }
 
         public void SwitchToAttack(int alv)
@@ -126,43 +131,63 @@ namespace MotionCore
             {
                 case 0:
                     Debug.Log("idle");
-                    anim.TransitionTo(AnimName.Idle);
+                    if (ai.SwitchState(ai.idle))
+                    {
+                        anim.TransitionTo(AnimName.Idle);
+                    }
+
                     break;
                 case 1:
-                    anim.TransitionTo(AnimName.AttackLv1);
-                    ai.SwitchState(ai.attack);
+                    if (ai.SwitchState(ai.attack))
+                    {
+                        anim.TransitionTo(AnimName.AttackLv1);
+                    }
+
                     break;
                 case 2:
-                    anim.TransitionTo(AnimName.AttackLv2);
-                    ai.SwitchState(ai.attack);
+                    if (ai.SwitchState(ai.attack))
+                    {
+                        anim.TransitionTo(AnimName.AttackLv2);
+                    }
+
                     break;
                 case 3:
-                    anim.TransitionTo(AnimName.AttackLv3);
-                    ai.SwitchState(ai.attack);
+                    if (ai.SwitchState(ai.attack))
+                    {
+                        anim.TransitionTo(AnimName.AttackLv3);
+                    }
+
                     break;
                 case 4:
-                    anim.TransitionTo(AnimName.AttackLv4);
-                    ai.SwitchState(ai.attack);
+                    if (ai.SwitchState(ai.attack))
+                    {
+                        anim.TransitionTo(AnimName.AttackLv4);
+                    }
+
                     break;
                 case 5:
-                    anim.TransitionTo(AnimName.AttackLv5);
-                    ai.SwitchState(ai.attack);
+                    if (ai.SwitchState(ai.attack))
+                    {
+                        anim.TransitionTo(AnimName.AttackLv5);
+                    }
+
                     break;
                 case 6:
-                    anim.TransitionTo(AnimName.AttackLv6);
-                    ai.SwitchState(ai.attack);
-                    break;
-                case 7:
-                    anim.TransitionTo(AnimName.AttackLv7);
-                    ai.SwitchState(ai.attack);
+                    if (ai.SwitchState(ai.attack))
+                    {
+                        anim.TransitionTo(AnimName.AttackLv6);
+                    }
+
                     break;
             }
         }
 
         public void SwitchToBlock()
         {
-            anim.TransitionTo(AnimName.Block);
-            ai.SwitchState(ai.block);
+            if (ai.SwitchState(ai.block))
+            {
+                anim.TransitionTo(AnimName.Block);
+            }
         }
 
         public void SwitchToRoll()
@@ -170,6 +195,14 @@ namespace MotionCore
             rb.AddForce(model.forward * rollForce, ForceMode.Impulse);
             anim.TransitionTo(AnimName.Roll);
             ai.SwitchState(ai.roll);
+        }
+
+        public void SwitchExecution()
+        {
+            if (ai.SwitchState(ai.execution))
+            {
+                anim.TransitionTo(AnimName.Execution);
+            }
         }
 
 #endregion
