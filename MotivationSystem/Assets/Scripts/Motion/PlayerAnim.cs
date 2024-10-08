@@ -42,7 +42,7 @@ namespace MotionCore
             AddStateAnim(AnimName.Move, move);
 
             var blockAnim = curSetting.GetAnim(AnimName.Block);
-            block = new AnimUnit(graph, blockAnim.clip, blockAnim.enterTime, false);
+            block = new AnimUnit(graph, blockAnim.clip, blockAnim.enterTime);
             AddStateAnim(AnimName.Block, block);
 
 

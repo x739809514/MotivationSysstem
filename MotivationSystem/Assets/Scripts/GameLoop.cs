@@ -27,8 +27,11 @@ public class GameLoop : MonoBehaviour
     private InputManager inputManager;
     private bool isRolling;
     private bool isBlocking;
-
     private bool canMove = true;
+
+    private float executionTimeout;
+    private Coroutine blockCoroutine;
+    private bool inExecutionWindow;
 
     //Attack
     public float comboTimeout = 0.2f; // 连招超时时间
@@ -54,6 +57,15 @@ public class GameLoop : MonoBehaviour
 
     private void Update()
     {
+        if (executionTimeout > 0)
+        {
+            executionTimeout -= Time.deltaTime;
+        }
+        else
+        {
+            inExecutionWindow = false;
+        }
+
         InputManager.instance.Update(Time.deltaTime);
         // move
         param.runPress = InputManager.instance.GetKeyDown("shift");
@@ -71,13 +83,20 @@ public class GameLoop : MonoBehaviour
         }
 
         // attack
-        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null)
+        if (InputManager.instance.GetKeyDown("attack") && motion.GetCurAttackType() != AttackType.Null && isBlocking==false)
         {
-            attackPressedDuringComboWindow = true;
             canMove = false;
-            if (param.AttackLevel == 0 && !isAttacking)
+            if (inExecutionWindow)
             {
-                comboCoroutine = StartCoroutine(ExecuteCombo());
+                StartCoroutine(Execution());
+            }
+            else
+            {
+                attackPressedDuringComboWindow = true;
+                if (param.AttackLevel == 0 && !isAttacking)
+                {
+                    comboCoroutine = StartCoroutine(ExecuteCombo());
+                }
             }
         }
 
@@ -104,9 +123,19 @@ public class GameLoop : MonoBehaviour
             motion.LoadSwordAttack();
         }
 
+        // roll
         if (InputManager.instance.GetKeyDown("roll"))
         {
             param.rollPress = true;
+        }
+
+        // test
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            executionTimeout = 0.8f;
+            canMove = true;
+            inExecutionWindow = true;
+            isBlocking = false;
         }
     }
 
@@ -116,13 +145,13 @@ public class GameLoop : MonoBehaviour
         {
             param.moveHandle?.Invoke(param.InputVal);
         }
+        
+        param.velocity = rb.velocity;
 
         if (param.rollPress && isRolling == false)
         {
             StartCoroutine(ExecuteRoll());
         }
-
-        param.velocity = rb.velocity;
     }
 
     private void OnDestroy()
@@ -144,19 +173,34 @@ public class GameLoop : MonoBehaviour
     // block
     private void EnterBlock()
     {
-        StopCoroutine(comboCoroutine);
+        if (comboCoroutine != null)
+        {
+            StopCoroutine(comboCoroutine);
+        }
         param.AttackLevel = 0;
         isAttacking = false;
         param.blockPress = true;
         canMove = false;
         isBlocking = true;
-        StartCoroutine(ExecuteBlock());
+        blockCoroutine = StartCoroutine(ExecuteBlock());
     }
 
     IEnumerator ExecuteBlock()
     {
         yield return new WaitForSeconds(1.2f);
         isBlocking = false;
+        canMove = true;
+        param.idleHandle?.Invoke();
+    }
+
+    IEnumerator Execution()
+    {
+        StopCoroutine(blockCoroutine);
+        isBlocking = false;
+        param.AttackLevel = 7;
+        param.attackHandle?.Invoke(param.AttackLevel);
+        yield return new WaitForSeconds(1.2f);
+        param.AttackLevel = 0;
         canMove = true;
         param.idleHandle?.Invoke();
     }
@@ -190,7 +234,7 @@ public class GameLoop : MonoBehaviour
             PlayComboAnimation();
 
             // 等待当前动画播放完毕
-            yield return new WaitForSeconds(0.5f); //Mixer.GetCurClipLength()
+            yield return new WaitForSeconds(0.6f); //Mixer.GetCurClipLength()
             canMove = true;
 
             // 如果连招计数器超过最大值，重置

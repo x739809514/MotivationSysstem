@@ -152,6 +152,10 @@ namespace MotionCore
                     anim.TransitionTo(AnimName.AttackLv6);
                     ai.SwitchState(ai.attack);
                     break;
+                case 7:
+                    anim.TransitionTo(AnimName.AttackLv7);
+                    ai.SwitchState(ai.attack);
+                    break;
             }
         }
 

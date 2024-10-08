@@ -298,14 +298,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   model: {fileID: 0}
   animator: {fileID: 613763885}
-  rollForce: 10
+  rollForce: 8
   walkForce: 4
   runForce: 8
   weapon: {fileID: 1391062062}
   inputData: {fileID: 11400000, guid: 99a2245058655476fb2da6513f1f631f, type: 2}
   riotSetting: {fileID: 11400000, guid: 14c07667d0a3642449013d0fa22141e9, type: 2}
   swordSetting: {fileID: 11400000, guid: 0ad0b561852554541bff846a0635ab0e, type: 2}
-  canMove: 1
   comboTimeout: 1
   maxComboCount: 6
 --- !u!54 &613763882

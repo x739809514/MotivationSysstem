@@ -13,5 +13,6 @@ namespace Tool
         public static readonly string AttackLv4 = "attackLevel4";
         public static readonly string AttackLv5 = "attackLevel5";
         public static readonly string AttackLv6 = "attackLevel6";
+        public static readonly string AttackLv7 = "attackLevel7";
     }
 }

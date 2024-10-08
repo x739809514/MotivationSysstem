@@ -7,7 +7,9 @@ namespace AnimSystem.Core
     public class AnimUnit : AnimBehaviour
     {
         private AnimationClipPlayable clipPlayable;
+
         private AnimationClip clip;
+
         //private float curClipTime;
         private float declineSpeed = 2f;
 
@@ -38,10 +40,13 @@ namespace AnimSystem.Core
             {
                 callback?.Invoke();
             }*/
-            if (remainTime<=0)
+            if (remainTime <= 0)
             {
                 callback?.Invoke();
-                Disable();
+                if (clip.isLooping == false)
+                {
+                    Disable();
+                }
             }
         }
 
