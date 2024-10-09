@@ -55,7 +55,7 @@ public class GameLoop : MonoBehaviour
 
     private void Start()
     {
-        motion.LoadRiotAttack();
+        motion.LoadSwordAttack();
         param.canMove = true;
     }
 
