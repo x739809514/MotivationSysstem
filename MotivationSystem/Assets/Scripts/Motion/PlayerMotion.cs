@@ -26,7 +26,7 @@ namespace MotionCore
             swordAnim = new PlayerAnim(setting2, "sword", this);
             swordAnim.LoadAttackAnimation();
             
-            curAnim = swordAnim;
+            curAnim = attackAnim;
 
             playerModel = new PlayerModel(this, setting);
             curAttackType = AttackType.Null;

@@ -309,6 +309,8 @@ MonoBehaviour:
   b_rightHandPosition: {fileID: 1973445158}
   n_leftHandPosition: {fileID: 1228856827}
   n_rightHandPosition: {fileID: 886430124}
+  r_leftHandPosition: {fileID: 0}
+  r_rightHandPosition: {fileID: 0}
   comboTimeout: 1
   maxComboCount: 6
 --- !u!54 &613763882
@@ -1047,7 +1049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1391062063
 Transform:
   m_ObjectHideFlags: 0

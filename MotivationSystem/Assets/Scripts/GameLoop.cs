@@ -55,7 +55,7 @@ public class GameLoop : MonoBehaviour
 
     private void Start()
     {
-        motion.LoadSwordAttack();
+        motion.LoadRiotAttack();
         param.canMove = true;
     }
 
@@ -179,17 +179,21 @@ public class GameLoop : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-        if (param.blockPress)
+        var curAttackType = motion.GetCurAttackType();
+        if (curAttackType == AttackType.Sword)
         {
-            animator.SetIKPosition(AvatarIKGoal.LeftHand, b_leftHandPosition.position);
-            animator.SetIKPosition(AvatarIKGoal.RightHand, b_rightHandPosition.position);
+            if (param.blockPress)
+            {
+                animator.SetIKPosition(AvatarIKGoal.LeftHand, b_leftHandPosition.position);
+                animator.SetIKPosition(AvatarIKGoal.RightHand, b_rightHandPosition.position);
+            }
+            else
+            {
+                animator.SetIKPosition(AvatarIKGoal.LeftHand, n_leftHandPosition.position);
+                animator.SetIKPosition(AvatarIKGoal.RightHand, n_rightHandPosition.position);
+            }
         }
-        else
-        {
-            Debug.Log("切换到正常");
-            animator.SetIKPosition(AvatarIKGoal.LeftHand, n_leftHandPosition.position);
-            animator.SetIKPosition(AvatarIKGoal.RightHand, n_rightHandPosition.position);
-        }
+
         animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
         animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
         animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
