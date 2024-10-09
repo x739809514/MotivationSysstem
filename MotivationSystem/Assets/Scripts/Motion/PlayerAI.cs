@@ -139,6 +139,7 @@ namespace MotionCore
         
         private void ExitBlockState(PlayerMotion obj)
         {
+            param.blockPress = false;
             param.isBlocking = false;
             param.canMove = true;
         }

@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using AnimSystem.Core;
 using Core;
 using MotionCore;
 using Tool;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameLoop : MonoBehaviour
 {
@@ -25,16 +27,19 @@ public class GameLoop : MonoBehaviour
     private PlayerMotion motion;
     private PlayerParam param;
     private InputManager inputManager;
-
     private float executionTimeout;
     private bool inExecutionWindow;
+
+    // IK
+    public Transform b_leftHandPosition;
+    public Transform b_rightHandPosition;
+    public Transform n_leftHandPosition;
+    public Transform n_rightHandPosition;
 
     //Attack
     public float comboTimeout = 0.2f; // 连招超时时间
     public int maxComboCount = 6; // 连招最大段数
-
     private Coroutine comboCoroutine;
-
     private bool isAttacking = false; // 是否正在攻击
     private bool attackPressedDuringComboWindow = false; // 记录在等待期间是否按下攻击键
 
@@ -172,6 +177,25 @@ public class GameLoop : MonoBehaviour
         }
     }
 
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (param.blockPress)
+        {
+            animator.SetIKPosition(AvatarIKGoal.LeftHand, b_leftHandPosition.position);
+            animator.SetIKPosition(AvatarIKGoal.RightHand, b_rightHandPosition.position);
+        }
+        else
+        {
+            Debug.Log("切换到正常");
+            animator.SetIKPosition(AvatarIKGoal.LeftHand, n_leftHandPosition.position);
+            animator.SetIKPosition(AvatarIKGoal.RightHand, n_rightHandPosition.position);
+        }
+        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+        animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
+        animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+        animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1f);
+    }
+
 
 #region Methods
 
@@ -225,7 +249,7 @@ public class GameLoop : MonoBehaviour
             PlayComboAnimation();
 
             // 等待当前动画播放完毕
-            yield return new WaitForSeconds(0.6f); //Mixer.GetCurClipLength()
+            yield return new WaitForSeconds(0.8f); //Mixer.GetCurClipLength()
             param.canMove = true;
 
             // 如果连招计数器超过最大值，重置
